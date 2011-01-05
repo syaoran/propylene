@@ -20,6 +20,9 @@ Basic git commands:
     > cd ~/../root_dir
     > git add .
 
+    (commit all modified files)
+    > git commit -am "commit message"
+
     (identify status)
     > git status -s
     > XY  filename
