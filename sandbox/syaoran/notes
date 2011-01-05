@@ -1,5 +1,51 @@
-Actually, I'm just playing with git :)
+Basic git commands:
 
-More fun! :)
+1) Create a new repo
 
-Even more fun!
+    (from scratch)
+    > cd ~/../root_dir
+    > git init
+
+    (from existing repo)
+    > git clone [url]
+
+
+
+2) Take a snapshot
+
+    (move element to staging area)
+    > git add [filename]
+
+    (take a full snapshot)
+    > cd ~/../root_dir
+    > git add .
+
+    (identify status)
+    > git status -s
+    > XY  filename
+    X=>Staging area status
+    Y=>Working directory status
+
+
+
+3) Display differences 
+    
+    (staging area ONLY)
+    > git diff --cached
+
+    (working dir ONLY)
+    > git diff
+
+    (working dir VS last commit)
+    > git diff HEAD
+
+    (summary of diff)
+    > git diff [--cached,HEAD] --stat
+
+
+
+4) Record the snapshot
+
+    > git commit -m 'ci message'
+
+
