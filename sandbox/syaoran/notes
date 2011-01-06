@@ -52,3 +52,20 @@ Basic git commands:
     > git commit -m 'ci message'
 
 
+
+5) Revert snapshot
+    
+    (UNstage a single file)
+    > git revert HEAD -- filepath
+
+
+
+
+
+E1) Set VIM as default editor
+    
+    > git config --global core.editor "vim"
+
+E2) Set an alias for a command
+
+    > git config --global alias.ALIASNAME "command-to-be-aliased"
