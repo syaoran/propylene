@@ -57,6 +57,17 @@ Basic git commands:
     
     (UNstage a single file)
     > git revert HEAD -- filepath
+        (after setting the 'unstage' alias)
+        > git unstage -- filepath
+
+
+
+6) Untrack element
+
+    (don't track anymore a file)
+    > git rm --cached [filepath]
+    (don't track and physically delete)
+    > git rm [filepath]
 
 
 
