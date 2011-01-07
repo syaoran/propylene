@@ -1,0 +1,17 @@
+# Reference grammar for a generic host language
+# as stated in WOA-2010 paper
+
+Plan ::= ( Head ) << ( ActionList ) 
+Head ::= ( Event ) | ( Condition ) 
+      |  ( Event ) | ( Belief ) 
+Condition ::= Belief & Belief
+            | Condition & Belief
+Event ::= GoalEvent
+        | BeliefEvent
+GoalEvent ::= +!Belief
+            | -!Belief
+BeliefEvent ::= +Belief
+                | -Belief
+ActionList ::= ActionList, Event
+            |  ActionList, AtomicAction
+

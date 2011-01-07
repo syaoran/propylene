@@ -1,14 +1,14 @@
 # Basic AgentSpeak syntax, as shown in WOA-2010 paper  
   
-ag  ::=  bs ps         
-bs  ::=  at_1, ..., at_n             (n>=0)     
-at  ::=  P(t_1, ..., t_n)            (n>=0)     
-ps  ::=  p_1, ..., p_n               (n>=1)     
-p   ::=  te : cd <- h         
-te  ::=  +at | -at | +g | -g          
-cd  ::=  true | l_1 & ... & l_n      (n>=1)     
-h   ::=  true | f_1 ; ... ; f_n      (n>=1)     
+ag  ::=  bs ps                      # agent => KB + Plan Library
+bs  ::=  at_1, ..., at_n            # KB is made of beliefs (atomic formula)    
+at  ::=  P(t_1, ..., t_n)           # ex. corn(100,150)   
+ps  ::=  p_1, ..., p_n              # Plan Library is made of plans  
+p   ::=  te : cd <- h               # general structure of a plan
+te  ::=  +at | -at | +g | -g        # triggering events
+cd  ::=  true | l_1 & ... & l_n     # condition as sequence of beliefs  
+h   ::=  true | f_1 ; ... ; f_n     # body of a plan as sequence of actions   
 l   ::=  at | not(at)           
-f   ::=  A(t_1, ..., t_n) | g | u    (n>=0)     
-g   ::=  !at | ?at         
-u   ::=  +at | -at         
+f   ::=  A(t_1, ..., t_n) | g | u   # elements of a plan body  
+g   ::=  !at | ?at                  # achievement and test goals
+u   ::=  +at | -at                  # add/remove beliefs
