@@ -1,17 +1,8 @@
+This is master branch
+
 Basic git commands:
 
-1) Create a new repo
-
-    (from scratch)
-    > cd ~/../root_dir
-    > git init
-
-    (from existing repo)
-    > git clone [url]
-
-
-
-2) Take a snapshot
+- Take a snapshot
 
     (move element to staging area)
     > git add [filename]
@@ -20,63 +11,37 @@ Basic git commands:
     > cd ~/../root_dir
     > git add .
 
-    (commit all modified files)
-    > git commit -am "commit message"
 
-    (identify status)
-    > git status -s
-    > XY  filename
-    X=>Staging area status
-    Y=>Working directory status
-
-
-
-3) Display differences 
+- Display differences 
     
-    (staging area ONLY)
-    > git diff --cached
-
-    (working dir ONLY)
-    > git diff
-
-    (working dir VS last commit)
-    > git diff HEAD
-
     (summary of diff)
     > git diff [--cached,HEAD] --stat
 
 
-
-4) Record the snapshot
-
-    > git commit -m 'ci message'
-
-
-
-5) Revert snapshot
-    
-    (UNstage a single file)
-    > git revert HEAD -- filepath
-        (after setting the 'unstage' alias)
-        > git unstage -- filepath
-
-
-
-6) Untrack element
+- Untrack element
 
     (don't track anymore a file)
     > git rm --cached [filepath]
+
     (don't track and physically delete)
     > git rm [filepath]
 
 
+- Branch
+
+    (display branc(es) )
+    > git branch
+
+    ()
 
 
-
-E1) Set VIM as default editor
+- Configuration
     
+    (Set VIM as default editor)
     > git config --global core.editor "vim"
 
-E2) Set an alias for a command
-
+    (Set an alias for a command)
     > git config --global alias.ALIASNAME "command-to-be-aliased"
+
+    (Enable coloring)
+    > git config --global color.ui true
