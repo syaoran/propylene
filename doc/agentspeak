@@ -1,0 +1,14 @@
+# Basic AgentSpeak syntax, as shown in WOA-2010 paper  
+  
+ag  ::=  bs ps         
+bs  ::=  at_1, ..., at_n             (n>=0)     
+at  ::=  P(t_1, ..., t_n)            (n>=0)     
+ps  ::=  p_1, ..., p_n               (n>=1)     
+p   ::=  te : cd <- h         
+te  ::=  +at | -at | +g | -g          
+cd  ::=  true | l_1 & ... & l_n      (n>=1)     
+h   ::=  true | f_1 ; ... ; f_n      (n>=1)     
+l   ::=  at | not(at)           
+f   ::=  A(t_1, ..., t_n) | g | u    (n>=0)     
+g   ::=  !at | ?at         
+u   ::=  +at | -at         

@@ -40,6 +40,9 @@ Basic git commands:
     (Set VIM as default editor)
     > git config --global core.editor "vim"
 
+    (Set meld as the default merge tool)
+    > git config --global merge.tool "meld"
+
     (Set an alias for a command)
     > git config --global alias.ALIASNAME "command-to-be-aliased"
 
