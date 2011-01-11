@@ -7,10 +7,15 @@ import sys
 import ply.lex as lex
 
 ## tokens names
-tokens = (
-    'NAME',      ## any string literal
+tokens = [
+    'LAMBDA',    ## lambda expr
+    'LITERAL',      ## any string literal
     'NUMBER',    ## all numbers
+    'COLON',     ## ':'
     'LCHEVRONS', ## '>>'
+    'GREATER',   ## '>'
+    'EQUALS',    ## '='
+    'LESS',      ## '<'
     'PIPE',      ## '|'
     'TILDE',     ## '~'
     'BWAND',     ## '&'
@@ -25,12 +30,17 @@ tokens = (
     'COMMA',     ## ','
     'QUOTES',    ## '"'
     'COMMENT',   ## any string preceeded by '#'
-    )
+    'ID'         ## reserved words
+    ]
 
 ## tokens regexps
-t_NAME      = r'[a-zA-Z_][a-zA-Z0-9_]*'
-t_NUMBER    = r'[0-9]+'
-t_LCHEVRONS  = r'>>'
+t_LAMBDA    = r'lambda'
+t_LITERAL   = r'[a-zA-Z_][a-zA-Z0-9_]*'
+t_COLON     = r':'
+t_LCHEVRONS = r'>>'
+t_GREATER   = r'>'
+t_EQUALS    = r'='
+t_LESS      = r'<'
 t_PIPE      = r'\|'
 t_TILDE     = r'~'
 t_BWAND     = r'&'
@@ -44,17 +54,34 @@ t_LSBRACKET = r'\['
 t_RSBRACKET = r']'
 t_COMMA     = r','
 t_QUOTES    = r'"'
-t_COMMENT   = r'\#.*$'
 
 ## ignored chars
 t_ignore  = ' \t'
 
 ## rules
+def t_NUMBER(t):
+    r'\d+[.\d]*'
+    t.value = float(t.value)
+    return t
 
+## a rule for comments
+def t_COMMENT(t):
+    r'\#.*'
+    pass
+    # No return value. Token discarded
+
+## a rule for reserved words
+# def t_ID(t):
+#     r'[a-zA-Z_][a-zA-Z_0-9]*'
+#     t.type = reserved.get(t.value,'ID') # Check for reserved words
+#     return t
+
+## a rule to track line numbers
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
 
+## error handling rule
 def t_error(t):
     print "Illegal character '%s'" % t.value[0]
     t.lexer.skip(1)
