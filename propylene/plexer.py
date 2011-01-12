@@ -9,7 +9,7 @@ import ply.lex as lex
 ## tokens names
 tokens = [
     'LAMBDA',    ## lambda expr
-    'LITERAL',      ## any string literal
+    'LITERAL',   ## any string literal
     'NUMBER',    ## all numbers
     'COLON',     ## ':'
     'LCHEVRONS', ## '>>'
