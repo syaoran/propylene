@@ -17,15 +17,15 @@ from tokenRules import tokens
 def p_strategy(p):
     ''' Strategy : Plan
                  | Strategy Plan
-                '''
+    '''
 
 # Plan
 def p_plan(p):
-    ''' Plan : '(' Head ')' RANGLES Body 
+    ''' Plan    : '(' Head ')' RANGLES Body 
     '''
-    print 'Got a valid plan'
+    print 'Successfully parsed a valid plan'
 
-# Head of plan
+# Head
 def p_head(p):
     ''' Head    : Event
                 | Event '|' '(' Condition ')'  
@@ -42,12 +42,21 @@ def p_goalevent(p):
     ''' GoalEvent   : '+' '~' Belief
                     | '-' '~' Belief
     '''
+    p[0] = p[3]
+    outputString = ""
+    outputString += "\nclass " + p[0] + "(Goal):\n\tpass"
+    print outputString
 
 # Belief Event
 def p_beliefevent(p):
     ''' BeliefEvent : '+' Belief
                     | '-' Belief
     '''
+    p[0] = p[2]
+    outputString = ""
+    outputString += "\nclass " + p[0] + "(Belief):\n\tpass"
+    print outputString
+
 
 # Condition of Plan
 # lambda yet to be considered
@@ -59,41 +68,53 @@ def p_condition(p):
 # Body of Plan
 def p_body(p):
     ''' Body    : '[' ']'
-                | '[' ActionList ']'
+                | '[' IntentionList ']'
     '''
 
-# Items in the Body of the Plan
-def p_actionlist(p):
-    ''' ActionList  : Event
+# Items in the Body of a Plan
+def p_intentionlist(p):
+    ''' IntentionList   : Intention
+                        | IntentionList ',' Intention
+    '''
+
+# Single item in the body of a Plan
+def p_intention(p):
+    ''' Intention   : Event
                     | AtomicAction
-                    | ActionList ',' Event
-                    | ActionList ',' AtomicAction
     '''
 
+# Belief
+def p_belief(p):
+    ''' Belief          : IDENTIFIER '(' ')'
+                        | IDENTIFIER '(' ArgumentList ')'
+    '''
+    p[0] = p[1]
+
+# Action
 def p_atomicaction(p):
     ''' AtomicAction    : IDENTIFIER '(' ')'
-                        | IDENTIFIER '(' arguments ')'
+                        | IDENTIFIER '(' ArgumentList ')'
+    '''
+    p[0] = p[1]
+    actionString = ""
+    actionString += "\nclass " + p[0] + "(Action):\n\tdef execute(self):\n\t\t## ..."
+    print actionString
+
+# List of arguments
+def p_argumentlist(p):
+    ''' ArgumentList    : Argument
+                        | ArgumentList ',' Argument
     '''
 
-
-def p_belief(p):
-    ''' Belief  : IDENTIFIER '(' ')'
-                | IDENTIFIER '(' arguments ')'
-    '''
-
-def p_arguments(p):
-    ''' arguments   : argument
-                    | arguments ',' argument
-    '''
-
+# Single argument
 def p_argument(p):
-    ''' argument    : STRING
-                    | numeral
+    ''' Argument    : STRING
                     | '_' '(' STRING ')'
+                    | Numeral
     '''                 
 
 def p_numeral(p):
-    ''' numeral : NUMBER
+    ''' Numeral : NUMBER
                 | '-' NUMBER
     '''
 
@@ -117,6 +138,6 @@ if __name__ == '__main__':
             totalString += line
 
         result = parser.parse(totalString)
-        print result
+#        print result
     else:
         print 'Usage: python propylene filePath'

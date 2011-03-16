@@ -1,0 +1,50 @@
+## Reference Grammar for PROFETA
+
+Strategy        ::= Plan
+                  | Strategy Plan
+
+Plan            ::= "(" Head ")" ">>" Body
+
+Head            ::= Event
+                  | Event "|" "(" Condition ")"
+
+Event           ::= GoalEvent
+                  | BeliefEvent
+
+GoalEvent       ::= "+" "~" Belief
+                  | "-" "~" Belief
+
+BeliefEvent     ::= "+" Belief
+                  | "-" Belief
+
+Condition       ::= Belief
+                  | Condition "&" Belief
+
+Body            ::= "[" "]"
+                  | "[" IntentionList "]"
+
+IntentionList   ::= Intention
+                  | IntentionList "," Intention
+
+Intention       ::= Event
+                  | AtomicAction
+
+Belief          ::= IDENTIFIER "(" ")"
+                  | IDENTIFIER "(" ArgumentList ")"
+
+AtomicAction    ::= IDENTIFIER "(" ")"
+                  | IDENTIFIER "(" ArgumentList ")"
+
+ArgumentList    ::= Argument
+                  | ArgumentList "," Argument
+
+Argument        ::= STRING
+                  | "_" "(" STRING ")"
+                  | Numeral
+
+Numeral         ::= NUMBER
+                  | "-" NUMBER
+
+
+
+
