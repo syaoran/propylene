@@ -32,8 +32,29 @@
                                                  prepare_ball_picking(),
                                                  #do_path(["t2"]),
                                                  +take_tomatoes() ]
-
-#        # ----------------------------------------------------------------------------------
+#        (+target_got() | \
+#         (for_tomato(_("T")) & (lambda : (T == "f0") or (T == "f3") or (T == "t6") or (T == "t8") or (T == "a19") or (T == "a21") ))) >> \
+#         [ show(_("T")),
+#           retract_belief (target_got()),
+#           retract_belief (for_tomato(_("T"))),
+#           assert_belief (for_tomato("a23")),
+#           activate_ball_picking(),
+#           activate_opponent_detector(),
+#           forward(-30),
+#           do_ball_path("a23") ]
+#
+#        # we have balls, and we have time to take more corns :-)))
+#        (+are_more_corns_worth() | (balls_in_robot(_("X")) & (lambda : X > 0) &
+#         elapsed_timer(_("T")) & (lambda : T <= 60)) ) >> [ deploy_carriage(),
+#                                                    +prepare_to_grab_corn("a23", "c17") ]
+#
+#
+#
+#
+#
+#
+#
+##        # ----------------------------------------------------------------------------------
 #        (+take_tomatoes()) >> [ retract_belief (take_tomatoes()),
 #                                prepare_ball_picking(),
 #                                activate_ball_picking(),

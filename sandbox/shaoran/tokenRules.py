@@ -31,7 +31,7 @@ def t_NUMBER(t):
 
 def t_STRING(t):
     r' " (\. | [^\\"])* " '
-#    print 'Got a string'
+#    print 'Got a string: ' + t.value
     return t
 
 # Track line numbers
