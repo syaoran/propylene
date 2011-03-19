@@ -40,11 +40,6 @@ ArgumentList    ::= Argument
 
 Argument        ::= STRING
                   | "_" "(" STRING ")"
-                  | Number
-
-Number          ::= INTEGER
-                  | FLOATING
-
-
+                  | NUMBER
 
 

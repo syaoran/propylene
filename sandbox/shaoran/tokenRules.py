@@ -7,8 +7,7 @@
 
 tokens = (
    'IDENTIFIER',
-   'INTEGER',
-   'FLOATING',
+   'NUMBER',
    'STRING',
    'RANGLES'   # >>
 )
@@ -25,20 +24,22 @@ t_RANGLES   = r'>>'
 
 
 # Function REGEXP for Tokens
-def t_FLOATING(t):
-    r'-? [0-9]+ (\.[0-9]+){1,1} ([eE][+-]?[0-9]+)?'
+
+# Note: the '-' sign is explicitly considered in this regexp
+def t_NUMBER(t):
+    r'-? [0-9]+ (\.[0-9]+)? ([eE][+-]?[0-9]+)?'
     t.value = float(t.value)
     # The token should be returned; otherwise, it is discarded.
-    print "Floating Point literal is: " + str(t.value)
+    print "Number is: " + str(t.value)
     return t
 
 
-def t_INTEGER(t):
-    r'-? [0-9]+'
-    t.value = int(t.value)
-    print "Integer literal is: " + str(t.value)
-    return t
-
+#def t_INTEGER(t):
+#    r'-? [0-9]+'
+#    t.value = int(t.value)
+#    print "Integer literal is: " + str(t.value)
+#    return t
+#
 
 def t_STRING(t):
     r' " (\. | [^\\"])* " '

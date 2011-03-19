@@ -110,13 +110,13 @@ def p_argumentlist(p):
 def p_argument(p):
     ''' Argument    : STRING
                     | '_' '(' STRING ')'
-                    | Number
+                    | NUMBER
     '''                 
 
-def p_numeral(p):
-    ''' Number  : INTEGER
-                | FLOATING
-    '''
+#def p_numeral(p):
+#    ''' Number  : INTEGER
+#                | FLOATING
+#    '''
 
 def p_error(p):
     print 'Syntax error in input!'
