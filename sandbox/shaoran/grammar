@@ -17,8 +17,9 @@ GoalEvent       ::= "+" "~" Belief
 BeliefEvent     ::= "+" Belief
                   | "-" Belief
 
-Condition       ::= Belief
-                  | Condition "&" Belief
+Condition       ::= "(" LambdaExpr ")"
+                  | Belief
+                  | Belief "&" Condition
 
 Body            ::= "[" "]"
                   | "[" IntentionList "]"
@@ -29,17 +30,43 @@ IntentionList   ::= Intention
 Intention       ::= Event
                   | AtomicAction
 
-Belief          ::= IDENTIFIER "(" ")"
-                  | IDENTIFIER "(" ArgumentList ")"
+# ----------------------------------------------------------
+# Lambda Section
+# ----------------------------------------------------------
+LambdaExpr      ::= LAMBDA ":" LambdaTest
+                  | LAMBDA LambdaArgs ":" LambdaTest
 
-AtomicAction    ::= IDENTIFIER "(" ")"
-                  | IDENTIFIER "(" ArgumentList ")"
+LambdaArgs      ::= NAME
+                  | LambdaArgs "," NAME
+
+LambdaTest      ::= CompTerm CompOp CompTerm
+                  | "(" LambdaTest ")"
+                  | "(" LambdaTest ")" ORLITERAL  LambdaTest 
+                  | "(" LambdaTest ")" ANDLITERAL  LambdaTest 
+ 
+CompTerm        ::= NAME
+                  | NUMBER
+                  | STRING
+
+CompOp          ::= ">"  
+                  | "<"
+                  | EQUALS
+                  | GREATEQ
+                  | LESSEQ
+                  | NOTEQ
+# ----------------------------------------------------------
+
+Belief          ::= NAME "(" ")"
+                  | NAME "(" ArgumentList ")"
+
+AtomicAction    ::= NAME "(" ")"
+                  | NAME "(" ArgumentList ")"
 
 ArgumentList    ::= Argument
                   | ArgumentList "," Argument
 
 Argument        ::= STRING
-                  | "_" "(" STRING ")"
+                  | USCORE "(" STRING ")"
                   | NUMBER
 
 

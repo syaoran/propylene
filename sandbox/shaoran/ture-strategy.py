@@ -8,7 +8,15 @@
                                                      -for_corn("c0"),
                                                      +grab_corn("c3") ]
 
-        (+target_got() | (for_corn("c0")) ) >> [ -target_got(),
+      (+white_corn_got(_("X"),_("Y"))  | ( for_corn(_("Z")) & (lambda W: (X<"ciao") and (Y==io) or (Z<34) and (W>21) )   )) >> [ -target_got(),
+                                                     forward(-150),
+                                                     wait_target(),
+                                                     increase_corn(),
+                                                     -white_corn_got(),
+                                                     -for_corn("c0"),
+                                                     +grab_corn("c3") ]
+
+       (+target_got() | (for_corn("c0")) ) >> [ -target_got(),
                                                  forward(-150),
                                                  wait_target(),
                                                  -white_corn_got(),
@@ -32,16 +40,17 @@
                                                  prepare_ball_picking(),
                                                  #do_path(["t2"]),
                                                  +take_tomatoes() ]
-#        (+target_got() | \
-#         (for_tomato(_("T")) & (lambda : (T == "f0") or (T == "f3") or (T == "t6") or (T == "t8") or (T == "a19") or (T == "a21") ))) >> \
-#         [ show(_("T")),
-#           retract_belief (target_got()),
-#           retract_belief (for_tomato(_("T"))),
-#           assert_belief (for_tomato("a23")),
-#           activate_ball_picking(),
-#           activate_opponent_detector(),
-#           forward(-30),
-#           do_ball_path("a23") ]
+        (+target_got() | (for_tomato(_("T")) & (lambda : (T == "f0") 
+        or (T == "f3") or (T == "t6") or (T == "t8") or (T == "a19") or (T == "a21") )
+        )) >>
+         [ show(_("T")),
+           -target_got(),
+           -for_tomato(_("T")),
+           +for_tomato("a23"),
+           activate_ball_picking(),
+           activate_opponent_detector(),
+           forward(-30),
+           do_ball_path("a23") ]
 #
 #        # we have balls, and we have time to take more corns :-)))
 #        (+are_more_corns_worth() | (balls_in_robot(_("X")) & (lambda : X > 0) &

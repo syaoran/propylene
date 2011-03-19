@@ -38,31 +38,32 @@ def p_event(p):
     '''
 
 # Goal Event
-def p_goalevent(p):
+def p_goal_event(p):
     ''' GoalEvent   : '+' '~' Belief
                     | '-' '~' Belief
     '''
     p[0] = p[3]
     outputString = ""
     outputString += "\nclass " + p[0] + "(Goal):\n\tpass"
-    print outputString
+    #print outputString
+    #print "Goal: " + p[0]
 
 # Belief Event
-def p_beliefevent(p):
+def p_belief_event(p):
     ''' BeliefEvent : '+' Belief
                     | '-' Belief
     '''
     p[0] = p[2]
     outputString = ""
     outputString += "\nclass " + p[0] + "(Belief):\n\tpass"
-    print outputString
+    #print outputString
 
 
 # Condition of Plan
-# lambda yet to be considered
 def p_condition(p):
-    ''' Condition   : Belief
-                    | Condition '&' Belief
+    ''' Condition   : '(' LambdaExpr ')'
+                    | Belief
+                    | Belief '&' Condition
     '''
 
 # Body of Plan
@@ -72,7 +73,7 @@ def p_body(p):
     '''
 
 # Items in the Body of a Plan
-def p_intentionlist(p):
+def p_intention_list(p):
     ''' IntentionList   : Intention
                         | IntentionList ',' Intention
     '''
@@ -83,22 +84,67 @@ def p_intention(p):
                     | AtomicAction
     '''
 
+# Lambda expression
+# es.1  lambda : Z>2
+# es.2  lambda X,Y : X==Y
+def p_lambda_expr(p):
+    ''' LambdaExpr  : LAMBDA ':' LambdaTest
+                    | LAMBDA LambdaArgs ':' LambdaTest
+    '''
+    print "Lambda Parsed"
+
+
+def p_lambda_args(p):
+    ''' LambdaArgs  : NAME
+                    | LambdaArgs ',' NAME
+    '''
+
+# Condition to be tested in the lambda expression. 
+# es.3 lambda X,Y : (X!=2) and (Y<3) or (Z>=W) 
+def p_lambda_test(p):
+    ''' LambdaTest  : CompTerm CompOp CompTerm
+                    | '(' LambdaTest ')'
+                    | '(' LambdaTest ')' ORLITERAL  LambdaTest 
+                    | '(' LambdaTest ')' ANDLITERAL  LambdaTest 
+    '''
+
+# Comparison term
+def p_comp_term(p):
+    ''' CompTerm    : NAME
+                    | NUMBER
+                    | STRING
+    '''
+
+# Comparison operator
+def p_comp_op(p):
+    ''' CompOp  : '>'  
+                | '<'
+                | EQUALS
+                | GREATEQ
+                | LESSEQ
+                | NOTEQ
+
+    '''
+
 # Belief
 def p_belief(p):
-    ''' Belief          : IDENTIFIER '(' ')'
-                        | IDENTIFIER '(' ArgumentList ')'
+    ''' Belief          : NAME '(' ')'
+                        | NAME '(' ArgumentList ')'
     '''
     p[0] = p[1]
+    #print "Belief: " + p[0]
+
 
 # Action
 def p_atomicaction(p):
-    ''' AtomicAction    : IDENTIFIER '(' ')'
-                        | IDENTIFIER '(' ArgumentList ')'
+    ''' AtomicAction    : NAME '(' ')'
+                        | NAME '(' ArgumentList ')'
     '''
     p[0] = p[1]
     actionString = ""
     actionString += "\nclass " + p[0] + "(Action):\n\tdef execute(self):\n\t\t## ..."
-    print actionString
+    #print actionString
+    #print "Action : " + p[0]
 
 # List of arguments
 def p_argumentlist(p):
@@ -109,7 +155,7 @@ def p_argumentlist(p):
 # Single argument
 def p_argument(p):
     ''' Argument    : STRING
-                    | '_' '(' STRING ')'
+                    | USCORE '(' STRING ')'
                     | NUMBER
     '''                 
 
