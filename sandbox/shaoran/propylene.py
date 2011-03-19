@@ -110,12 +110,12 @@ def p_argumentlist(p):
 def p_argument(p):
     ''' Argument    : STRING
                     | '_' '(' STRING ')'
-                    | Numeral
+                    | Number
     '''                 
 
 def p_numeral(p):
-    ''' Numeral : NUMBER
-                | '-' NUMBER
+    ''' Number  : INTEGER
+                | FLOATING
     '''
 
 def p_error(p):

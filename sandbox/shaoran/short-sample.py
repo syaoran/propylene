@@ -16,6 +16,7 @@
 #
 #
 (+~grab_corn(_("X")) | ( black_corn(_("X")) )) >> [  ]
+(+~grab_corn(3.1E-2,1,1.0,-1,-1.0,2.34e-10,3.54E21) | ( black_corn(_("X")) )) >> [  ]
 #
 #
 #(+~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X > 1)) ) >>
