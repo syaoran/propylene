@@ -2,3 +2,6 @@
 
 *.swp
 *.pyc
+# Output files of PLY
+parser.out
+parsetab.py
