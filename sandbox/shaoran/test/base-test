@@ -1,0 +1,83 @@
+# ----------------------------------------------------------
+# Base Test
+#
+# Triggering Events : Belief,Goal
+# Body              : Belief,Goal,Action
+# Arguments         : None
+# Condition         : None
+# Lambda            : None
+#
+# ----------------------------------------------------------
+
+# ------------------
+# Triggering Events
+# ------------------
+
+(+belief()) >> []
+
+(-belief()) >> []
+
+(+~goal()) >> []
+
+(-~goal()) >> []
+
+
+# ----------------
+# Actions in Body
+# ----------------
+
+(+belief()) >> [ first_action() ]
+
+(+belief()) >> [first_action(), second_action()]
+
+(+belief()) >> [first_action(), second_action(), third_action() ]
+
+
+# ----------------
+# Beliefs in Body
+# ----------------
+
+(+belief()) >> [ +first_belief() ]
+
+(+belief()) >> [ +first_belief(), +second_belief(), -third_belief() ]
+
+(+belief()) >> [ +first_belief(), -second_belief(), +third_belief() ]
+
+(+belief()) >> [ -first_belief(), +second_belief(), +third_belief() ]
+
+(+belief()) >> [ -first_belief(), +second_belief(), -third_belief() ]
+
+
+# ----------------
+# Goals in Body
+# ----------------
+
+(+belief()) >> [ +~first_goal() ]
+
+(+belief()) >> [ +~first_goal(), +~second_goal(), -~third_goal() ]
+
+(+belief()) >> [ +~first_goal(), -~second_goal(), +~third_goal() ]
+
+(+belief()) >> [ -~first_goal(), +~second_goal(), +~third_goal() ]
+
+(+belief()) >> [ -~first_goal(), +~second_goal(), -~third_goal() ]
+
+
+# ---------------------------------
+# Actions, Beliefs, Goals in Body
+# ---------------------------------
+
+(+belief()) >> [ +~first_goal(), second_action(), -third_belief() ]
+
+(+belief()) >> [ first_action(), -second_belief(), -~third_goal() ]
+
+(+belief()) >> [ +first_belief(), +~second_goal(), third_action() ]
+
+
+###
+
+
+
+
+
+

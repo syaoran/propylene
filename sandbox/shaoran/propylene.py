@@ -13,6 +13,8 @@ import tokenRules
 from tokenRules import tokens
 
 
+plan_count = -1
+
 # Start symbol: strategy
 def p_strategy(p):
     ''' Strategy : Plan
@@ -23,7 +25,9 @@ def p_strategy(p):
 def p_plan(p):
     ''' Plan    : '(' Head ')' RANGLES Body 
     '''
-    print 'Successfully parsed a valid plan'
+    global plan_count
+    plan_count+=1
+    print 'Successfully parsed Plan n. ' + str(plan_count)
 
 # Head
 def p_head(p):
@@ -157,6 +161,9 @@ def p_argument(p):
     ''' Argument    : STRING
                     | USCORE '(' STRING ')'
                     | NUMBER
+                    | NAME
+                    | '[' ArgumentList ']'
+                    | '(' ArgumentList ')'
     '''                 
 
 #def p_numeral(p):

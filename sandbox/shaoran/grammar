@@ -68,5 +68,7 @@ ArgumentList    ::= Argument
 Argument        ::= STRING
                   | USCORE "(" STRING ")"
                   | NUMBER
-
+                  | NAME
+                  | "[" ArgumentList "]"
+                  | "(" ArgumentList ")"
 

@@ -8,12 +8,13 @@
     ]
 #
 #
-#(+~grab_corn(_("X")) | ( white_corn(_("X")) )) >>   
-#    [ 
-#        reach_corn(_("X")), 
-#        pick_corn() 
-#    ]
-#
+(+~grab_corn(_("X")) | ( white_corn(_("X")) )) >>   
+    [
+        test_action(-120,"string",identifier,_("X"),[1,"string",id,_("Y"),[""]], (120,"ciao",idd,_("Z")) ),
+        reach_corn(_("X")), 
+        pick_corn() 
+    ]
+
 #
 #(+~grab_corn(_("X")) | ( black_corn(_("X")) )) >> [  ]
 #(+~grab_corn(3E-2,1,1.0,-1,-1.0,2.34e-10,3.54E21) | ( black_corn(_("X")) )) >> [  ]
