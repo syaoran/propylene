@@ -23,7 +23,7 @@ def p_strategy(p):
 
 # Plan
 def p_plan(p):
-    ''' Plan    : '(' Head ')' RANGLES Body 
+    ''' Plan    : '(' Head ')' RANGLES '[' IntentionList ']' 
     '''
     global plan_count
     plan_count+=1
@@ -65,21 +65,17 @@ def p_belief_event(p):
 
 # Condition of Plan
 def p_condition(p):
-    ''' Condition   : '(' LambdaExpr ')'
-                    | Belief
+    ''' Condition   : Belief
                     | Belief '&' Condition
+                    | '(' LambdaExpr ')'
     '''
 
-# Body of Plan
-def p_body(p):
-    ''' Body    : '[' ']'
-                | '[' IntentionList ']'
-    '''
 
 # Items in the Body of a Plan
 def p_intention_list(p):
-    ''' IntentionList   : Intention
-                        | IntentionList ',' Intention
+    ''' IntentionList   : IntentionList ',' Intention
+                        | Intention
+                        | empty 
     '''
 
 # Single item in the body of a Plan
@@ -92,15 +88,15 @@ def p_intention(p):
 # es.1  lambda : Z>2
 # es.2  lambda X,Y : X==Y
 def p_lambda_expr(p):
-    ''' LambdaExpr  : LAMBDA ':' LambdaTest
-                    | LAMBDA LambdaArgs ':' LambdaTest
+    ''' LambdaExpr  : LAMBDA LambdaArgs ':' LambdaTest
     '''
     print "Lambda Parsed"
 
 
 def p_lambda_args(p):
-    ''' LambdaArgs  : NAME
-                    | LambdaArgs ',' NAME
+    ''' LambdaArgs  : LambdaArgs ',' NAME
+                    | NAME
+                    | empty
     '''
 
 # Condition to be tested in the lambda expression. 
@@ -132,8 +128,7 @@ def p_comp_op(p):
 
 # Belief
 def p_belief(p):
-    ''' Belief          : NAME '(' ')'
-                        | NAME '(' ArgumentList ')'
+    ''' Belief  : NAME '(' ArgumentList ')'
     '''
     p[0] = p[1]
     #print "Belief: " + p[0]
@@ -141,8 +136,7 @@ def p_belief(p):
 
 # Action
 def p_atomicaction(p):
-    ''' AtomicAction    : NAME '(' ')'
-                        | NAME '(' ArgumentList ')'
+    ''' AtomicAction    : NAME '(' ArgumentList ')'
     '''
     p[0] = p[1]
     actionString = ""
@@ -152,8 +146,9 @@ def p_atomicaction(p):
 
 # List of arguments
 def p_argumentlist(p):
-    ''' ArgumentList    : Argument
-                        | ArgumentList ',' Argument
+    ''' ArgumentList    : ArgumentList ',' Argument
+                        | Argument
+                        | empty
     '''
 
 # Single argument
@@ -166,10 +161,12 @@ def p_argument(p):
                     | '(' ArgumentList ')'
     '''                 
 
-#def p_numeral(p):
-#    ''' Number  : INTEGER
-#                | FLOATING
-#    '''
+
+# Empty production
+def p_empty(p):
+    ''' empty :
+    '''
+    pass
 
 def p_error(p):
     print 'Syntax error in input!'

@@ -3,7 +3,7 @@
 Strategy        ::= Plan
                   | Strategy Plan
 
-Plan            ::= "(" Head ")" ">>" Body
+Plan            ::= "(" Head ")" ">>" '[' IntentionList ']'
 
 Head            ::= Event
                   | Event "|" "(" Condition ")"
@@ -17,15 +17,13 @@ GoalEvent       ::= "+" "~" Belief
 BeliefEvent     ::= "+" Belief
                   | "-" Belief
 
-Condition       ::= "(" LambdaExpr ")"
-                  | Belief
+Condition       ::= Belief
                   | Belief "&" Condition
+                  | "(" LambdaExpr ")"
 
-Body            ::= "[" "]"
-                  | "[" IntentionList "]"
-
-IntentionList   ::= Intention
-                  | IntentionList "," Intention
+IntentionList   ::= IntentionList ',' Intention
+                  | Intention
+                  | empty 
 
 Intention       ::= Event
                   | AtomicAction
@@ -33,11 +31,11 @@ Intention       ::= Event
 # ----------------------------------------------------------
 # Lambda Section
 # ----------------------------------------------------------
-LambdaExpr      ::= LAMBDA ":" LambdaTest
-                  | LAMBDA LambdaArgs ":" LambdaTest
+LambdaExpr      ::= LAMBDA LambdaArgs ":" LambdaTest
 
-LambdaArgs      ::= NAME
-                  | LambdaArgs "," NAME
+LambdaArgs      ::= LambdaArgs "," NAME
+                  | NAME
+                  | empty
 
 LambdaTest      ::= CompTerm CompOp CompTerm
                   | "(" LambdaTest ")"
@@ -56,14 +54,13 @@ CompOp          ::= ">"
                   | NOTEQ
 # ----------------------------------------------------------
 
-Belief          ::= NAME "(" ")"
-                  | NAME "(" ArgumentList ")"
+Belief          ::= NAME "(" ArgumentList ")"
 
-AtomicAction    ::= NAME "(" ")"
-                  | NAME "(" ArgumentList ")"
+AtomicAction    ::= NAME "(" ArgumentList ")"
 
-ArgumentList    ::= Argument
-                  | ArgumentList "," Argument
+ArgumentList    ::= ArgumentList "," Argument
+                  | Argument
+                  | empty
 
 Argument        ::= STRING
                   | USCORE "(" STRING ")"

@@ -1,0 +1,28 @@
+# ----------------------------------------------------------
+# Arguments Test
+#
+# Triggering Events : Belief,Goal
+# Body              : Belief,Goal,Action
+# Arguments         : Number,String,Name,List,Tuple
+# Condition         : None
+# Lambda            : None
+#
+# ----------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+(+~grab_corn(_("X")) | ( white_corn(_("X")) )) >>   
+    [
+        test_action(-120,"string",identifier,_("X"),[1,"string",id,_("Y"),[""]], (120,"ciao",idd,_("Z")) ),
+        reach_corn(_("X")), 
+        pick_corn() 
+    ]
+
+
