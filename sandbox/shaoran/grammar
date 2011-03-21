@@ -21,7 +21,7 @@ Condition       ::= Belief
                   | Belief "&" Condition
                   | "(" LambdaExpr ")"
 
-IntentionList   ::= IntentionList ',' Intention
+IntentionList   ::= Intention ',' IntentionList
                   | Intention
                   | empty 
 
@@ -33,7 +33,7 @@ Intention       ::= Event
 # ----------------------------------------------------------
 LambdaExpr      ::= LAMBDA LambdaArgs ":" LambdaTest
 
-LambdaArgs      ::= LambdaArgs "," NAME
+LambdaArgs      ::= NAME "," LambdaArgs
                   | NAME
                   | empty
 
@@ -60,7 +60,7 @@ Goal            ::= "~" NAME "(" ArgumentList ")"
 
 AtomicAction    ::= NAME "(" ArgumentList ")"
 
-ArgumentList    ::= ArgumentList "," Argument
+ArgumentList    ::= Argument "," ArgumentList
                   | Argument
                   | empty
 

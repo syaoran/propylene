@@ -50,7 +50,7 @@ def p_goal_event(p):
     outputString = ""
     outputString += "\nclass " + p[0] + "(Goal):\n\tpass"
     #print outputString
-    print "Goal: " + p[0]
+#    print "Goal: " + p[0]
 
 # Belief Event
 def p_belief_event(p):
@@ -61,7 +61,7 @@ def p_belief_event(p):
     outputString = ""
     outputString += "\nclass " + p[0] + "(Belief):\n\tpass"
     #print outputString
-    print "Belief: " + p[0]
+#    print "Belief: " + p[0]
 
 
 # Condition of Plan
@@ -74,7 +74,7 @@ def p_condition(p):
 
 # Items in the Body of a Plan
 def p_intention_list(p):
-    ''' IntentionList   : IntentionList ',' Intention
+    ''' IntentionList   : Intention ',' IntentionList
                         | Intention
                         | empty 
     '''
@@ -95,7 +95,7 @@ def p_lambda_expr(p):
 
 
 def p_lambda_args(p):
-    ''' LambdaArgs  : LambdaArgs ',' NAME
+    ''' LambdaArgs  : NAME ',' LambdaArgs
                     | NAME
                     | empty
     '''
@@ -155,7 +155,7 @@ def p_atomicaction(p):
 
 # List of arguments
 def p_argumentlist(p):
-    ''' ArgumentList    : ArgumentList ',' Argument
+    ''' ArgumentList    : Argument ',' ArgumentList
                         | Argument
                         | empty
     '''
