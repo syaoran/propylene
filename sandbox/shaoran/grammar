@@ -11,8 +11,8 @@ Head            ::= Event
 Event           ::= GoalEvent
                   | BeliefEvent
 
-GoalEvent       ::= "+" "~" Belief
-                  | "-" "~" Belief
+GoalEvent       ::= "+" Goal
+                  | "-" Goal
 
 BeliefEvent     ::= "+" Belief
                   | "-" Belief
@@ -55,6 +55,8 @@ CompOp          ::= ">"
 # ----------------------------------------------------------
 
 Belief          ::= NAME "(" ArgumentList ")"
+
+Goal            ::= "~" NAME "(" ArgumentList ")"
 
 AtomicAction    ::= NAME "(" ArgumentList ")"
 

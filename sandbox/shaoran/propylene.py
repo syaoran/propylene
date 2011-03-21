@@ -43,14 +43,14 @@ def p_event(p):
 
 # Goal Event
 def p_goal_event(p):
-    ''' GoalEvent   : '+' '~' Belief
-                    | '-' '~' Belief
+    ''' GoalEvent   : '+' Goal
+                    | '-' Goal
     '''
-    p[0] = p[3]
+    p[0] = p[2]
     outputString = ""
     outputString += "\nclass " + p[0] + "(Goal):\n\tpass"
     #print outputString
-    #print "Goal: " + p[0]
+    print "Goal: " + p[0]
 
 # Belief Event
 def p_belief_event(p):
@@ -61,6 +61,7 @@ def p_belief_event(p):
     outputString = ""
     outputString += "\nclass " + p[0] + "(Belief):\n\tpass"
     #print outputString
+    print "Belief: " + p[0]
 
 
 # Condition of Plan
@@ -131,6 +132,14 @@ def p_belief(p):
     ''' Belief  : NAME '(' ArgumentList ')'
     '''
     p[0] = p[1]
+    #print "Belief: " + p[0]
+
+
+# Goal
+def p_goal(p):
+    ''' Goal  : '~' NAME '(' ArgumentList ')'
+    '''
+    p[0] = p[2]
     #print "Belief: " + p[0]
 
 
