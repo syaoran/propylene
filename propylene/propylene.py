@@ -177,7 +177,7 @@ def p_error(p):
 
 # Build the parser
 lexer = lex.lex(module=tokenRules)
-parser = yacc.yacc()
+parser = yacc.yacc(tabmodule='parse_table',outputdir='parser_out')
 
 if __name__ == '__main__':
     if len(sys.argv) == 2:

@@ -3,5 +3,6 @@
 *.swp
 *.pyc
 # Output files of PLY
+propylene/parser_out/*
 parser.out
 parsetab.py

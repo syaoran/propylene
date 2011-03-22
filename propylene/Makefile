@@ -8,6 +8,8 @@ TEST = $(TEST_DIR)$(SRC)
 
 parse:
 	$(PYTHON) $(PARSER) $(TEST)
+	mv parser.out ./parser_out
+	rm -rf *.pyc *.tmp .*.swp
 
 clean:
 	rm -rf *.pyc *.tmp .*.swp
