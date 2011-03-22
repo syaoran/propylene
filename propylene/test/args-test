@@ -3,24 +3,119 @@
 #
 # Triggering Events : Belief,Goal
 # Body              : Belief,Goal,Action
-# Arguments         : Number,String,Name,List,Tuple
+# Arguments         : Number,String,Name,List,Tuple,Variable
 # Condition         : None
 # Lambda            : None
 #
 # ----------------------------------------------------------
 
+# ----------------------
+# Arguments are Numbers
+# ----------------------
+
+(+belief(3)) >> []
+
+(-belief(-5)) >> []
+
+(+~goal(2.0)) >> []
+
+(-~goal(-4.0)) >> []
+
+(+belief(3e4,1e+2)) >> []
+
+(-belief(3E5,7E+4)) >> []
+
+(+~goal(-3e-5)) >> []
+
+(-~goal(-7E-3)) >> []
+
+(+belief(2.3e5,4.7e+2)) >> []
+
+(-belief(4.5E2,9.2E+3)) >> []
+
+(+~goal(-1.2e-4)) >> []
+
+(-~goal(-3.4E-1)) >> []
+
+
+# ----------------------
+# Arguments are Strings
+# ----------------------
+
+(+belief("a")) >> []
+
+(-belief("a","b")) >> []
+
+(+~goal("a","b","c")) >> []
+
+(-~goal("a","b","c","d")) >> []
+
+
+# ----------------------
+# Arguments are Names
+# ----------------------
+
+(+belief(a)) >> []
+
+(-belief(a,b)) >> []
+
+(+~goal(a,b,c)) >> []
+
+(-~goal(a,b,c,d)) >> []
+
+
+# ----------------------
+# Arguments are Lists
+# ----------------------
+
+( +belief( [-2.0e-3, "a string", name ] ) ) >> []
+
+( -belief( [-2.0e-3, name, ["nested 1", "nested 2"], 3.5  ] ) ) >> []
+
+( +~goal( [ [1,2.0], ["a", "b"], [x, y]  ] ) ) >> []
+
+( -~goal( [ [1,2.0], ["a", ["double nesting"], "b"], [x, y]  ] ) ) >> []
+
+
+# ----------------------
+# Arguments are Tuples
+# ----------------------
+
+( +belief( (-2.0e-3, "a string", name ) ) ) >> []
+
+( -belief( (-2.0e-3, name, ("nested 1", "nested 2"), 3.5  ) ) ) >> []
+
+( +~goal( ( (1,2.0), ("a", "b"), (x, y)  ) ) ) >> []
+
+( -~goal( ( (1,2.0), ("a", ("double nesting"), "b"), (x, y)  ) ) ) >> []
+
+
+# ------------------------
+# Arguments are Variables
+# ------------------------
+# _("")
+
+( +belief( _("X") )) >> []
+
+( -belief( _("X"), _("Y") )) >> []
+
+( +~goal( _("X"), _("Y"), _("W") )) >> []
+
+( -~goal( _("X"), _("Y"), _("W"), _("Z") )) >> []
 
 
 
 
+# ------------------------------
+#
+# Arguments are miscellaneous!
+#
+# ------------------------------
 
-
-
-
-
-(+~grab_corn(_("X")) | ( white_corn(_("X")) )) >>   
+( +~grab_corn(_("X"), _("Y")) ) >>   
     [
-        test_action(-120,"string",identifier,_("X"),[1,"string",id,_("Y"),[""]], (120,"ciao",idd,_("Z")) ),
+        test_action(-120,"string",identifier,
+            _("X"),[1,"string",id,_("Y"),[""]], (120,"ciao",idd,_("Z")) ),
         reach_corn(_("X")), 
         pick_corn() 
     ]
