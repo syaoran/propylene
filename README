@@ -1,1 +1,33 @@
-This is the root directory of Propylene project
+Project overview
+
+"propylene" is the final project for a compilers course. 
+It aims to generete a proper set of classes from a PROFETA plan, 
+which uses an AgentSpeak-like syntax.
+
+
+Usage
+
+Currently, propylene is in 'testing' mode.
+To execute the parser on some input file, type:
+
+> make SRC=input_file_name
+
+Test input files:
+- base-test (default)   : Plans without condition; mental attitudes have no arguments;
+- args-test             : Plans without condition; mental attitudes have all types of arguments;
+- cond-test(coming soon): Plans with condition (but no lambdas); mental attitudes may have arguments;
+- lamb-test(coming soon): Plans with condition (and lambdas); mental attitudes may have arguments;
+- full-test(coming soon): Complex Plans with all types of elements and conditions; mental attitudes have all types of arguments;
+- final-test(coming soon: A complete, real-world strategy, borrowed from TURE and/or ROSA :)
+
+
+
+
+
+
+
+
+
+
+
+
