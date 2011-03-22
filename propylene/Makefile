@@ -1,8 +1,13 @@
-PYTHON = python2.5
-LEXER = plexer.py
+PYTHON = python2.6
+PARSER = propylene.py
+TEST_DIR = ./test/
+SRC = base-test
+TEST = $(TEST_DIR)$(SRC) 
 
-INPUT = sample/woa-strategy.py
+#all:
 
+parse:
+	$(PYTHON) $(PARSER) $(TEST)
 
-test-lexer:
-	$(PYTHON) $(LEXER) $(INPUT)
+clean:
+	rm -rf *.pyc *.tmp .*.swp

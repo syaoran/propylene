@@ -1,4 +1,4 @@
-        (+grab_corn("c0") | ( black_corn("c0") )) >> [ +grab_corn("c3") ]
+       (+grab_corn("c0") | ( black_corn("c0") )) >> [ +grab_corn("c3") ]
 
         (+white_corn_got() | ( for_corn("c0"))) >> [ -target_got(),
                                                      forward(-150),
@@ -8,7 +8,7 @@
                                                      -for_corn("c0"),
                                                      +grab_corn("c3") ]
 
-      (+white_corn_got(_("X"),_("Y"))  | ( for_corn(_("Z")) & (lambda W: (X<"ciao") and (Y==io) or (Z<34) and (W>21) )   )) >> [ -target_got(),
+      (+white_corn_got(_("X"),_("Y"))  | ( for_corn(_("Z")) & (lambda : (X<"ciao") and (Y==io) or (Z<34) and (W>21) )   )) >> [ -target_got(),
                                                      forward(-150),
                                                      wait_target(),
                                                      increase_corn(),

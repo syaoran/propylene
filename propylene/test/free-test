@@ -1,4 +1,4 @@
-(+~go(a) | ( belief() & ( lambda X:  X < 2  ) ) ) >> 
+(+~go(a,) | ( belief() & ( lambda :  X < 2  ) ) ) >> 
     [   
         detect_configuration(),
 #        +~grab_corn("c0"), 
@@ -7,7 +7,7 @@
         +~deposit_corns(),
     ]
 #
-(+~go("X",_("X")) | ( (lambda X,Y,Z: ( X == "ciao" ) or ( X < 2 )  ) )  ) >> 
+(+~go("X",_("X")) | ( (lambda : ( X == "ciao" ) or ( X < 2 )  ) )  ) >> 
     [   
         detect_configuration(),
 #        +~grab_corn("c0"), 

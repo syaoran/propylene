@@ -31,11 +31,7 @@ Intention       ::= Event
 # ----------------------------------------------------------
 # Lambda Section
 # ----------------------------------------------------------
-LambdaExpr      ::= LAMBDA LambdaArgs ":" LambdaTest
-
-LambdaArgs      ::= NAME "," LambdaArgs
-                  | NAME
-                  | empty
+LambdaExpr      ::= LAMBDA ":" LambdaTest
 
 LambdaTest      ::= CompTerm CompOp CompTerm
                   | "(" LambdaTest ")"

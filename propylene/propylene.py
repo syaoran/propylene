@@ -87,21 +87,14 @@ def p_intention(p):
 
 # Lambda expression
 # es.1  lambda : Z>2
-# es.2  lambda X,Y : X==Y
 def p_lambda_expr(p):
-    ''' LambdaExpr  : LAMBDA LambdaArgs ':' LambdaTest
+    ''' LambdaExpr  : LAMBDA ':' LambdaTest
     '''
     print "Lambda Parsed"
 
 
-def p_lambda_args(p):
-    ''' LambdaArgs  : NAME ',' LambdaArgs
-                    | NAME
-                    | empty
-    '''
-
 # Condition to be tested in the lambda expression. 
-# es.3 lambda X,Y : (X!=2) and (Y<3) or (Z>=W) 
+# es.2 lambda : (X!=2) and (Y<3) or (Z>=W) 
 def p_lambda_test(p):
     ''' LambdaTest  : CompTerm CompOp CompTerm
                     | '(' LambdaTest ')'
