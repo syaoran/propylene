@@ -96,11 +96,26 @@ def p_lambda_expr(p):
 # Condition to be tested in the lambda expression. 
 # es.2 lambda : (X!=2) and (Y<3) or (Z>=W) 
 def p_lambda_test(p):
-    ''' LambdaTest  : CompTerm CompOp CompTerm
-                    | '(' LambdaTest ')'
-                    | '(' LambdaTest ')' ORLITERAL  LambdaTest 
-                    | '(' LambdaTest ')' ANDLITERAL  LambdaTest 
+    ''' LambdaTest  : Comparison                    
+                    | CompoundTest
     '''
+                   # | '(' LambdaTest ')'
+
+def p_compound_test(p):
+    ''' CompoundTest    : UnaryTest ORLITERAL CompoundTest
+                        | UnaryTest ANDLITERAL CompoundTest
+                        | UnaryTest
+    '''
+
+def p_unary_test(p):
+    ''' UnaryTest   :   NOTLITERAL '(' Comparison ')'
+                    |   '(' Comparison ')'
+    '''
+
+def p_comparison(p):
+    ''' Comparison  :  CompTerm CompOp CompTerm '''
+ 
+
 
 # Comparison term
 def p_comp_term(p):

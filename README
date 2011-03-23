@@ -16,7 +16,7 @@ Test input files:
 - base-test (default)       : Plans without condition; mental attitudes have no arguments;
 - args-test                 : Plans without condition; mental attitudes have all types of arguments;
 - cond-test                 : Plans with condition (but no lambdas); mental attitudes may have arguments;
-- lamb-test  (coming soon)  : Plans with condition (and lambdas); mental attitudes may have arguments;
+- lamb-test                 : Plans with condition (and lambdas); mental attitudes may have arguments;
 - full-test  (coming soon)  : Complex Plans with all types of elements and conditions; mental attitudes 
                               have all types of arguments;
 - error-test (coming soon)  : Plans with intentional lexical/syntactic errors, which will show all 

@@ -14,7 +14,7 @@
 # -------------------------
 
 (+belief() | ( c_belief_1(_("X"))  
-                & (lambda : not (X<100) and not (X==2)  ) ) ) 
+                & (lambda : not (X<100) and (X>2) or (X==4) and not (X==2) ) ) ) 
 >> 
     [
     
