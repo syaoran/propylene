@@ -13,12 +13,15 @@ To execute the parser on some input file, type:
 > make SRC=input_file_name
 
 Test input files:
-- base-test (default)   : Plans without condition; mental attitudes have no arguments;
-- args-test             : Plans without condition; mental attitudes have all types of arguments;
-- cond-test(coming soon): Plans with condition (but no lambdas); mental attitudes may have arguments;
-- lamb-test(coming soon): Plans with condition (and lambdas); mental attitudes may have arguments;
-- full-test(coming soon): Complex Plans with all types of elements and conditions; mental attitudes have all types of arguments;
-- final-test(coming soon: A complete, real-world strategy, borrowed from TURE and/or ROSA :)
+- base-test (default)       : Plans without condition; mental attitudes have no arguments;
+- args-test                 : Plans without condition; mental attitudes have all types of arguments;
+- cond-test                 : Plans with condition (but no lambdas); mental attitudes may have arguments;
+- lamb-test  (coming soon)  : Plans with condition (and lambdas); mental attitudes may have arguments;
+- full-test  (coming soon)  : Complex Plans with all types of elements and conditions; mental attitudes 
+                              have all types of arguments;
+- error-test (coming soon)  : Plans with intentional lexical/syntactic errors, which will show all 
+                              the error handling and recovery techniques implemented by the lexer/parser
+- final-test (coming soon)  : A complete, real-world strategy, borrowed from TURE and/or ROSA :)
 
 
 

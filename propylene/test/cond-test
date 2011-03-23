@@ -1,0 +1,50 @@
+# ----------------------------------------------------------
+# Condition Test
+#
+# Triggering Events : Belief,Goal
+# Body              : Belief,Goal,Action
+# Arguments         : Number,String,Name,List,Tuple,Variable
+# Condition         : Yes
+# Lambda            : None
+#
+# ----------------------------------------------------------
+
+# -------------------------
+# No arguments, empty body 
+# -------------------------
+
+(+belief() | ( c_belief_1() ) ) >> []
+
+(-belief() | ( c_belief_1() & c_belief_2() ) ) >> []
+
+(+~goal() | ( c_belief_1() & c_belief_2() & c_belief_3() ) ) >> []
+
+(-~goal() | ( c_belief_1() & c_belief_2() & c_belief_3() & c_belief_4() ) ) 
+>> []
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

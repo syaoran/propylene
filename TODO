@@ -4,7 +4,7 @@ ISSUES
 * LEXING
  - introduzione del token 'not'
 
- - approfondire il problema del ricronoscimento dei numeri float
+ - approfondire il problema del ricronoscimento dei numeri float vs. integer
    (conditional lexing?)
 
  - introduzione del token 'variable'
@@ -19,13 +19,14 @@ ISSUES
 
  - e` possibile definire la grammatica in modo tale da evitare che
    sequenze del tipo [1,] siano sintatticamente corrette?
+   - E' possibile, bisogna solo decidere quale dei due approcci seguire
 
  - IntentionList: il terminale che fa la 'ricorsione' va per primo o
    no? C`e` differenza?
 
  - prevedere il terminale 'NOT' per il corpo della lambda expr
 
- - e` possibile modificare la grammatica per fare in mod0o che
+ - e` possibile modificare la grammatica per fare in modo che
    l'ultimo LambdaTest debba avere una parentesi tonda?
 
 ================================================================================

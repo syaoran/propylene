@@ -112,12 +112,27 @@
 #
 # ------------------------------
 
-( +~grab_corn(_("X"), _("Y")) ) >>   
+( +belief(-123, "string", param, _("X")) ) >> 
     [
-        test_action(-120,"string",identifier,
-            _("X"),[1,"string",id,_("Y"),[""]], (120,"ciao",idd,_("Z")) ),
-        reach_corn(_("X")), 
-        pick_corn() 
+        +~first_goal("string 1", arg1, _("X"), 1.0), 
+        second_action(arg2, _("X"), 2E-2, "string 2"), 
+        -third_belief(_("X"), 3e3, "string 3", arg3) 
     ]
 
+( -~goal(_("X"), "str", arg, 1E-2) ) >> 
+    [
+        first_action([1,2,3], ["string"], [a,b,c]), 
+        -second_belief( (1,2), ("a", "b"), (a)  ), 
+        -~third_goal( ["start", [1, (a,b,c), 3], (0, (2.0,3.0), 5), "end"])      
+    ]
+
+
+#( +~grab_corn(_("X"), _("Y")) ) >>   
+#    [
+#        test_action(-120,"string",identifier,
+#            _("X"),[1,"string",id,_("Y"),[""]], (120,"ciao",idd,_("Z")) ),
+#        reach_corn(_("X")), 
+#        pick_corn() 
+#    ]
+#
 
