@@ -9,6 +9,7 @@ reserved = {
     'lambda': 'LAMBDA',
     'or'    : 'ORLITERAL',
     'and'   : 'ANDLITERAL',
+    'not'   : 'NOTLITERAL',
     '_'     : 'USCORE'
 }
 
