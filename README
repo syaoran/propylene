@@ -19,7 +19,7 @@ Test input files:
 - lamb-test                 : Plans with condition (and lambdas); mental attitudes may have arguments;
 - full-test  (coming soon)  : Complex Plans with all types of elements and conditions; mental attitudes 
                               have all types of arguments;
-- error-test (coming soon)  : Plans with intentional lexical/syntactic errors, which will show all 
+- error-test                : Plans with intentional lexical/syntactic errors, which will show all 
                               the error handling and recovery techniques implemented by the lexer/parser
 - final-test (coming soon)  : A complete, real-world strategy, borrowed from TURE and/or ROSA :)
 

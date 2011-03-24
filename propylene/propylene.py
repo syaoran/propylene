@@ -34,6 +34,7 @@ def p_head(p):
     ''' Head    : Event
                 | Event '|' '(' Condition ')'  
     '''
+    #print p.lineno(0)
 
 # Tiggering Event
 def p_event(p):
@@ -70,6 +71,30 @@ def p_condition(p):
                     | Belief '&' Condition
                     | '(' LambdaExpr ')'
     '''
+
+# Errors
+# ----------------------------------------------------------
+def p_error_condition_with_event(p):
+    ''' Condition   : Event
+                    | Event '&' Condition
+    '''
+    mex = "Condition cannot contain Event"
+    print_error(mex, p.lineno(1))
+
+def p_error_condition_with_goal(p):
+    ''' Condition   : Goal
+                    | Goal '&' Condition
+    '''
+    mex = "Condition cannot contain Goal"
+    print_error(mex, p.lineno(1))
+
+def p_error_condition_lambda_not_enclosed(p):
+    ''' Condition   : LambdaExpr
+    '''
+    mex = "lambda is not enclosed in '(' ')'"
+    print_error(mex, p.lineno(1))
+# ----------------------------------------------------------
+
 
 
 # Items in the Body of a Plan
@@ -189,6 +214,9 @@ def p_error(p):
     print 'Syntax error in input!'
 
 
+def print_error(message, lineno):
+    print "Error (line " + str(lineno) + "): " + message
+
 
 # Build the parser
 lexer = lex.lex(module=tokenRules)
@@ -204,7 +232,7 @@ if __name__ == '__main__':
         for line in inputFileLines:
             totalString += line
 
-        result = parser.parse(totalString)
+        result = parser.parse(totalString, tracking=True)
 #        print result
     else:
         print 'Usage: python propylene filePath'
