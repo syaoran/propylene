@@ -1,10 +1,15 @@
-PYTHON = python2.6
-PARSER = propylene.py
-TEST_DIR = ./test/
-SRC = base-test
-TEST = $(TEST_DIR)$(SRC) 
+PYTHON        = python2.6
+PARSER        = propylene.py
+TEST_DIR      = ./test/
+SRC           = base-test
+ARGS_TEST_SRC = $(TEST_DIR)args-test
+TEST          = $(TEST_DIR)$(SRC) 
 
 #all:
+
+test-args:
+	$(PYTHON) $(PARSER) $(ARGS_TEST_SRC)
+	rm -rf *.pyc *.tmp .*.swp
 
 parse:
 	$(PYTHON) $(PARSER) $(TEST)

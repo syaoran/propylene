@@ -61,7 +61,7 @@ ArgumentList    ::= Argument "," ArgumentList
                   | empty
 
 Argument        ::= STRING
-                  | USCORE "(" STRING ")"
+                  | USCORE "(" VARIABLE ")"
                   | NUMBER
                   | NAME
                   | "[" ArgumentList "]"

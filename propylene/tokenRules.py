@@ -5,6 +5,10 @@
 # corresponding REGEXPs to match them
 # ----------------------------------------------------------
 
+states = (
+    ('variables','inclusive'),
+    )
+
 reserved = {
     'lambda': 'LAMBDA',
     'or'    : 'ORLITERAL',
@@ -18,6 +22,7 @@ tokens = [
    'NAME',
    'NUMBER',
    'STRING',
+   'VARIABLE',
    'EQUALS',
    'NOTEQ',
    'GREATEQ',
@@ -44,7 +49,9 @@ t_LESSEQ    = r'<='
 def t_NAME(t):
     r'( [a-zA-Z_][a-zA-Z_0-9]* )'
     t.type = reserved.get(t.value,'NAME')
-    #print t.type
+    ##if type of token is USCORE
+    if t.type == 'USCORE':
+        t.lexer.push_state ('variables')
     return t
 
 
@@ -63,6 +70,12 @@ def t_NUMBER(t):
 #    print "Integer literal is: " + str(t.value)
 #    return t
 #
+
+def t_variables_VARIABLE(t):
+    r' " (\. | [^\\"])* " '
+    #print 'Got a variable: ' + t.value
+    t.lexer.pop_state ()    
+    return t
 
 def t_STRING(t):
     r' " (\. | [^\\"])* " '

@@ -6,8 +6,6 @@ ISSUES
  - approfondire il problema del ricronoscimento dei numeri float vs. integer
    (conditional lexing?)
 
- - introduzione del token 'variable'
-
  - fare in modo che gli argomenti di Belief/Goal/Action vengano
    "lexati" come 'variable' e non come 'string'
    (conditional lexing?)
@@ -34,6 +32,7 @@ ROADMAP
 ================================================================================
 FIXED ISSUES
 ================================================================================
+FIXED! - introduzione del token 'variable'
 FIXED! - introduzione del token 'not'
 FIXED! - prevedere il terminale 'NOT' per il corpo della lambda expr
 FIXED! - e` possibile modificare la grammatica per fare in modo che

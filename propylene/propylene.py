@@ -196,7 +196,7 @@ def p_argumentlist(p):
 # Single argument
 def p_argument(p):
     ''' Argument    : STRING
-                    | USCORE '(' STRING ')'
+                    | USCORE '(' VARIABLE ')'
                     | NUMBER
                     | NAME
                     | '[' ArgumentList ']'
