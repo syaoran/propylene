@@ -15,6 +15,12 @@ from tokenRules import tokens
 
 plan_count = -1
 
+
+def p_start(p):
+    ''' Start : Strategy 
+    '''
+    print "End of Strategy!"
+
 # Start symbol: strategy
 def p_strategy(p):
     ''' Strategy : Plan
