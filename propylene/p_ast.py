@@ -17,6 +17,7 @@ class Node:
         self._children.append (child)
 
     def Visit (self, uVisitor):
+        print self.__class__
         for c in self._children:
             c.Visit (uVisitor)
             
@@ -110,6 +111,55 @@ class Visitor:
             + '(Goal):\n\t' \
             + 'pass'
         print "Goal"
+
+
+def flatten_c (uNode, uDepth = -1):    
+    ## if no depth has been specified:
+    if uDepth == -1:
+        if uNode._children == []:
+            return [uNode]
+        else:
+            new_children = []
+            for c in uNode._children:
+                new_c = flatten_c (c)
+                new_children.append (new_c)
+
+            return list(flatten_l (new_children))
+
+def flatten_l(lst):
+    for elem in lst:
+        if isinstance (elem, list):
+            for i in flatten_l(elem):
+                yield i
+        else:
+            yield elem
+        
+    
+def flatten_test ():
+    v = Visitor ('')
+    tree = Condition('', [
+            Belief(''), 
+            Condition('', [
+                    Belief(''),
+                    Condition('', [
+                            Belief('')])])])
+    
+    
+    tree.Visit (v)
+    tree._children = flatten_c (tree)
+    print ""
+    tree.Visit (v)
+    
+    
+    
+    
+            
+            
+            
+
+        
+        
+     
     
 
 
