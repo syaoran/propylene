@@ -134,14 +134,28 @@ class Visitor:
             + uGoal._name \
             + '(Goal):\n\t' \
             + 'pass'
-        print "Goal"
-
+        #print "Goal"
+        
     def GenerateCode (self):
         f = open (self._filename, 'w')
         f.write (self._belief_buf)
         f.write (self._action_buf)
         f.write (self._goal_buf)
         f.close ()
+##
+##
+##
+def flatten_strategies (uNode):
+    if isinstance (uNode, Strategy):
+        new_children = []
+        for c in uNode._children:
+            new_c = flatten_strategies (c)
+            new_children.append (new_c)
+            
+        return list(flatten_l (new_children))
+    
+    else:
+        return [uNode]
 ##
 ##
 ##
@@ -152,12 +166,13 @@ def flatten_c (uNode, uDepth = -1):
            isinstance (uNode, Action) or \
            isinstance (uNode, Goal):
             return [uNode]
+        
         else:
             new_children = []
             for c in uNode._children:
                 new_c = flatten_c (c)
                 new_children.append (new_c)
-
+                
             return list(flatten_l (new_children))
 ##
 ##

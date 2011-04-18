@@ -35,6 +35,9 @@ def p_strategy(p):
         p[0] = Strategy(uChildren=[ p[1] ] )
     else:
         p[0] = Strategy(uChildren=[ p[1], p[2] ])
+        
+    p[0]._children = flatten_strategies (p[0])
+    
 
 # Plan
 def p_plan(p):
