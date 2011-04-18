@@ -11,7 +11,7 @@ import ply.yacc as yacc
 import tokenRules
 
 from tokenRules import tokens
-
+from p_ast import *
 
 plan_count = -1
 
@@ -41,21 +41,30 @@ def p_head(p):
                 | Event '|' '(' Condition ')'  
     '''
     #print p.lineno(0)
+    p[1] = Trigger('',[p[1]])
+    if len(p)==6:
+        p[0] = Head('',[ p[1], p[4] ] )
+    else:
+        p[0] = Head('',[p[1]])
+        
+    v = Visitor('')
+    p[0].Visit(v)
 
 # Tiggering Event
 def p_event(p):
     ''' Event   : GoalEvent
                 | BeliefEvent
     '''
-
+    p[0] = p[1]
 # Goal Event
+
 def p_goal_event(p):
     ''' GoalEvent   : '+' Goal
                     | '-' Goal
     '''
     p[0] = p[2]
-    outputString = ""
-    outputString += "\nclass " + p[0] + "(Goal):\n\tpass"
+    #outputString = ""
+    #outputString += "\nclass " + p[0] + "(Goal):\n\tpass"
     #print outputString
 #    print "Goal: " + p[0]
 
@@ -65,8 +74,8 @@ def p_belief_event(p):
                     | '-' Belief
     '''
     p[0] = p[2]
-    outputString = ""
-    outputString += "\nclass " + p[0] + "(Belief):\n\tpass"
+    #outputString = ""
+    #outputString += "\nclass " + p[0] + "(Belief):\n\tpass"
     #print outputString
 #    print "Belief: " + p[0]
 
@@ -77,8 +86,13 @@ def p_condition(p):
                     | Belief '&' Condition
                     | '(' LambdaExpr ')'
     '''
-
-# Errors
+    if len(p)==2:
+        p[0] = Condition('', [ p[1] ])
+    elif p[2]=='&':
+        p[0] = Condition('', [p[1], p[3] ])
+    else:
+        p[0] = Condition('', [ p[2] ] )
+#eErrors
 # ----------------------------------------------------------
 def p_error_condition_with_event(p):
     ''' Condition   : Event
@@ -121,8 +135,8 @@ def p_intention(p):
 def p_lambda_expr(p):
     ''' LambdaExpr  : LAMBDA ':' LambdaTest
     '''
-    print "Lambda Parsed"
-
+#    print "Lambda Parsed"
+    p[0] = Lambda('')
 
 # Condition to be tested in the lambda expression. 
 # es.2 lambda : (X!=2) and (Y<3) or (Z>=W) 
@@ -170,7 +184,7 @@ def p_comp_op(p):
 def p_belief(p):
     ''' Belief  : NAME '(' ArgumentList ')'
     '''
-    p[0] = p[1]
+    p[0] = Belief(p[1])
     #print "Belief: " + p[0]
 
 
@@ -178,7 +192,7 @@ def p_belief(p):
 def p_goal(p):
     ''' Goal  : '~' NAME '(' ArgumentList ')'
     '''
-    p[0] = p[2]
+    p[0] = Goal(p[1])
     #print "Belief: " + p[0]
 
 
@@ -186,9 +200,10 @@ def p_goal(p):
 def p_atomicaction(p):
     ''' AtomicAction    : NAME '(' ArgumentList ')'
     '''
-    p[0] = p[1]
-    actionString = ""
-    actionString += "\nclass " + p[0] + "(Action):\n\tdef execute(self):\n\t\t## ..."
+    p[0] = Action(p[1])
+    #print "Belief: " + p[0]
+#    actionString = ""
+#    actionString += "\nclass " + p[0] + "(Action):\n\tdef execute(self):\n\t\t## ..."
     #print actionString
     #print "Action : " + p[0]
 

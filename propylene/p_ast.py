@@ -45,6 +45,14 @@ class Condition (Node):
     def __init__ (self, *args, **kwargs):
         Node.__init__ (self, *args, **kwargs)
 
+class Lambda (Node):
+    """Represents a Lambda Leaf in an AST. """
+    def __init__ (self, *args, **kwargs):
+        Node.__init__ (self, *args, **kwargs)
+
+    def Visit (self, uVisitor):
+        pass
+
 class Belief (Node):
     """Represents a Belief leaf in an AST. """
     def __init__ (self, *args, **kwargs):
@@ -83,18 +91,20 @@ class Visitor:
             + uBelief._name \
             + '(Belief):\n\t' \
             + 'pass'
+        print "Belief"
 
     def VisitAction (self, uAction):
         self._action_buf = self._action_buf + '\n class ' \
             + uAction._name \
             + '(Action):\n\t' \
             + 'def execute (self):\n\t\t##...'
-    
+        print "Action"
     def VisitGoal (self, uGoal):
         self._goal_buf = self._goal_buf + '\n class ' \
             + uGoal._name \
             + '(Goal):\n\t' \
             + 'pass'
+        print "Goal"
     
 
 
