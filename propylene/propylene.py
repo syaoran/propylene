@@ -42,6 +42,7 @@ def p_plan(p):
     global plan_count
     plan_count+=1
     print 'Successfully parsed Plan n. ' + str(plan_count)
+    p[6]._children = flatten_c(p[6]) 
     p[0] = Plan('', [ p[2], p[6]  ] )
 # Head
 def p_head(p):
@@ -51,6 +52,7 @@ def p_head(p):
     #print p.lineno(0)
     p[1] = Trigger('',[p[1]])
     if len(p)==6:
+        p[4]._children = flatten_c(p[4])
         p[0] = Head('',[ p[1], p[4] ] )
     else:
         p[0] = Head('',[p[1]])
@@ -205,7 +207,7 @@ def p_belief(p):
 def p_goal(p):
     ''' Goal  : '~' NAME '(' ArgumentList ')'
     '''
-    p[0] = Goal(p[1])
+    p[0] = Goal(p[2])
     #print "Belief: " + p[0]
 
 

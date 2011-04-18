@@ -92,6 +92,7 @@ class Goal (Node):
         Node.__init__ (self, *args, **kwargs)
 
     def Visit (self, uVisitor):
+        Node.Visit(self,uVisitor)
         uVisitor.VisitGoal (self)
 ##
 ##
@@ -139,7 +140,7 @@ def flatten_c (uNode, uDepth = -1):
     ## if no depth has been specified:
     if uDepth == -1:
         if uNode._children == []:
-            return [uNode]
+            return []
         else:
             new_children = []
             for c in uNode._children:
