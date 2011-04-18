@@ -169,6 +169,9 @@ def flatten_test ():
     tree._children = flatten_c (tree)
     print ""
     tree.Visit (v)
+
+def flatten_test2 ():
+    v = Visitor ('')
 ##
 ##
 ##
