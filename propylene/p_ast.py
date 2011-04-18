@@ -4,7 +4,7 @@ p_ast.py
 
 class Node:
     """Represents a Node of the AST. """
-    def __init__(self, uName, uChildren = []):
+    def __init__(self, uName='', uChildren = []):
         self._name = uName
         self._children = uChildren
         ## self.__someOtherInfo = []
@@ -64,6 +64,7 @@ class Lambda (Node):
     """Represents a Lambda Leaf in an AST. """
     def __init__ (self, *args, **kwargs):
         Node.__init__ (self, *args, **kwargs)
+        self._name="Lambda"
 
     def Visit (self, uVisitor):
         pass
