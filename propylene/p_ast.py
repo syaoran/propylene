@@ -98,7 +98,7 @@ class Goal (Node):
 ##
 ##
 class Visitor:
-    def __init__ (self, uTarget):
+    def __init__ (self, uTarget = 'classes.py'):
         self._belief_buf = ''
         self._action_buf = ''
         self._goal_buf = ''
@@ -135,12 +135,22 @@ class Visitor:
             + 'pass'
         print "Goal"
 
-
+    def GenerateCode (self):
+        f = open (self._filename, 'w')
+        f.write (self._belief_buf)
+        f.write (self._action_buf)
+        f.write (self._goal_buf)
+        f.close ()
+##
+##
+##
 def flatten_c (uNode, uDepth = -1):    
     ## if no depth has been specified:
     if uDepth == -1:
-        if uNode._children == []:
-            return []
+        if isinstance (uNode, Belief) or \
+           isinstance (uNode, Action) or \
+           isinstance (uNode, Goal):
+            return [uNode]
         else:
             new_children = []
             for c in uNode._children:
@@ -148,7 +158,9 @@ def flatten_c (uNode, uDepth = -1):
                 new_children.append (new_c)
 
             return list(flatten_l (new_children))
-
+##
+##
+##
 def flatten_l(lst):
     for elem in lst:
         if isinstance (elem, list):
@@ -156,8 +168,9 @@ def flatten_l(lst):
                 yield i
         else:
             yield elem
-        
-    
+##
+##      
+##    
 def flatten_test ():
     v = Visitor ('')
     tree = Condition('', [
@@ -168,7 +181,19 @@ def flatten_test ():
                             Belief('belief3')])])])    
     tree.Visit (v)
     tree._children = flatten_c (tree)
+    tree.Visit (v)
+
     print ""
+
+    tree = Body('', [
+            Belief('belief1'), 
+            Body('', [
+                    Belief('belief2'),
+                    Body('', [
+                            Belief('belief3')])])])    
+
+    tree.Visit (v)
+    tree._children = flatten_c (tree)
     tree.Visit (v)
 
 def flatten_test2 ():
@@ -182,4 +207,3 @@ def flatten_test2 ():
 #     if isinstance (uAst, Node):
 #         for child in uAst._children:
 #             Visit (child)
-        

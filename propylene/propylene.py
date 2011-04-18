@@ -21,8 +21,9 @@ def p_start(p):
     '''
     print "End of Strategy!"
     p[0] = p[1]
-    v = Visitor('')
+    v = Visitor()
     p[0].Visit(v)
+    v.GenerateCode ()
 
 
 # Start symbol: strategy
@@ -133,7 +134,7 @@ def p_intention_list(p):
     if len(p) == 4:
         p[0] = Body('', [ p[1], p[3] ] )
     elif p[1] != "empty":
-        p[0] = Body('', [ p[1]] )
+        p[0] = Body('', [ p[1] ] )
     else:
         p[0] = Body('')
 
