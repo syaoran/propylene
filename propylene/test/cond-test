@@ -13,7 +13,7 @@
 # No arguments, empty body 
 # -------------------------
 
-(+belief() | ( c_belief_1() ) ) >> []
+(+belief() | ( c_belief_1() ) ) >> [ ciao() ]
 
 (-belief() | ( c_belief_1() & c_belief_2() ) ) >> []
 

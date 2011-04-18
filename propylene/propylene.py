@@ -20,12 +20,21 @@ def p_start(p):
     ''' Start : Strategy 
     '''
     print "End of Strategy!"
+    p[0] = p[1]
+
+    v = Visitor('')
+    p[0].Visit(v)
+
 
 # Start symbol: strategy
 def p_strategy(p):
     ''' Strategy : Plan
-                 | Strategy Plan
+                 | Plan Strategy
     '''
+    if len(p)==2:
+        p[0] = Strategy('',[ p[1] ] )
+    else:
+        p[0] = Strategy('', [  p[1], p[2] ])
 
 # Plan
 def p_plan(p):
@@ -34,7 +43,7 @@ def p_plan(p):
     global plan_count
     plan_count+=1
     print 'Successfully parsed Plan n. ' + str(plan_count)
-
+    p[0] = Plan('', [ p[2], p[6]  ] )
 # Head
 def p_head(p):
     ''' Head    : Event
@@ -47,9 +56,6 @@ def p_head(p):
     else:
         p[0] = Head('',[p[1]])
         
-    v = Visitor('')
-    p[0].Visit(v)
-
 # Tiggering Event
 def p_event(p):
     ''' Event   : GoalEvent
@@ -123,13 +129,21 @@ def p_intention_list(p):
                         | Intention
                         | empty 
     '''
+    if len(p) == 4:
+        p[0] = Body('', [ p[1], p[3] ] )
+    elif p[1] != "empty":
+        p[0] = Body('', [ p[1]] )
+    else:
+        p[0] = Body('')
+
+
 
 # Single item in the body of a Plan
 def p_intention(p):
     ''' Intention   : Event
                     | AtomicAction
     '''
-
+    p[0] = p[1]
 # Lambda expression
 # es.1  lambda : Z>2
 def p_lambda_expr(p):
@@ -229,7 +243,7 @@ def p_argument(p):
 def p_empty(p):
     ''' empty :
     '''
-    pass
+    p[0] = "empty"
 
 def p_error(p):
     print 'Syntax error in input!'

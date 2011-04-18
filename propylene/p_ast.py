@@ -20,6 +20,11 @@ class Node:
         for c in self._children:
             c.Visit (uVisitor)
             
+class Strategy (Node):
+    """Represents a Strategy node in an AST. """
+    def __init__ (self, *args, **kwargs):
+        Node.__init__ (self, *args, **kwargs)
+
 class Plan (Node):
     """Represents a Plan node in an AST. """
     def __init__ (self, *args, **kwargs):
