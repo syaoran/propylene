@@ -32,9 +32,9 @@ def p_strategy(p):
                  | Plan Strategy
     '''
     if len(p)==2:
-        p[0] = Strategy('',[ p[1] ] )
+        p[0] = Strategy(uChildren=[ p[1] ] )
     else:
-        p[0] = Strategy('', [  p[1], p[2] ])
+        p[0] = Strategy(uChildren=[ p[1], p[2] ])
 
 # Plan
 def p_plan(p):
@@ -44,19 +44,20 @@ def p_plan(p):
     plan_count+=1
     print 'Successfully parsed Plan n. ' + str(plan_count)
     p[6]._children = flatten_c(p[6]) 
-    p[0] = Plan('', [ p[2], p[6]  ] )
+    p[0] = Plan(uChildren=[ p[2], p[6] ])
+
 # Head
 def p_head(p):
     ''' Head    : Event
                 | Event '|' '(' Condition ')'  
     '''
     #print p.lineno(0)
-    p[1] = Trigger('',[p[1]])
+    p[1] = Trigger(uChildren=[p[1]])
     if len(p)==6:
         p[4]._children = flatten_c(p[4])
-        p[0] = Head('',[ p[1], p[4] ] )
+        p[0] = Head(uChildren=[ p[1], p[4] ])
     else:
-        p[0] = Head('',[p[1]])
+        p[0] = Head(uChildren=[p[1]])
         
 # Tiggering Event
 def p_event(p):
@@ -95,11 +96,11 @@ def p_condition(p):
                     | '(' LambdaExpr ')'
     '''
     if len(p)==2:
-        p[0] = Condition('', [ p[1] ])
+        p[0] = Condition(uChildren=[ p[1] ])
     elif p[2]=='&':
-        p[0] = Condition('', [p[1], p[3] ])
+        p[0] = Condition(uChildren=[ p[1], p[3] ])
     else:
-        p[0] = Condition('', [ p[2] ] )
+        p[0] = Condition(uChildren=[ p[2] ] )
 #eErrors
 # ----------------------------------------------------------
 def p_error_condition_with_event(p):
@@ -132,11 +133,11 @@ def p_intention_list(p):
                         | empty 
     '''
     if len(p) == 4:
-        p[0] = Body('', [ p[1], p[3] ] )
+        p[0] = Body(uChildren=[ p[1], p[3] ] )
     elif p[1] != "empty":
-        p[0] = Body('', [ p[1] ] )
+        p[0] = Body(uChildren=[ p[1] ] )
     else:
-        p[0] = Body('')
+        p[0] = Body()
 
 
 
@@ -152,7 +153,7 @@ def p_lambda_expr(p):
     ''' LambdaExpr  : LAMBDA ':' LambdaTest
     '''
 #    print "Lambda Parsed"
-    p[0] = Lambda('')
+    p[0] = Lambda()
 
 # Condition to be tested in the lambda expression. 
 # es.2 lambda : (X!=2) and (Y<3) or (Z>=W) 
@@ -200,7 +201,7 @@ def p_comp_op(p):
 def p_belief(p):
     ''' Belief  : NAME '(' ArgumentList ')'
     '''
-    p[0] = Belief(p[1])
+    p[0] = Belief(uName=p[1])
     #print "Belief: " + p[0]
 
 
@@ -208,7 +209,7 @@ def p_belief(p):
 def p_goal(p):
     ''' Goal  : '~' NAME '(' ArgumentList ')'
     '''
-    p[0] = Goal(p[2])
+    p[0] = Goal(uName=p[2])
     #print "Belief: " + p[0]
 
 
@@ -216,7 +217,7 @@ def p_goal(p):
 def p_atomicaction(p):
     ''' AtomicAction    : NAME '(' ArgumentList ')'
     '''
-    p[0] = Action(p[1])
+    p[0] = Action(uName=p[1])
     #print "Belief: " + p[0]
 #    actionString = ""
 #    actionString += "\nclass " + p[0] + "(Action):\n\tdef execute(self):\n\t\t## ..."
