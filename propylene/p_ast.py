@@ -17,39 +17,48 @@ class Node:
         self._children.append (child)
 
     def Visit (self, uVisitor):
-        print self.__class__
+        print uVisitor.get_depth()*"\t", self
+        uVisitor.inc_depth()
+
         for c in self._children:
             c.Visit (uVisitor)
+        uVisitor.dec_depth()
             
 class Strategy (Node):
     """Represents a Strategy node in an AST. """
     def __init__ (self, *args, **kwargs):
         Node.__init__ (self, *args, **kwargs)
+        self._name = "Strategy"
 
 class Plan (Node):
     """Represents a Plan node in an AST. """
     def __init__ (self, *args, **kwargs):
         Node.__init__ (self, *args, **kwargs)
+        self._name="Plan"
 
 class Head (Node):
     """Represents a Head node in an AST. """
     def __init__ (self, *args, **kwargs):
         Node.__init__ (self, *args, **kwargs)
+        self._name="Head"
 
 class Body (Node):
     """Represents a Body node in an AST. """
     def __init__ (self, *args, **kwargs):
         Node.__init__ (self, *args, **kwargs)
+        self._name="Body"
 
 class Trigger (Node):
     """Represents a Trigger node in an AST. """
     def __init__ (self, *args, **kwargs):
         Node.__init__ (self, *args, **kwargs)
+        self._name="Trigger"
 
 class Condition (Node):
     """Represents a Condition node in an AST. """
     def __init__ (self, *args, **kwargs):
         Node.__init__ (self, *args, **kwargs)
+        self._name="Condition"
 
 class Lambda (Node):
     """Represents a Lambda Leaf in an AST. """
@@ -65,6 +74,7 @@ class Belief (Node):
         Node.__init__ (self, *args, **kwargs)
         
     def Visit (self, uVisitor):
+        Node.Visit(self,uVisitor)
         uVisitor.VisitBelief (self)
 
 class Action (Node):
@@ -73,6 +83,7 @@ class Action (Node):
         Node.__init__ (self, *args, **kwargs)
 
     def Visit (self, uVisitor):
+        Node.Visit(self,uVisitor)
         uVisitor.VisitAction (self)
         
 class Goal (Node):
@@ -90,21 +101,32 @@ class Visitor:
         self._belief_buf = ''
         self._action_buf = ''
         self._goal_buf = ''
+        self._depth = 0
         self._filename = uTarget
+
+    def get_depth(self):
+        return self._depth
+
+    def inc_depth(self):
+        self._depth = self._depth +1
+
+    def dec_depth(self):
+        self._depth = self._depth -1
     
     def VisitBelief (self, uBelief):
         self._belief_buf = self._belief_buf + '\n class ' \
             + uBelief._name \
             + '(Belief):\n\t' \
             + 'pass'
-        print "Belief"
+        #print "Belief"
 
     def VisitAction (self, uAction):
         self._action_buf = self._action_buf + '\n class ' \
             + uAction._name \
             + '(Action):\n\t' \
             + 'def execute (self):\n\t\t##...'
-        print "Action"
+        #print "Action"
+        
     def VisitGoal (self, uGoal):
         self._goal_buf = self._goal_buf + '\n class ' \
             + uGoal._name \
@@ -138,45 +160,19 @@ def flatten_l(lst):
 def flatten_test ():
     v = Visitor ('')
     tree = Condition('', [
-            Belief(''), 
+            Belief('belief1'), 
             Condition('', [
-                    Belief(''),
+                    Belief('belief2'),
                     Condition('', [
-                            Belief('')])])])
-    
-    
+                            Belief('belief3')])])])    
     tree.Visit (v)
     tree._children = flatten_c (tree)
     print ""
     tree.Visit (v)
-    
-    
-    
-    
-            
-            
-            
-
-        
-        
-     
-    
-
-
-
-
-
-
-
-
-    
-        
-        
-            
-    
-
-
-
+##
+##
+##
+##
 # def Visit (uAst):
 #     print uAst
 #     if isinstance (uAst, Node):

@@ -13,15 +13,15 @@
 # No arguments, empty body 
 # -------------------------
 
-(+belief() | ( c_belief_1() ) ) >> [ ciao() ]
+(+elements_got() | ( c_belief_1() ) ) >> [ ciao() ]
 
 (-belief() | ( c_belief_1() & c_belief_2() ) ) >> []
-
-(+~goal() | ( c_belief_1() & c_belief_2() & c_belief_3() ) ) >> []
-
-(-~goal() | ( c_belief_1() & c_belief_2() & c_belief_3() & c_belief_4() ) ) 
->> []
-
+#
+#(+~goal() | ( c_belief_1() & c_belief_2() & c_belief_3() ) ) >> []
+#
+#(-~goal() | ( c_belief_1() & c_belief_2() & c_belief_3() & c_belief_4() ) ) 
+#>> []
+#
 
 
 

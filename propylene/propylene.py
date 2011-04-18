@@ -21,7 +21,6 @@ def p_start(p):
     '''
     print "End of Strategy!"
     p[0] = p[1]
-
     v = Visitor('')
     p[0].Visit(v)
 
