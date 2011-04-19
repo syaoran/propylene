@@ -15,7 +15,10 @@ from p_ast import *
 from exception import *
 
 plan_count = -1
-sym_table = {}
+
+sym_table_stack = [ {}]
+variable_status = "declaration"
+#sym_table = {}
 
 def p_start(p):
     ''' Start : Strategy 
@@ -42,13 +45,28 @@ def p_strategy(p):
 
 # Plan
 def p_plan(p):
-    ''' Plan    : '(' Head ')' RANGLES '[' IntentionList ']' 
+    ''' Plan    : '(' seen_Plan Head ')' RANGLES '[' seen_IntentionList IntentionList ']' 
     '''
     global plan_count
     plan_count+=1
     print 'Successfully parsed Plan n. ' + str(plan_count)
-    p[6]._children = flatten_c(p[6]) 
-    p[0] = Plan(uChildren=[ p[2], p[6] ])
+    p[8]._children = flatten_c(p[8]) 
+    p[0] = Plan(uChildren=[ p[3], p[8] ])
+    global sym_table_stack
+    sym_table_stack.pop()
+
+
+def p_seen_IntentionList(p):
+    ''' seen_IntentionList : '''
+    global variable_status 
+    variable_status = "usage"
+
+
+
+def p_seen_Plan(p):
+    '''seen_Plan : '''
+    global sym_table_stack
+    sym_table_stack.append({})
 
 # Head
 def p_head(p):
@@ -97,7 +115,7 @@ def p_belief_event(p):
 def p_condition(p):
     ''' Condition   : Belief
                     | Belief '&' Condition
-                    | '(' LambdaExpr ')'
+                    | '(' seen_LambdaExpr LambdaExpr ')'
     '''
     if len(p)==2:
         p[0] = Condition(uChildren=[ p[1] ])
@@ -105,6 +123,16 @@ def p_condition(p):
         p[0] = Condition(uChildren=[ p[1], p[3] ])
     else:
         p[0] = Condition(uChildren=[ p[2] ] )
+
+
+def p_seen_LambdaExpr(p):
+    ''' seen_LambdaExpr : '''
+    global variable_status
+    variable_status = "usage"
+
+
+
+
 #eErrors
 # ----------------------------------------------------------
 def p_error_condition_with_event(p):
@@ -249,7 +277,17 @@ def p_argument(p):
                     | '[' ArgumentList ']'
                     | '(' ArgumentList ')'
     '''                 
-
+    if len(p)==5:
+        global sym_table_stack
+        if variable_status == "usage":
+            try:
+                sym_table_stack[-1][p[3]]
+            except(KeyError):
+                raise UnboundedVariable()
+        elif variable_status == "declaration":
+            sym_table_stack[-1][p[3]] = "Variable"
+        print sym_table_stack
+                
 
 # Empty production
 def p_empty(p):
@@ -271,15 +309,15 @@ def print_error(message, lineno):
 ###
 
 def insert_symbol(uName,uType):
-    global sym_table
-    print sym_table
+    global sym_table_stack
+    print sym_table_stack
     try:
-        type = sym_table[uName]
+        type = sym_table_stack[0][uName]
         print type, uType
         if type != uType:
             raise AttitudeTypeMismatch()  
     except(KeyError):
-        sym_table[uName] = uType
+        sym_table_stack[0][uName] = uType
 
 
 
@@ -301,7 +339,7 @@ if __name__ == '__main__':
 
         result = parser.parse(totalString, tracking=True)
         #global sym_table
-        print sym_table
+        print sym_table_stack
 #        print result
     else:
         print 'Usage: python propylene filePath'
