@@ -12,9 +12,10 @@ import tokenRules
 
 from tokenRules import tokens
 from p_ast import *
+from exception import *
 
 plan_count = -1
-
+sym_table = {}
 
 def p_start(p):
     ''' Start : Strategy 
@@ -205,6 +206,9 @@ def p_belief(p):
     ''' Belief  : NAME '(' ArgumentList ')'
     '''
     p[0] = Belief(uName=p[1])
+    insert_symbol(p[1],'Belief')
+
+
     #print "Belief: " + p[0]
 
 
@@ -213,6 +217,7 @@ def p_goal(p):
     ''' Goal  : '~' NAME '(' ArgumentList ')'
     '''
     p[0] = Goal(uName=p[2])
+    insert_symbol(p[2],'Goal')
     #print "Belief: " + p[0]
 
 
@@ -221,6 +226,7 @@ def p_atomicaction(p):
     ''' AtomicAction    : NAME '(' ArgumentList ')'
     '''
     p[0] = Action(uName=p[1])
+    insert_symbol(p[1],'Action')
     #print "Belief: " + p[0]
 #    actionString = ""
 #    actionString += "\nclass " + p[0] + "(Action):\n\tdef execute(self):\n\t\t## ..."
@@ -259,6 +265,26 @@ def print_error(message, lineno):
     print "Error (line " + str(lineno) + "): " + message
 
 
+
+###
+# Utility Functions
+###
+
+def insert_symbol(uName,uType):
+    global sym_table
+    print sym_table
+    try:
+        type = sym_table[uName]
+        print type, uType
+        if type != uType:
+            raise AttitudeTypeMismatch()  
+    except(KeyError):
+        sym_table[uName] = uType
+
+
+
+
+
 # Build the parser
 lexer = lex.lex(module=tokenRules)
 parser = yacc.yacc(tabmodule='parse_table',outputdir='parser_out')
@@ -274,6 +300,8 @@ if __name__ == '__main__':
             totalString += line
 
         result = parser.parse(totalString, tracking=True)
+        #global sym_table
+        print sym_table
 #        print result
     else:
         print 'Usage: python propylene filePath'
