@@ -3,31 +3,45 @@ ISSUES
 ================================================================================
 * LEXING
 
- - approfondire il problema del ricronoscimento dei numeri float vs. integer
+ - approfondire il problema del riconoscimento dei numeri float vs. integer
    (conditional lexing?)
 
- - fare in modo che gli argomenti di Belief/Goal/Action vengano
-   "lexati" come 'variable' e non come 'string'
-   (conditional lexing?)
 
 * PARSING
- - start symbol: necessario prevederlo nella specifica della
-   grammatica?
+ - Errori sintattici: contare il numero di skip: se si supera una certa soglia,
+  interrompere il processo e segnalare tutti gli errori all'utente.
 
- - IntentionList: il terminale che fa la 'ricorsione' va per primo o
-   no? C`e` differenza?
+ - Error Production: prevedere limitati controlli 'pilotati' con apposite error
+   production
+
+
+
+* SEMANTIC
+
+ - Individuazione di un errore semantico: arresto immediato del processo e notifica 
+  dell'errore semantico piu' eventuali altri errori sintattici individuati nel frattempo.
+
+ - Tipologie di errori semantici:
+    1) Unbounded Variable  (OK)
+    2) Attitude Type Mismatch (OK)
+
+
+* MISCELLANEOUS
+
+ - State Pattern invece declaration/usage?
+ - Gerarchia di parser: "Good" rules vs. "Bad" rules nelle classi figlie?
+ - Warning all'utente per Plan con Head identiche (utilizzo del pattern visitor??)
+ - File di output da riga di comando
 
 ================================================================================
 ROADMAP
 ================================================================================
 
- - risoluzione issues lexer
- - risoluzione issues parser
- - scrivere logica per error handling del lexer
- - scrivere logica per error handling del parser
- - definizione classi per rappresentazione AST
- - definizione meccanismo per visita dell'AST e la generazione del codice
-
+ - Incapsulare Lexer e Parser in opportune classi
+ - Gestione degli errori lessicali
+ - Gestione degli errori lessicali+sintattici
+ - Gestione degli errori lessicali+sintattici+semantici
+ - TestBench
 
 ================================================================================
 FIXED ISSUES
@@ -40,6 +54,15 @@ FIXED! - e` possibile modificare la grammatica per fare in modo che
 FIXED! - e` possibile definire la grammatica in modo tale da evitare che
          sequenze del tipo [1,] siano sintatticamente corrette?
          - E' possibile, bisogna solo decidere quale dei due approcci seguire
+
+FIXED! - fare in modo che gli argomenti di Belief/Goal/Action vengano
+        "lexati" come 'variable' e non come 'string'
+
+FIXED! - start symbol: necessario prevederlo nella specifica della
+        grammatica? (si,fatto)
+
+FIXED! - IntentionList: il terminale che fa la 'ricorsione' va per primo o
+        no? C`e` differenza? (si, ma per il parsing LR non e' importante)
 
 
 

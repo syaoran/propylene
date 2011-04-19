@@ -1,0 +1,78 @@
+\documentclass{beamer}
+
+%\usepackage{graphicx}
+%\usepackage{tikz}
+%\usepackage[absolute,overlay]{textpos}
+%\usepackage{listings}
+%\usepackage{textpos}
+
+\usetheme{Antibes}
+% Orange
+\usecolortheme[RGB={233,100,35}]{structure}
+
+\usebackgroundtemplate{
+    % UniCT Logo
+    \includegraphics[width=370pt]{img/unict.jpg}
+}
+
+\newtheorem{samplecode}{Sample Code}
+
+%\setbeamercovered{transparent}
+\setbeamertemplate{footline}[frame number]{}
+
+% Spaces
+\newcommand{\N}{\vskip 0.3 cm}
+\newcommand{\n}{\vskip 0.2 cm}
+\newcommand{\TAB}{\hskip 4 cm}
+\newcommand{\tab}{\hskip 0.6 cm}
+
+% Colors
+\newcommand{\red}[1]{\textcolor[rgb]{.8,0,0}{#1}}
+\newcommand{\blue}[1]{\textcolor[rgb]{0,0,.7}{#1}}
+\newcommand{\navy}[1]{\textcolor[rgb]{0,0,.5}{#1}}
+\newcommand{\purple}[1]{\textcolor[rgb]{.7,0,.8}{#1}}
+\newcommand{\green}[1]{\textcolor[rgb]{0,.6,.1}{#1}}
+
+
+\title[Propylene]{
+    Propylene: a PROFETA Class Generator 
+ }\subtitle[a PROFETA Class Generator]{}
+\author{Loris Fichera, Daniele Marletta}
+\institute[Universit\`a di Catania]{
+	Universit\`a degli Studi di Catania\\
+        Corso di Laurea Specialistica in Ingegneria Informatica\\
+        Progetto di Compilatori ed Interpreti
+}
+\date{\today}
+
+
+\begin{document}
+
+% Title Page
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+%
+
+
+\include{intro}
+%----------------------------- What is PROFETA?
+\include{profeta}
+%----------------------------- What is PLY?
+\include{ply}
+%----------------------------- What can we do with Propylene?
+\include{propylene}
+%----------------------------- An example of using Propylene
+\include{example}
+
+
+
+\section{Conclusions}
+\begin{frame}{Conclusions}  
+  \begin{itemize}
+    \item Our work \ldots
+    \item More\dots
+  \end{itemize}
+\end{frame}
+%
+\end{document}
