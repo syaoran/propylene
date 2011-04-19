@@ -67,7 +67,7 @@ class Lambda (Node):
         self._name="Lambda"
 
     def Visit (self, uVisitor):
-        pass
+        Node.Visit(self,uVisitor)
 
 class Belief (Node):
     """Represents a Belief leaf in an AST. """
@@ -100,9 +100,9 @@ class Goal (Node):
 ##
 class Visitor:
     def __init__ (self, uTarget = 'classes.py'):
-        self._belief_buf = ''
-        self._action_buf = ''
-        self._goal_buf = ''
+        self._belief_buf = '\n\n##BELIEFS\n'
+        self._goal_buf = '\n\n##GOALS\n'
+        self._action_buf = '\n\n##ACTIONS\n'
         self._depth = 0
         self._filename = uTarget
 
@@ -116,31 +116,32 @@ class Visitor:
         self._depth = self._depth -1
     
     def VisitBelief (self, uBelief):
-        self._belief_buf = self._belief_buf + '\n class ' \
+        self._belief_buf = self._belief_buf + '\nclass ' \
             + uBelief._name \
             + '(Belief):\n\t' \
-            + 'pass'
+            + 'pass\n'
         #print "Belief"
 
-    def VisitAction (self, uAction):
-        self._action_buf = self._action_buf + '\n class ' \
-            + uAction._name \
-            + '(Action):\n\t' \
-            + 'def execute (self):\n\t\t##...'
-        #print "Action"
-        
     def VisitGoal (self, uGoal):
-        self._goal_buf = self._goal_buf + '\n class ' \
+        self._goal_buf = self._goal_buf + '\nclass ' \
             + uGoal._name \
             + '(Goal):\n\t' \
-            + 'pass'
+            + 'pass\n'
         #print "Goal"
+
+    def VisitAction (self, uAction):
+        self._action_buf = self._action_buf + '\nclass ' \
+            + uAction._name \
+            + '(Action):\n\t' \
+            + 'def execute (self):\n\t\t##...\n'
+        #print "Action"
         
+       
     def GenerateCode (self):
         f = open (self._filename, 'w')
         f.write (self._belief_buf)
-        f.write (self._action_buf)
         f.write (self._goal_buf)
+        f.write (self._action_buf)
         f.close ()
 ##
 ##

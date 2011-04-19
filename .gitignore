@@ -6,3 +6,4 @@
 propylene/parser_out/*
 parser.out
 parsetab.py
+classes.py
