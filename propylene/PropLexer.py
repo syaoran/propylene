@@ -48,6 +48,8 @@ class PropLexer:
         ## ok, build the lexer
         self.lexer = lex.lex (module=self, **kwargs)
 
+    def get_tokens(self):
+        return self.tokens
 
     # Function REGEXP for Tokens
     def t_NAME(self, t):
