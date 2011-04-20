@@ -28,8 +28,6 @@ ISSUES
 
 * MISCELLANEOUS
 
- - State Pattern invece declaration/usage?
- - Gerarchia di parser: "Good" rules vs. "Bad" rules nelle classi figlie?
  - Warning all'utente per Plan con Head identiche (utilizzo del pattern visitor??)
  - File di output da riga di comando
 
@@ -37,7 +35,6 @@ ISSUES
 ROADMAP
 ================================================================================
 
- - Incapsulare Lexer e Parser in opportune classi
  - Gestione degli errori lessicali
  - Gestione degli errori lessicali+sintattici
  - Gestione degli errori lessicali+sintattici+semantici
@@ -64,6 +61,9 @@ FIXED! - start symbol: necessario prevederlo nella specifica della
 FIXED! - IntentionList: il terminale che fa la 'ricorsione' va per primo o
         no? C`e` differenza? (si, ma per il parsing LR non e' importante)
 
+ - Incapsulare Lexer e Parser in opportune classi
+ - State Pattern invece declaration/usage?
+ - Gerarchia di parser: "Good" rules vs. "Bad" rules nelle classi figlie?
 
 
  
