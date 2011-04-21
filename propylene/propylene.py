@@ -54,10 +54,10 @@ class Propylene:
         p[0] = p[1]
         
         ## visit the tree
-        p[0].Visit(v)
+        #p[0].Visit(v)
 
         ## generate the target
-        v.GenerateCode ()
+        #v.GenerateCode ()
 
 
     # Start symbol: strategy
@@ -280,7 +280,7 @@ class Propylene:
         '''
         p[0] = Action(uName=p[1])
         self.insert_symbol(p[1],'Action')
-        print self._sym_table_stack
+        #print self._sym_table_stack
         
     
     # List of arguments
@@ -324,10 +324,10 @@ class Propylene:
     # Ancillary Functions
     ###
     def insert_symbol(self, uName,uType):
-        print self._sym_table_stack
+        #print self._sym_table_stack
         try:
             type = self._sym_table_stack[0][uName]
-            print type, uType
+            #print type, uType
             if type != uType:
                 raise AttitudeTypeMismatch()  
         except(KeyError):

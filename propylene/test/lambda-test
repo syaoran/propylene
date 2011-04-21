@@ -10,106 +10,209 @@
 # ----------------------------------------------------------
 
 
+
 # -------------------------
-# Empty body, Comparisons 
+#
+# Empty Body 
+#
 # -------------------------
-
-(+b_target_got(_("X")) | ( b_queen_position()
-               & (lambda : not (X<100) and (X>2) or (X==4) and not (X==2) ) ) ) 
->> [ ]
-
-(+b_figure_got(_("X")) | ( b_king_position()
-               & (lambda : (X<100) ) ) )  
->> [ ]
-
-(+b_target_got(_("X")) | ( b_king_position()
-               & (lambda : (X<=100) ) ) )  
->> [ ]
-
-(+b_target_got(_("X")) | ( b_king_position()
-               & (lambda : (X==100) ) ) )  
->> [ ]
-
-(+b_figure_got(_("X")) | ( b_king_position()
-               & (lambda : (X!=100) ) ) )  
->> [ ]
-
-(+b_target_got(_("X")) | ( b_queen_position()
-               & (lambda : (X>=100) ) ) )  
->> [ ]
-
-(+b_target_got(_("X")) | ( b_queen_position()
-               & (lambda : (X>100) ) ) )  
->> [ ]
 
 
 # -------------------------
-# Empty body, not Comparisons 
+# Variable in Trigger, Name op Number 
 # -------------------------
-
-(+b_figure_got(_("X")) | ( b_king_position()
-               & (lambda : not (X<100) and (X>2) or (X==4) and not (X==2) ) ) ) 
+(+b_target_got(_("X")) | ( b_king_position() & (lambda : (X<100) ) ) )  
 >> [ ]
 
-(+b_figure_got(_("X")) | ( b_king_position() & (lambda : not (X<100) ) ) )  
+(+b_target_got(_("X")) | ( b_king_position() & (lambda : (X<=100) ) ) )  
 >> [ ]
 
-(+b_target_got(_("X")) | ( b_queen_position() & (lambda : not (X<=100) ) ) )  
+(+b_target_got(_("X")) | ( b_king_position() & (lambda : (X==100) ) ) )  
 >> [ ]
 
-(+b_figure_got(_("X")) | ( b_king_position() & (lambda : not (X==100) ) ) )  
+(+b_target_got(_("X")) | ( b_king_position() & (lambda : (X!=100) ) ) )  
 >> [ ]
 
-(+b_figure_got(_("X")) | ( b_queen_position() & (lambda : not (X!=100) ) ) )  
+(+b_target_got(_("X")) | ( b_king_position() & (lambda : (X>=100) ) ) )  
 >> [ ]
 
-(+b_figure_got(_("X")) | ( b_queen_position() & (lambda : not (X>=100) ) ) )  
->> [ ]
-
-(+b_target_got(_("X")) | ( b_king_position() & (lambda : not (X>100) ) ) )  
+(+b_target_got(_("X")) | ( b_king_position() & (lambda : (X>100) ) ) )  
 >> [ ]
 
 
-
-
-
-
-(-b_figure_got(_("X")) | ( b_king_position()
-               & (lambda : not (X<100) and (X>2) or (X==4) and not (X==2) ) ) ) 
+# --------------------------------------
+# Variable in Condition, not Name op Number
+# --------------------------------------
+(+b_target_got() | ( b_king_position(_("X")) & (lambda : not (X<100) ) ) )  
 >> [ ]
 
-# (-belief() | ( c_belief_1(_("X")) & c_belief_2() 
-#                & (lambda : X > 200) ) ) >> [ ]
+(+b_target_got() | ( b_king_position(_("X")) & (lambda : not (X<=100) ) ) )  
+>> [ ]
 
-# (+~goal() | ( c_belief_1(_("Y")) & c_belief_2() & c_belief_3() 
-#               & (lambda : Y < 300) ) ) >> []
+(+b_target_got() | ( b_king_position(_("X")) & (lambda : not (X==100) ) ) )  
+>> [ ]
 
-# (-~goal() | ( c_belief_1(_("Z")) & c_belief_2() & c_belief_3() & c_belief_4() 
-#               & (lambda : Z < 200) ) ) >> []
+(+b_target_got() | ( b_king_position(_("X")) & (lambda : not (X!=100) ) ) )  
+>> [ ]
 
-## no condition
-#(-belief() ) >> [ +belief()]
+(+b_target_got() | ( b_king_position(_("X")) & (lambda : not (X>=100) ) ) )  
+>> [ ]
 
-# # ## no body
-# (-belief() |  (c_belief_1(_("X")))) >> [ ]
-
-# # ## no condition and body 
-# (-belief()) >> [ ]
-
-# ## only lambda in condition
-# (+belief(_("X")) | ((lambda : X == 100))) >> [ +belief()]
-
-## parser error
-#(belief(_("X")) | ((lambda : X == 100)) >> [ +belief()]
-
-## parser error
-#(belief(("X")) | ((lambda : X == 100))) >> [ +belief()]
-
-## lexer error
-# (belief(("X")) | ((lambda : X = 100))) >> [ +belief()]
-
-## semantic error
-# (+belief(_("X")) | ((lambda : ("Z" == 20) and (Y == 100)))) >> [ +belief(_("X"))]
+(+b_target_got() | ( b_king_position(_("X")) & (lambda : not (X>100) ) ) )  
+>> [ ]
 
 
-#(+belief(_("X"))) >> [ action(_("Z"))]
+# --------------------------------------
+# Variable in Head, (not) Number op Name
+# --------------------------------------
+(+b_target_got() | ( b_king_position(_("X")) & (lambda : not (100==X ) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position() & (lambda : (100< X ) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position() & (lambda : (100!=X ) ) ) )  
+>> [ ]
+
+(+b_target_got() | ( b_king_position(_("X")) & (lambda : not (100<=X ) ) ) )  
+>> [ ]
+
+(+b_target_got() | ( b_king_position(_("X")) & (lambda : not (100>=X ) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position() & (lambda : (100> X ) ) ) )  
+>> [ ]
+
+
+# -------------------------
+# Variable in Head, AND
+# -------------------------
+(+b_target_got(_("X")) | ( b_king_position(_("Y")) & (lambda : (X<100) and (100<Y) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position(_("Y")) & (lambda : (X<=100)and (100<=Y) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position(_("Y")) & (lambda : (X==100)and (100!=Y) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position(_("Y")) & (lambda : (X!=100)and (100==Y) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position(_("Y")) & (lambda : (X>=100)and (100>=Y) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position(_("Y")) & (lambda : (X>100) and (100<Y)) ) )  
+>> [ ]
+
+
+# -------------------------
+# Variable in Head, OR
+# -------------------------
+(+b_target_got(_("X")) | ( b_king_position(_("Y")) & (lambda : (X<100) or (100<Y) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position(_("Y")) & (lambda : (X<=100)or (100<=Y) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position(_("Y")) & (lambda : (X==100)or (100!=Y) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position(_("Y")) & (lambda : (X!=100)or (100!=Y) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position(_("Y")) & (lambda : (X>=100)or (100>=Y) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position(_("Y")) & (lambda : (X>100) or (100<Y)) ) )  
+>> [ ]
+
+
+# -------------------------
+# Variable in Head, AND, OR
+# -------------------------
+(+b_target_got(_("X")) | ( b_king_position(_("Y"), _("Z")) & (lambda : (X<100) and (100<Y) and (Z>=X) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position(_("Y"), _("Z")) & (lambda : (X<=100) or (100<=Y)and (Z<X) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position(_("Y"), _("Z")) & (lambda : (X<100) or (100!=Y)or (Z>=X) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position(_("Y"), _("Z")) & (lambda : (X!=100) and (100>=Y)or (Z!=X) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position(_("Y"), _("Z")) & (lambda : (X>=100) or (100>=Y)and (Z<X) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X")) | ( b_king_position(_("Y"), _("Z")) & (lambda : (X>100) and (100<Y)and (Z>=X) ) ) ) 
+>> [ ]
+
+
+# -------------------------
+# Variable in Head, AND, OR, NOT
+# -------------------------
+(+b_target_got(_("X"), _("V")) | ( b_king_position(_("Y"), _("Z")) & (lambda : not (X<100) or not (100<Y) or (Z>=X) and not (V==Y) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X"), _("V")) | ( b_king_position(_("Y"), _("Z")) & (lambda : (X<=100) and not (100<=Y) and (Z!=X) or not (V<Y) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X"), _("V")) | ( b_king_position(_("Y"), _("Z")) & (lambda : not (X==100) or (100!=Y) and not (Z!=X) or not (V>=Y) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X"), _("V")) | ( b_king_position(_("Y"), _("Z")) & (lambda : (X!=100) or (100>=Y) or (Z<X) and not (V>Y) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X"), _("V")) | ( b_king_position(_("Y"), _("Z")) & (lambda : not (X>=100) or not (100>=Y) and not (Z==X) or not (V>=Y) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X"), _("V")) | ( b_king_position(_("Y"), _("Z")) & (lambda : (X>100) and (100<Y) and (Z<X) or not (V>=Y) ) ) ) 
+>> [ ]
+
+
+
+# ---------------------------------
+#
+# Actions, Beliefs, Goals in Body
+#
+# ---------------------------------
+
+
+# -------------------------
+# Variable in Head; AND, OR, NOT
+# -------------------------
+(+b_target_got(_("X"), _("W")) | ( b_king_position(_("Y"), _("K")) & (lambda : (X<=100) and (100<=Y) ) ) )  
+>> 
+[ 
+    +~g_build_tower(_("X"), "str", _("W"), 1E-2), 
+    a_check_pawns(_("W"), _("W"), [a,b,c]), 
+    -b_pawn_position() 
+]
+
+(+b_target_got(_("X"), _("W")) | ( b_king_position(_("Y"), _("K")) & (lambda : not (X==100) or (100!=Y) ) ) )  
+>> 
+[ 
+    a_get_figure(-120,"string",identifier,_("X"),[1,"string",id,_("Y"),[""]], (120,"ciao",idd,_("X")) ), 
+    -b_king_position(_("X")), 
+    -~g_go_funny_configuration() 
+]
+
+(+b_target_got(_("X"), _("W")) | ( b_king_position(_("Y"), _("K")) & (lambda : (X!=100) and not (100>Y) ) ) )  
+>> 
+[ 
+    +b_king_position(), 
+    +~g_build_tower(), 
+    a_release_disc() 
+]
+
+
+#(+b_target_got(_("X"), _("W")) | ( b_king_position(_("Y"), _("K")) & (lambda : (X>=100)and (100>=Y) ) ) )  
+#>> [ ]
+#
+#(+b_target_got(_("X"), _("W")) | ( b_king_position(_("Y"), _("K")) & (lambda : (X>100) and (100<Y)) ) )  
+#>> [ ]
+#
+#(+b_target_got(_("X"), _("W")) | ( b_king_position(_("Y"), _("K")) & (lambda : (X<100) and (100<Y) ) ) )  
+#>> [ ]
