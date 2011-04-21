@@ -1,0 +1,31 @@
+# ----------------------------------------------------------
+#
+# Semantic Error Test
+#
+# Raise UnboundedVariable
+# ----------------------------------------------------------
+
+
+
+# -------------------------
+# Unbounded Variable in lambda
+# -------------------------
+( +~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : Y <= 1)) ) #ERROR!
+>>
+    [   
+        +~grab_corn("c11"),      
+        +no_more_corns(),        
+        restart()          
+    ]
+
+
+# -------------------------
+# Unbounded Variable in Body
+# -------------------------
+#( +~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X <= 1)) ) 
+#>>
+#    [   
+#        +~grab_corn("c11"),      
+#        +no_more_corns(),        
+#        restart(_("Z"))     #ERROR!
+#    ]

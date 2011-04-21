@@ -1,0 +1,56 @@
+# ----------------------------------------------------------
+#
+# Semantic Error Test
+#
+# Raise AttitudeTypeMismatch
+# ----------------------------------------------------------
+
+
+
+# -------------------------
+# The same NAME is used as Goal and Belief
+# -------------------------
+#( +~deposit_corns() | ( corns_in_robot(_("X")) ) ) 
+#>>
+#    [   
+#        +~grab_corn("c11"),      
+#        +deposit_corns(),  #ERROR!      
+#        restart()         
+#    ]
+
+
+# -------------------------
+# The same NAME is used as Goal and Action
+# -------------------------
+#( +~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X <= 1)) ) 
+#>>
+#    [   
+#        +~grab_corn("c11"),      
+#        +no_more_corns(),        
+#        deposit_corns()     #ERROR!          
+#    ]
+
+
+# -------------------------
+# The same NAME is used as Belief and Action
+# -------------------------
+#( +~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X <= 1)) ) 
+#>>
+#    [   
+#        +~grab_corn("c11"),      
+#        +no_more_corns(),        
+#        corns_in_robot()     #ERROR!          
+#    ]
+
+
+# -------------------------
+# The same NAME is used as Goal, Belief and Action
+# -------------------------
+#( +~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X <= 1)) ) 
+#>>
+#    [   
+#        +~grab_corn("c11"),      
+#        +no_more_corns(),        
+#        -deposit_corns(),   #ERROR!          
+#        deposit_corns()     #ERROR!          
+#    ]

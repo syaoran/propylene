@@ -1,0 +1,62 @@
+# ----------------------------------------------------------
+#
+# Lexical Error Test
+#
+# ----------------------------------------------------------
+
+
+
+# -------------------------
+# Unexpected characters 
+# -------------------------
+( +~deposit_corns($) | ( corns_in_robot(_;("X")) & (lambda : (X<=1) ) ) ) 
+>>
+    [   +~grab_corn("c11"),     % 
+        +~grab_corn("c12"),     ^
+        +~grab_corn("c13"),     * 
+        +no_more_corns(),       ! 
+        +~deposit_corns(),      $$$$
+        restart()         
+    ]
+#(+~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X <= 1)) ) >>
+#    [   +~grab_corn("c11"), 
+#        +~grab_corn("c12"),
+#        +~grab_corn("c13"), 
+#        +no_more_corns(), 
+#        +~deposit_corns() 
+#    ]
+#(+~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X > 1)) ) >>
+#    [
+#        reach_deposit_zone(), 
+#        open_tank(), 
+#        +~deposit_corns() 
+#    ]
+#
+#
+# (+~go(a,) | ( belief() & ( lambda :  X < 2  ) ) ) >> 
+#     [   
+#         detect_configuration(),
+# #        +~grab_corn("c0"), 
+# #        +~grab_corn("c3"),
+# #        +~grab_corn("c6"), 
+#         +~deposit_corns(),
+#     ]
+# #
+# (+~go("X",_("X")) | ( (lambda : ( X == "ciao" ) or ( X < 2 )  ) )  ) >> 
+#     [   
+#         detect_configuration(),
+# #        +~grab_corn("c0"), 
+# #        +~grab_corn("c3"),
+# #        +~grab_corn("c6"), 
+#         +~deposit_corns()
+#     ]
+# #
+# #
+# (+~grab_corn(_("X")) | ( white_corn(_("X")) )) >>   
+#     [
+#         test_action(-120,"string",identifier,_("X"),[1,"string",id,_("Y"),[""]], (120,"ciao",idd,_("Z")) ),
+#         reach_corn(_("X")), 
+#         pick_corn() 
+#     ]
+
+

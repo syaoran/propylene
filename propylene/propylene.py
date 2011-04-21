@@ -54,10 +54,10 @@ class Propylene:
         p[0] = p[1]
         
         ## visit the tree
-        #p[0].Visit(v)
+        p[0].Visit(v)
 
         ## generate the target
-        #v.GenerateCode ()
+        v.GenerateCode ()
 
 
     # Start symbol: strategy

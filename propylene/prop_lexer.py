@@ -100,7 +100,7 @@ class PropLexer:
 
     # Error handling rule
     def t_error(self, t):
-        print "Illegal character '%s'" % t.value[0]
+        print "PropLexer: Illegal character '%s'" % t.value[0], ": skipped."
         t.lexer.skip(1)
 
     ## Testing function
