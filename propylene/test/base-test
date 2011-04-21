@@ -3,8 +3,8 @@
 #
 # Triggering Events : Belief,Goal
 # Body              : Belief,Goal,Action
-# Arguments         : None
 # Condition         : None
+# Arguments         : None
 # Lambda            : None
 #
 # ----------------------------------------------------------
@@ -13,65 +13,65 @@
 # Triggering Events
 # ------------------
 
-(+belief()) >> []
+(+b_target_got()) >> []
 
-(-belief()) >> []
+(-b_figure_got()) >> []
 
-(+~goal()) >> []
+(+~g_go_homologation()) >> []
 
-(-~goal()) >> []
+(-~g_start()) >> []
 
 
 # ----------------
 # Actions in Body
 # ----------------
 
-(+belief()) >> [ first_action() ]
+(+b_target_got()) >> [ a_get_figure() ]
 
-(+belief()) >> [first_action(), second_action()]
+(+b_figure_got()) >> [a_align_blue(), a_check_pawns()]
 
-(+belief()) >> [first_action(), second_action(), third_action() ]
+(+b_target_got()) >> [a_align_blue(), a_push_tower(), a_release_disc() ]
 
 
 # ----------------
 # Beliefs in Body
 # ----------------
 
-(+belief()) >> [ +first_belief() ]
+(+b_target_got()) >> [ +b_king_position() ]
 
-(+belief()) >> [ +first_belief(), +second_belief(), -third_belief() ]
+(+b_figure_got()) >> [ +b_queen_position(), +b_queen_position(), -b_pawn_position() ]
 
-(+belief()) >> [ +first_belief(), -second_belief(), +third_belief() ]
+(+b_figure_got()) >> [ +b_king_position(), -b_queen_position(), +b_pawn_position() ]
 
-(+belief()) >> [ -first_belief(), +second_belief(), +third_belief() ]
+(+b_target_got()) >> [ -b_queen_position(), +b_queen_position(), +b_pawn_position() ]
 
-(+belief()) >> [ -first_belief(), +second_belief(), -third_belief() ]
+(+b_figure_got()) >> [ -b_king_position(), +b_king_position(), -b_pawn_position() ]
 
 
 # ----------------
 # Goals in Body
 # ----------------
 
-(+belief()) >> [ +~first_goal() ]
+(+b_target_got()) >> [ +~g_build_tower() ]
 
-(+belief()) >> [ +~first_goal(), +~second_goal(), -~third_goal() ]
+(+b_figure_got()) >> [ +~g_scout_pawns(), +~g_build_tower(), -~g_move_enemy_tower() ]
 
-(+belief()) >> [ +~first_goal(), -~second_goal(), +~third_goal() ]
+(+b_target_got()) >> [ +~g_build_tower(), -~g_go_funny_configuration(), +~g_go_funny_configuration() ]
 
-(+belief()) >> [ -~first_goal(), +~second_goal(), +~third_goal() ]
+(+b_figure_got()) >> [ -~g_scout_pawns(), +~g_move_enemy_tower(), +~g_go_funny_configuration() ]
 
-(+belief()) >> [ -~first_goal(), +~second_goal(), -~third_goal() ]
+(+b_target_got()) >> [ -~g_scout_pawns(), +~g_build_tower(), -~g_move_enemy_tower() ]
 
 
 # ---------------------------------
 # Actions, Beliefs, Goals in Body
 # ---------------------------------
 
-(+belief()) >> [ +~first_goal(), second_action(), -third_belief() ]
+(+b_target_got()) >> [ +~g_build_tower(), a_check_pawns(), -b_pawn_position() ]
 
-(+belief()) >> [ first_action(), -second_belief(), -~third_goal() ]
+(+b_target_got()) >> [ a_get_figure(), -b_king_position(), -~g_go_funny_configuration() ]
 
-(+belief()) >> [ +first_belief(), +~second_goal(), third_action() ]
+(+b_figure_got()) >> [ +b_king_position(), +~g_build_tower(), a_release_disc() ]
 
 
 ###
