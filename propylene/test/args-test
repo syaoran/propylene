@@ -36,111 +36,109 @@
 
 (+b_figure_got("a") | ( b_king_position("a", "b") & b_queen_position("a", "b", "c") ) )                                 >> [ ]
 
-(-~g_move_enemy_tower("a","b","c","d") | ( b_king_position("x", "y", "z", "w", "k") ) )                                 >> []
+(-~g_move_enemy_tower("a", "b", "c", "d") | ( b_king_position("x", "y", "z", "w", "k") ) )                              >> []
 
 
 # ----------------------
 # 1.3 Arguments are Names
 # ----------------------
 
-(+b_target_got(a) | ( b_pawn_position(a, b) & b_queen_position(a, b, c) ) )                                 >> [ ]
+(+b_target_got(a) | ( b_pawn_position(a, b) & b_queen_position(a, b, c) ) )                                             >> [ ]
 
-(-~g_go_funny_configuration(a,b,c,d) | ( b_king_position(x, y, z, w, k) ) )                                 >> []
-
-
-# ----------------------
-# 1.4 Arguments are Lists
-# ----------------------
-
-# 1.4.1 Trigger only
-( +b_figure_got( [-2.0e-3, "a string", name ] ) ) >> []
-
-( -b_target_got( [-2.0e-3, name, ["nested 1", "nested 2"], 3.5  ] ) ) >> []
-
-( +~g_start( [ [1,2.0], ["a", "b"], [x, y]  ] ) ) >> []
-
-( -~g_build_tower( [ [1,2.0], ["a", ["double nesting"], "b"], [x, y]  ] ) ) >> []
-
-# 1.4.2 Condition only
-(+b_target_got() | ( b_pawn_position([ [1,2.0], ["a", ["double nesting"], "b"], [x, y]  ] ) & b_queen_position([-2.0e-3, "a string", name ] )) ) )                                 >> [ ]
-
-(-~g_start() | ( b_king_position([-2.0e-3, name, ["nested 1", "nested 2"], 3.5  ] ) ) )                                 >> []
-
-# 1.4.3 Head 
-(+b_target_got([-2.0e-3, "a string", name ]) | ( b_pawn_position([ [1,2.0], ["a", ["double nesting"], "b"], [x, y]  ] ) & b_queen_position([-2.0e-3, "a string", name ] )) ) )                                 >> [ ]
-
-(-~g_start([ [1,2.0], ["a", "b"], [x, y]  ] ) | ( b_king_position([-2.0e-3, name, ["nested 1", "nested 2"], 3.5  ] ) ) )                                 >> []
-
-
-# ----------------------
-# 1.4 Arguments are Tuples
-# ----------------------
-
-# 1.4.1 Trigger only
-( +b_figure_got( (-2.0e-3, "a string", name ] ) ) >> []
-
-( -b_target_got( (-2.0e-3, name, ("nested 1", "nested 2"], 3.5  ] ) ) >> []
-
-( +~g_start( ( (1,2.0], ("a", "b"], (x, y]  ] ) ) >> []
-
-( -~g_build_tower( ( (1,2.0], ("a", ("double nesting"], "b"], (x, y]  ] ) ) >> []
-
-# 1.4.2 Condition only
-(+b_target_got() | ( b_pawn_position(( (1,2.0], ("a", ("double nesting"], "b"], (x, y]  ] ) & b_queen_position((-2.0e-3, "a string", name ] )) ) )                                 >> [ ]
-
-(-~g_start() | ( b_king_position((-2.0e-3, name, ("nested 1", "nested 2"], 3.5  ] ) ) )                                 >> []
-
-# 1.4.3 Head 
-(+b_target_got((-2.0e-3, "a string", name ]) | ( b_pawn_position(( (1,2.0], ("a", ("double nesting"], "b"], (x, y]  ] ) & b_queen_position((-2.0e-3, "a string", name ] )) ) )                                 >> [ ]
-
-(-~g_start(( (1,2.0], ("a", "b"], (x, y]  ] ) | ( b_king_position((-2.0e-3, name, ("nested 1", "nested 2"], 3.5  ] ) ) )                                 >> []
-
-
+(-~g_go_funny_configuration(a, b, c, d) | ( b_king_position(x, y, z, w, k) ) )                                          >> []
 
 
 # ------------------------
-# Arguments are Variables
+# 1.4 Arguments are Variables
 # ------------------------
 # _("")
 
-( +belief( _("X") )) >> []
+(+b_target_got(_("X")) | ( b_pawn_position(_("Y"), _("Z")) & b_queen_position(_("Z"), _("X"), _("Y")) ) )               >> [ ]
 
-( -belief( _("X"), _("Y") )) >> []
-
-( +~goal( _("X"), _("Y"), _("W") )) >> []
-
-( -~goal( _("X"), _("Y"), _("W"), _("Z") )) >> []
+(-~g_go_funny_configuration(_("Y"), _("W"), _("V"), _("X")) | ( b_king_position( _("U"), _("V"), _("W"), _("X"), _("Y")) ) )                                 >> []
 
 
+# ----------------------
+# 1.5 Arguments are Lists
+# ----------------------
+
+# 1.5.1 Trigger only
+( +b_figure_got( [-2.0e-3, "a string", name ] ) )                                                                       >> []
+
+( -b_target_got( [-2.0e-3, name, ["nested 1", "nested 2"], 3.5  ] ) )                                                   >> []
+
+( +~g_start( [ [1,2.0], ["a", "b"], [x, y]  ] ) )                                                                       >> []
+
+( -~g_build_tower( [ [1,2.0], ["a", ["double nesting"], "b"], [x, y]  ] ) )                                             >> []
+
+# 1.5.2 Condition only
+( +b_target_got() | (    b_pawn_position([ [1,2.0], ["a", ["double nesting"], "b"], [x, y]  ] ) & 
+                        b_queen_position([-2.0e-3, "a string", name ] )) )                                              >> [ ]
+
+( -~g_start() | ( b_king_position([-2.0e-3, name, ["nested 1", "nested 2"], 3.5  ] ) ) )                                >> []
+
+# 1.5.3 Head 
+( +b_target_got([-2.0e-3, "a string", name ]) | (   b_pawn_position([ [1,2.0], ["a", ["double nesting"], "b"], [x, y]  ] ) & 
+                                                    b_queen_position([-2.0e-3, "a string", name ] )) )                                  
+                                                                                                                        >> [ ]
+
+(-~g_start([ [1,2.0], ["a", "b"], [x, y]  ] ) | ( b_king_position([-2.0e-3, name, ["nested 1", "nested 2"], 3.5  ] ) ) )>> []
+
+
+# ----------------------
+# 1.6 Arguments are Tuples
+# ----------------------
+
+# 1.6.1 Trigger only
+( +b_figure_got( (-2.0e-3, "a string", name ) ) )                                                                       >> []
+
+( -b_target_got( (-2.0e-3, name, ("nested 1", "nested 2"), 3.5  ) ) )                                                   >> []
+
+( +~g_start( ( (1,2.0), ("a", "b"), (x, y)  ) ) )                                                                       >> []
+
+( -~g_build_tower( ( (1,2.0), ("a", ("double nesting"), "b"), (x, y)  ) ) )                                             >> []
+
+# 1.6.2 Condition only
+(+b_target_got() | (    b_pawn_position(( (1,2.0), ("a", ("double nesting"), "b"), (x, y)  ) ) & 
+                        b_queen_position((-2.0e-3, "a string", name ) )) )                                              >> []
+
+(-~g_start() | ( b_king_position((-2.0e-3, name, ("nested 1", "nested 2"), 3.5  ) ) ) )                                 >> []
+
+# 1.6.3 Head 
+(+b_target_got((-2.0e-3, "a string", name )) | ( b_pawn_position(( (1,2.0), ("a", ("double nesting"), "b"), (x, y)  ) ) & b_queen_position((-2.0e-3, "a string", name ) )) )                                  >> [ ]
+
+(-~g_start(( (1,2.0), ("a", "b"), (x, y)  ) ) | ( b_king_position((-2.0e-3, name, ("nested 1", "nested 2"), 3.5  ) ) ) )                                 >> []
+
+
+
+# -----------------------------------
+#
+# 2. Actions, Beliefs, Goals in Body
+#
+# ------------------------------------
 
 
 # ------------------------------
-#
-# Arguments are miscellaneous!
-#
+# 2.1 Arguments are miscellaneous
 # ------------------------------
 
-( +belief(-123, "string", param, _("X")) ) >> 
-    [
-        +~first_goal("string 1", arg1, _("X"), 1.0), 
-        second_action(arg2, _("X"), 2E-2, "string 2"), 
-        -third_belief(_("X"), 3e3, "string 3", arg3) 
-    ]
+( +~g_scout_pawns(-123, "string", param, _("X")) |  (   b_pawn_position("string 1", arg1, _("X"), 1.0) & 
+                                                        b_queen_position(arg2, _("X"), 2E-2, "string 2") & 
+                                                        b_king_position(_("X"), 3e3, "string 3", arg3) ) 
+                                                    ) >> [   
+                                                            +~g_build_tower(_("X"), "str", arg, 1E-2), 
+                                                            a_check_pawns([1,2,3], ["string"], [a,b,c]), 
+                                                            -b_pawn_position() 
+                                                         ]
 
-( -~goal(_("X"), "str", arg, 1E-2) ) >> 
-    [
-        first_action([1,2,3], ["string"], [a,b,c]), 
-        -second_belief( (1,2), ("a", "b"), (a)  ), 
-        -~third_goal( ["start", [1, (a,b,c), 3], (0, (2.0,3.0), 5), "end"])      
-    ]
+( +b_figure_got( ["start", [1, (a,b,c), 3], (0, (2.0,3.0), 5), "end"]) | ( b_king_position(_("X"), _("Y")) ) )                                           
+    >>  [   a_get_figure(-120,"string",identifier,_("X"),[1,"string",id,_("Y"),[""]], (120,"ciao",idd,_("X")) ), 
+            -b_king_position(_("X")), 
+            -~g_go_funny_configuration() 
+        ]
 
-
-#( +~grab_corn(_("X"), _("Y")) ) >>   
-#    [
-#        test_action(-120,"string",identifier,
-#            _("X"),[1,"string",id,_("Y"),[""]], (120,"ciao",idd,_("Z")) ),
-#        reach_corn(_("X")), 
-#        pick_corn() 
-#    ]
-#
-
+( -b_target_got() | ( b_queen_position() & b_king_position() ) )                      
+    >>  [   +b_king_position(), 
+            +~g_build_tower(), 
+            a_release_disc() 
+        ]
