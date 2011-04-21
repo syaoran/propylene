@@ -3,91 +3,99 @@
 #
 # Triggering Events : Belief,Goal
 # Body              : Belief,Goal,Action
+# Condition         : Yes
 # Arguments         : Number,String,Name,List,Tuple,Variable
-# Condition         : None
 # Lambda            : None
 #
 # ----------------------------------------------------------
 
-# ----------------------
-# Arguments are Numbers
-# ----------------------
-
-(+belief(3)) >> []
-
-(-belief(-5)) >> []
-
-(+~goal(2.0)) >> []
-
-(-~goal(-4.0)) >> []
-
-(+belief(3e4,1e+2)) >> []
-
-(-belief(3E5,7E+4)) >> []
-
-(+~goal(-3e-5)) >> []
-
-(-~goal(-7E-3)) >> []
-
-(+belief(2.3e5,4.7e+2)) >> []
-
-(-belief(4.5E2,9.2E+3)) >> []
-
-(+~goal(-1.2e-4)) >> []
-
-(-~goal(-3.4E-1)) >> []
 
 
 # ----------------------
-# Arguments are Strings
+#
+# 1. Empty Body
+#
 # ----------------------
 
-(+belief("a")) >> []
+# --------------------------
+# 1.1 Arguments are Numbers
+# --------------------------
 
-(-belief("a","b")) >> []
+(-b_figure_got(3) | ( b_king_position(-5) & b_queen_position(2.0) ) )                                                   >> [ ]
 
-(+~goal("a","b","c")) >> []
+(-b_target_got(-4.0) | ( b_queen_position(3e4,1e+2) & b_king_position(3E5,7E+4) ) )                                     >> [ ]
 
-(-~goal("a","b","c","d")) >> []
+(+~g_scout_pawns(-3e-5) | ( b_pawn_position(-7E-3) & b_queen_position(2.3e5,4.7e+2) & b_king_position(4.5E2,9.2E+3) ) ) >> []
 
-
-# ----------------------
-# Arguments are Names
-# ----------------------
-
-(+belief(a)) >> []
-
-(-belief(a,b)) >> []
-
-(+~goal(a,b,c)) >> []
-
-(-~goal(a,b,c,d)) >> []
+(-~g_move_enemy_tower(-1.2e-4) | ( b_king_position(-3.4E-1) ) )                                                         >> []
 
 
 # ----------------------
-# Arguments are Lists
+# 1.2 Arguments are Strings
 # ----------------------
 
-( +belief( [-2.0e-3, "a string", name ] ) ) >> []
+(+b_figure_got("a") | ( b_king_position("a", "b") & b_queen_position("a", "b", "c") ) )                                 >> [ ]
 
-( -belief( [-2.0e-3, name, ["nested 1", "nested 2"], 3.5  ] ) ) >> []
-
-( +~goal( [ [1,2.0], ["a", "b"], [x, y]  ] ) ) >> []
-
-( -~goal( [ [1,2.0], ["a", ["double nesting"], "b"], [x, y]  ] ) ) >> []
+(-~g_move_enemy_tower("a","b","c","d") | ( b_king_position("x", "y", "z", "w", "k") ) )                                 >> []
 
 
 # ----------------------
-# Arguments are Tuples
+# 1.3 Arguments are Names
 # ----------------------
 
-( +belief( (-2.0e-3, "a string", name ) ) ) >> []
+(+b_target_got(a) | ( b_pawn_position(a, b) & b_queen_position(a, b, c) ) )                                 >> [ ]
 
-( -belief( (-2.0e-3, name, ("nested 1", "nested 2"), 3.5  ) ) ) >> []
+(-~g_go_funny_configuration(a,b,c,d) | ( b_king_position(x, y, z, w, k) ) )                                 >> []
 
-( +~goal( ( (1,2.0), ("a", "b"), (x, y)  ) ) ) >> []
 
-( -~goal( ( (1,2.0), ("a", ("double nesting"), "b"), (x, y)  ) ) ) >> []
+# ----------------------
+# 1.4 Arguments are Lists
+# ----------------------
+
+# 1.4.1 Trigger only
+( +b_figure_got( [-2.0e-3, "a string", name ] ) ) >> []
+
+( -b_target_got( [-2.0e-3, name, ["nested 1", "nested 2"], 3.5  ] ) ) >> []
+
+( +~g_start( [ [1,2.0], ["a", "b"], [x, y]  ] ) ) >> []
+
+( -~g_build_tower( [ [1,2.0], ["a", ["double nesting"], "b"], [x, y]  ] ) ) >> []
+
+# 1.4.2 Condition only
+(+b_target_got() | ( b_pawn_position([ [1,2.0], ["a", ["double nesting"], "b"], [x, y]  ] ) & b_queen_position([-2.0e-3, "a string", name ] )) ) )                                 >> [ ]
+
+(-~g_start() | ( b_king_position([-2.0e-3, name, ["nested 1", "nested 2"], 3.5  ] ) ) )                                 >> []
+
+# 1.4.3 Head 
+(+b_target_got([-2.0e-3, "a string", name ]) | ( b_pawn_position([ [1,2.0], ["a", ["double nesting"], "b"], [x, y]  ] ) & b_queen_position([-2.0e-3, "a string", name ] )) ) )                                 >> [ ]
+
+(-~g_start([ [1,2.0], ["a", "b"], [x, y]  ] ) | ( b_king_position([-2.0e-3, name, ["nested 1", "nested 2"], 3.5  ] ) ) )                                 >> []
+
+
+# ----------------------
+# 1.4 Arguments are Tuples
+# ----------------------
+
+# 1.4.1 Trigger only
+( +b_figure_got( (-2.0e-3, "a string", name ] ) ) >> []
+
+( -b_target_got( (-2.0e-3, name, ("nested 1", "nested 2"], 3.5  ] ) ) >> []
+
+( +~g_start( ( (1,2.0], ("a", "b"], (x, y]  ] ) ) >> []
+
+( -~g_build_tower( ( (1,2.0], ("a", ("double nesting"], "b"], (x, y]  ] ) ) >> []
+
+# 1.4.2 Condition only
+(+b_target_got() | ( b_pawn_position(( (1,2.0], ("a", ("double nesting"], "b"], (x, y]  ] ) & b_queen_position((-2.0e-3, "a string", name ] )) ) )                                 >> [ ]
+
+(-~g_start() | ( b_king_position((-2.0e-3, name, ("nested 1", "nested 2"], 3.5  ] ) ) )                                 >> []
+
+# 1.4.3 Head 
+(+b_target_got((-2.0e-3, "a string", name ]) | ( b_pawn_position(( (1,2.0], ("a", ("double nesting"], "b"], (x, y]  ] ) & b_queen_position((-2.0e-3, "a string", name ] )) ) )                                 >> [ ]
+
+(-~g_start(( (1,2.0], ("a", "b"], (x, y]  ] ) | ( b_king_position((-2.0e-3, name, ("nested 1", "nested 2"], 3.5  ] ) ) )                                 >> []
+
+
 
 
 # ------------------------
