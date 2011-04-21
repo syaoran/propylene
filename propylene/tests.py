@@ -27,10 +27,10 @@ class PropyleneTest(unittest.TestCase):
         return { 'base' : ("classes/base-test-out.py", "test/base-test"),
                  'cond' : ("classes/cond-test-out.py", "test/cond-test"),
                  'args' : ("classes/args-test-out.py", "test/args-test"),
-                 'lamb' : ("classes/lamb-test-out.py", "test/lamb-test")}
+                 'lambda' : ("classes/lambda-test-out.py", "test/lambda-test")}
 
     def test_lamb (self):
-        scenario = self.scenarios ()['lamb']
+        scenario = self.scenarios ()['lambda']
         outputfile = scenario [0]
         inputfile  = scenario [1]
         self.parse (inputfile, outputfile)
