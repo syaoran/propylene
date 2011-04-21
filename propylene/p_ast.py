@@ -105,6 +105,7 @@ class Visitor:
         self._action_buf = '\n\n##ACTIONS\n'
         self._depth = 0
         self._filename = uTarget
+        print uTarget
 
     def get_depth(self):
         return self._depth

@@ -13,9 +13,9 @@
 # No arguments, empty body 
 # -------------------------
 
-# (+belief() | ( c_belief_1(_("X"))  
-#                & (lambda : not (X<100) and (X>2) or (X==4) and not (X==2) ) ) ) 
-# >> [ ]
+(+belief() | ( c_belief_1(_("X"))  
+               & (lambda : not (X<100) and (X>2) or (X==4) and not (X==2) ) ) ) 
+>> [ ]
 
 # (-belief() | ( c_belief_1(_("X")) & c_belief_2() 
 #                & (lambda : X > 200) ) ) >> [ ]
@@ -27,7 +27,7 @@
 #               & (lambda : Z < 200) ) ) >> []
 
 ## no condition
-# (-belief() ) >> [ +belief()]
+#(-belief() ) >> [ +belief()]
 
 # # ## no body
 # (-belief() |  (c_belief_1(_("X")))) >> [ ]
@@ -48,7 +48,7 @@
 # (belief(("X")) | ((lambda : X = 100))) >> [ +belief()]
 
 ## semantic error
-(+belief(_("X")) | ((lambda : ("Z" == 20) and (Y == 100)))) >> [ +belief(_("X"))]
+# (+belief(_("X")) | ((lambda : ("Z" == 20) and (Y == 100)))) >> [ +belief(_("X"))]
 
 
 #(+belief(_("X"))) >> [ action(_("Z"))]

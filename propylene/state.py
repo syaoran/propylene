@@ -6,6 +6,8 @@ class VariableUsageState:
         pass
 
     def handle_symbol(self, symbol_table, symbol):
+        ## if there are quotes, remove them
+        if symbol[0] == "\"": symbol = symbol[1:-1]
         try:
             symbol_table[symbol]
         except(KeyError):
@@ -19,6 +21,8 @@ class VariableDeclarationState:
         pass
 
     def handle_symbol(self, symbol_table, symbol):
+        ## if there are quotes, remove them
+        if symbol[0] == "\"": symbol = symbol[1:-1]
         symbol_table[symbol] = "Variable"        
 
       
