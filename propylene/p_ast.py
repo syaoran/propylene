@@ -165,7 +165,8 @@ def flatten_c (uNode, uDepth = -1):
     if uDepth == -1:
         if isinstance (uNode, Belief) or \
            isinstance (uNode, Action) or \
-           isinstance (uNode, Goal):
+           isinstance (uNode, Goal)   or \
+           isinstance (uNode, Lambda):
             return [uNode]
         
         else:

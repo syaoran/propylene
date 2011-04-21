@@ -15,12 +15,12 @@
 
 (+belief() | ( c_belief_1() ) ) >> [ ciao(), ciao(), ciao() ]
 
-(-belief() | ( c_belief_1() & c_belief_2() ) ) >> [belief() ]
+#(-belief() | ( c_belief_1() & c_belief_2() ) ) >> [belief() ]
 #
 (+~goal() | ( c_belief_1() & c_belief_2() & c_belief_3() ) ) >> []
 #
-(-~goal() | ( c_belief_1() & c_belief_2() & c_belief_3() & c_belief_4() ) ) 
->> []
+#(-~goal() | ( c_belief_1() & c_belief_2() & c_belief_3() & c_belief_4() ) ) 
+#>> []
 #
 
 

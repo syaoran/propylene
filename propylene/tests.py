@@ -1,3 +1,8 @@
+# ----------------------------------------------------------
+# tests.py
+# 
+# Unit tests for propylene
+# ----------------------------------------------------------
 from propylene import Propylene as Propylene
 from propylene import AugmentedPropylene as AugmentedPropylene
 import glob

@@ -1,39 +1,39 @@
-(+~go(a,) | ( belief() & ( lambda :  X < 2  ) ) ) >> 
-    [   
-        detect_configuration(),
-#        +~grab_corn("c0"), 
-#        +~grab_corn("c3"),
-#        +~grab_corn("c6"), 
-        +~deposit_corns(),
-    ]
-#
-(+~go("X",_("X")) | ( (lambda : ( X == "ciao" ) or ( X < 2 )  ) )  ) >> 
-    [   
-        detect_configuration(),
-#        +~grab_corn("c0"), 
-#        +~grab_corn("c3"),
-#        +~grab_corn("c6"), 
-        +~deposit_corns()
-    ]
-#
-#
-(+~grab_corn(_("X")) | ( white_corn(_("X")) )) >>   
-    [
-        test_action(-120,"string",identifier,_("X"),[1,"string",id,_("Y"),[""]], (120,"ciao",idd,_("Z")) ),
-        reach_corn(_("X")), 
-        pick_corn() 
-    ]
+# (+~go(a,) | ( belief() & ( lambda :  X < 2  ) ) ) >> 
+#     [   
+#         detect_configuration(),
+# #        +~grab_corn("c0"), 
+# #        +~grab_corn("c3"),
+# #        +~grab_corn("c6"), 
+#         +~deposit_corns(),
+#     ]
+# #
+# (+~go("X",_("X")) | ( (lambda : ( X == "ciao" ) or ( X < 2 )  ) )  ) >> 
+#     [   
+#         detect_configuration(),
+# #        +~grab_corn("c0"), 
+# #        +~grab_corn("c3"),
+# #        +~grab_corn("c6"), 
+#         +~deposit_corns()
+#     ]
+# #
+# #
+# (+~grab_corn(_("X")) | ( white_corn(_("X")) )) >>   
+#     [
+#         test_action(-120,"string",identifier,_("X"),[1,"string",id,_("Y"),[""]], (120,"ciao",idd,_("Z")) ),
+#         reach_corn(_("X")), 
+#         pick_corn() 
+#     ]
 
-#
-#(+~grab_corn(_("X")) | ( black_corn(_("X")) )) >> [  ]
-#(+~grab_corn(3E-2,1,1.0,-1,-1.0,2.34e-10,3.54E21) | ( black_corn(_("X")) )) >> [  ]
-#
-#
-#(+~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X > 1)) ) >>
-#    [
-#        reach_deposit_zone(), 
-#        open_tank(), 
-#        +~deposit_corns() 
+# #
+# #(+~grab_corn(_("X")) | ( black_corn(_("X")) )) >> [  ]
+# #(+~grab_corn(3E-2,1,1.0,-1,-1.0,2.34e-10,3.54E21) | ( black_corn(_("X")) )) >> [  ]
+# #
+# #
+# #(+~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X > 1)) ) >>
+# #    [
+# #        reach_deposit_zone(), 
+# #        open_tank(), 
+# #        +~deposit_corns() 
 #    ]
 #
 #
