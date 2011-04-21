@@ -1,0 +1,77 @@
+# ----------------------------------------------------------
+#
+# Syntax Error Test
+#
+# These are `generic' syntax errors, that are not considered in the grammar
+# ----------------------------------------------------------
+
+
+
+# -------------------------
+# Missing brackets
+# -------------------------
+( +~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X <= 1)) #)  #ERROR! 
+>>
+    [   
+        +~grab_corn("c11"),      
+        +no_more_corns(),        
+        restart() 
+    ]
+
+
+( +~deposit_corns(_("X")) | ( (lambda : X <= 1 ) ) ) 
+>>
+    [   
+        +~grab_corn("c11"),      
+        +no_more_corns(),        
+        restart()
+#    ]   #ERROR
+
+
+# -------------------------
+# Missing angle quote
+# -------------------------
+( +~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X <= 1)) ) 
+> #ERROR!
+    [   
+        +~grab_corn("c11"),
+        +no_more_corns(),        
+        restart() 
+    ]
+
+
+# -------------------------
+# Missing comma
+# -------------------------
+( +~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X <= 1)) ) 
+>>
+    [   
+        +~grab_corn("c11") #ERROR!
+        +no_more_corns(),        
+        restart() 
+    ]
+
+
+# -------------------------
+# Missing pipe
+# -------------------------
+( +~deposit_corns()  ( corns_in_robot() ) )  #ERROR
+>>
+    [   
+        +~grab_corn("c11"),
+        +no_more_corns(),        
+        restart() 
+    ]
+
+
+# -------------------------
+# Missing '+' o '-' , trigger delimiter 
+# -------------------------
+# ERROR!
+( ~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X <= 1)) ) 
+>>
+    [   
+        +~grab_corn("c11"),
+        +no_more_corns(),        
+        restart() 
+    ]

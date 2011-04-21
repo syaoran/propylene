@@ -10,18 +10,23 @@ Usage
 Currently, propylene is in 'testing' mode.
 To execute the parser on some input file, type:
 
-> make SRC=input_file_name
+> make parse SRC=input_file_name
+
 
 Test input files:
-- base-test (default)       : Plans without condition; mental attitudes have no arguments;
-- args-test                 : Plans without condition; mental attitudes have all types of arguments;
-- cond-test                 : Plans with condition (but no lambdas); mental attitudes may have arguments;
-- lamb-test                 : Plans with condition (and lambdas); mental attitudes may have arguments;
-- full-test  (coming soon)  : Complex Plans with all types of elements and conditions; mental attitudes 
-                              have all types of arguments;
-- error-test                : Plans with intentional lexical/syntactic errors, which will show all 
-                              the error handling and recovery techniques implemented by the lexer/parser
-- final-test (coming soon)  : A complete, real-world strategy, borrowed from TURE and/or ROSA :)
+
+1. base-test (default)      : Plans without condition; mental attitudes have no arguments;
+2. cond-test                : Plans with condition (NO lambdas); mental attitudes have no arguments;
+3. args-test                : Plans with condition; mental attitudes have arguments;
+4. lambda-test              : Plans with condition and lambdas; mental attitudes have arguments;
+
+5. lexical-err              : Plans with lexical errors (illegal characters);
+6. production-err           : Plans with syntax errors, which are included in error productions (Augmented Propylene);
+7. syntax-err               : Plans with syntax errors;
+8. type-err                 : Plans with 'Type Mismatch' semantic errors;
+9. unbound-err              : Plans with 'Unbounded Variable' semantic errors;
+
+10 real-world (coming soon) : Plans which closely resemble a 'real world' strategy.
 
 
 

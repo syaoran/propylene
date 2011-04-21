@@ -1,0 +1,54 @@
+# ----------------------------------------------------------
+#
+# Syntax Error Test
+#
+# These errors are `intercepted' by error productions
+# ----------------------------------------------------------
+
+
+
+# -------------------------
+# lambda not enclosed in '(' brackets
+# -------------------------
+( +~deposit_corns(_("X")) | ( lambda : X <= 1 ) ) #ERROR!
+>>
+    [   
+        +~grab_corn("c11"),      
+        +no_more_corns(),        
+        restart(_("Z"))     #ERROR!
+    ]
+
+# -------------------------
+# Goal in Condition
+# -------------------------
+( +~deposit_corns() | ( ~grab_corn() ) ) #ERROR!
+>>
+    [   
+        +~grab_corn("c11"),      
+        +no_more_corns(),        
+        restart()          
+    ]
+
+
+# -------------------------
+# Event in Condition
+# -------------------------
+( +~deposit_corns() | ( -corns_in_robot(_("X")) ) ) #ERROR!
+>>
+    [   
+        +~grab_corn("c11"),      
+        +no_more_corns(),        
+        restart()          
+    ]
+
+
+# -------------------------
+# Unbounded Variable in Body
+# -------------------------
+#( +~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X <= 1)) ) 
+#>>
+#    [   
+#        +~grab_corn("c11"),      
+#        +no_more_corns(),        
+#        restart(_("Z"))     #ERROR!
+#    ]

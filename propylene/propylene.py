@@ -154,30 +154,6 @@ class Propylene:
         #"usage"
 
 
-#Errors
-# ----------------------------------------------------------
-# def p_error_condition_with_event(p):
-#     ''' Condition   : Event
-#                     | Event '&' Condition
-#     '''
-#     mex = "Condition cannot contain Event"
-#     print_error(mex, p.lineno(1))
-
-# def p_error_condition_with_goal(p):
-#     ''' Condition   : Goal
-#                     | Goal '&' Condition
-#     '''
-#     mex = "Condition cannot contain Goal"
-#     print_error(mex, p.lineno(1))
-
-# def p_error_condition_lambda_not_enclosed(p):
-#     ''' Condition   : LambdaExpr
-#     '''
-#     mex = "lambda is not enclosed in '(' ')'"
-#     print_error(mex, p.lineno(1))
-# ----------------------------------------------------------
-
-
     # Items in the Body of a Plan
     def p_intention_list(self, p):
         ''' IntentionList   : Intention ',' IntentionList
@@ -332,7 +308,8 @@ class Propylene:
                 raise AttitudeTypeMismatch()  
         except(KeyError):
             self._sym_table_stack[0][uName] = uType
-##
+
+
 ##------------------------------------------------------------------------------
 ## class AugmentedPropylene ---> Propylene
 ##------------------------------------------------------------------------------
@@ -341,6 +318,7 @@ class AugmentedPropylene(Propylene):
     def __init__(self, *args, **kwargs):
         Propylene.__init__(self, *args, **kwargs)
 
+# Error Productions
 # ----------------------------------------------------------
     def p_error_condition_with_event(self, p):
         ''' Condition   : Event
@@ -349,20 +327,22 @@ class AugmentedPropylene(Propylene):
         mex = "Condition cannot contain Event"
         self.print_error(mex, p.lineno(1))
    
-# def p_error_condition_with_goal(p):
-#     ''' Condition   : Goal
-#                     | Goal '&' Condition
-#     '''
-#     mex = "Condition cannot contain Goal"
-#     print_error(mex, p.lineno(1))
+    def p_error_condition_with_goal(self, p):
+        ''' Condition   : Goal
+                        | Goal '&' Condition
+        '''
+        mex = "Condition cannot contain Goal"
+        self.print_error(mex, p.lineno(1))
 
-# def p_error_condition_lambda_not_enclosed(p):
-#     ''' Condition   : LambdaExpr
-#     '''
-#     mex = "lambda is not enclosed in '(' ')'"
-#     print_error(mex, p.lineno(1))
+    def p_error_condition_lambda_not_enclosed(self, p):
+        ''' Condition   : LambdaExpr
+        '''
+        mex = "lambda is not enclosed in '(' ')'"
+        self.print_error(mex, p.lineno(1))
 # ----------------------------------------------------------
-##
+
+
+
 ##------------------------------------------------------------------------------
 ##  Main
 ##------------------------------------------------------------------------------

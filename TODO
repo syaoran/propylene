@@ -11,10 +11,6 @@ ISSUES
  - Errori sintattici: contare il numero di skip: se si supera una certa soglia,
   interrompere il processo e segnalare tutti gli errori all'utente.
 
- - Error Production: prevedere limitati controlli 'pilotati' con apposite error
-   production
-
-
 
 * SEMANTIC
 
@@ -64,6 +60,9 @@ FIXED! - IntentionList: il terminale che fa la 'ricorsione' va per primo o
  - Incapsulare Lexer e Parser in opportune classi
  - State Pattern invece declaration/usage?
  - Gerarchia di parser: "Good" rules vs. "Bad" rules nelle classi figlie?
+ - Error Production: prevedere limitati controlli 'pilotati' con apposite error
+   production
+
 
 
  
