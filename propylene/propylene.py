@@ -19,11 +19,12 @@ class Propylene:
         self._plan_count = -1
 
         self._sym_table_stack = [{}]
-        self._variable_parsing_state = VariableDeclarationState()
+        self._variable_parsing_status = VariableDeclarationState()
 
         self._lexer = PropLexer()
         self.tokens = self._lexer.get_tokens()
-        self._parser = yacc.yacc(module=self, tabmodule='parse_table', outputdir='parser_out')
+        #self._parser = yacc.yacc(module=self, tabmodule='parse_table', outputdir='parser_out')
+        self._parser = yacc.yacc(module=self,)
 #parser = yacc.yacc(tabmodule='parse_table',outputdir='parser_out')
 
     def parse(self, input):
@@ -64,25 +65,28 @@ class Propylene:
 
     def p_seen_IntentionList(self, p):
         ''' seen_IntentionList : '''
-        self._variable_status = VariableUsageState()
+        self._variable_parsing_status = VariableUsageState()
         #"usage"
 
     def p_seen_Plan(self, p):
         '''seen_Plan : '''
         self._sym_table_stack.append({})
+        self._variable_parsing_status = VariableDeclarationState ()
         
     # Head
     def p_head(self, p):
         ''' Head    : Event
-        | Event '|' '(' Condition ')'  
+                    | Event '|' '(' Condition ')'  
             '''
 #print p.lineno(0)
         p[1] = Trigger(uChildren=[p[1]])
         if len(p)==6:
             p[4]._children = flatten_c(p[4])
             p[0] = Head(uChildren=[ p[1], p[4] ])
+            
         else:
             p[0] = Head(uChildren=[p[1]])
+            
     
     # Tiggering Event
     def p_event(self, p):
@@ -117,20 +121,20 @@ class Propylene:
 # Condition of Plan
     def p_condition(self, p):
         ''' Condition   : Belief
-        | Belief '&' Condition
-        | '(' seen_LambdaExpr LambdaExpr ')'
+                        | Belief '&' Condition
+                        | '(' seen_LambdaExpr LambdaExpr ')'
         '''
         if len(p)==2:
             p[0] = Condition(uChildren=[ p[1] ])
         elif p[2]=='&':
             p[0] = Condition(uChildren=[ p[1], p[3] ])
         else:
-            p[0] = Condition(uChildren=[ p[2] ] )
+            p[0] = Condition(uChildren=[ p[3] ] )
 
 
     def p_seen_LambdaExpr(self, p):
         ''' seen_LambdaExpr : '''
-        self._variable_status = VariableUsageState()
+        self._variable_parsing_status = VariableUsageState()
         #"usage"
 
 
@@ -220,6 +224,10 @@ class Propylene:
                         | NUMBER
                         | STRING
         '''
+        if isinstance(p[1], str):
+            if p[1][0] != "\"":
+                self._variable_parsing_status.handle_symbol (self._sym_table_stack[-1], 
+                                                             p[1])
     
     # Comparison operator
     def p_comp_op(self, p):
@@ -258,6 +266,8 @@ class Propylene:
         '''
         p[0] = Action(uName=p[1])
         self.insert_symbol(p[1],'Action')
+        print self._sym_table_stack
+        
         #print "Belief: " + p[0]
     #    actionString = ""
     #    actionString += "\nclass " + p[0] + "(Action):\n\tdef execute(self):\n\t\t## ..."
@@ -281,14 +291,14 @@ class Propylene:
                         | '(' ArgumentList ')'
         '''                 
         if len(p)==5:
-            self._variable_parsing_state.handle_symbol(self._sym_table_stack[-1], p[3])
+            self._variable_parsing_status.handle_symbol(self._sym_table_stack[-1], p[3])
 #            #global sym_table_stack
-#            if self._variable_status == "usage":
+#            if self._variable_parsing_status == "usage":
 #                try:
 #                    self._sym_table_stack[-1][p[3]]
 #                except(KeyError):
 #                    raise UnboundedVariable()
-#            elif self._variable_status == "declaration":
+#            elif self._variable_parsing_status == "declaration":
 #                self._sym_table_stack[-1][p[3]] = "Variable"
             print self._sym_table_stack
                     
@@ -322,7 +332,6 @@ class Propylene:
                 raise AttitudeTypeMismatch()  
         except(KeyError):
             self._sym_table_stack[0][uName] = uType
-
 
 
 class AugmentedPropylene(Propylene):

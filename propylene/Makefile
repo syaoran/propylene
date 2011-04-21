@@ -13,7 +13,7 @@ test-args:
 
 parse:
 	$(PYTHON) $(PARSER) $(TEST)
-	mv parser.out ./parser_out
+	#mv parser.out ./parser_out
 	rm -rf *.pyc *.tmp .*.swp
 
 clean:
