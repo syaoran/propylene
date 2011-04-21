@@ -99,7 +99,7 @@ class Goal (Node):
 ##
 ##
 class Visitor:
-    def __init__ (self, uTarget = 'classes.py'):
+    def __init__ (self, uTarget = './classes/classes.py'):
         self._belief_buf = '\n\n##BELIEFS\n'
         self._goal_buf = '\n\n##GOALS\n'
         self._action_buf = '\n\n##ACTIONS\n'

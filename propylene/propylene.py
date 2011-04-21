@@ -8,22 +8,23 @@
 import sys
 import ply.lex as lex
 import ply.yacc as yacc
-from PropLexer import PropLexer as PropLexer
+from prop_lexer import PropLexer as PropLexer
 
 from p_ast import *
 from exception import *
-
+from state import *
 
 class Propylene:
     def __init__ (self, *args, **kwargs):
         self._plan_count = -1
 
-        self._sym_table_stack = [ {}]
-        self._variable_status = "declaration"
+        self._sym_table_stack = [{}]
+        self._variable_parsing_state = VariableDeclarationState()
 
         self._lexer = PropLexer()
         self.tokens = self._lexer.get_tokens()
-        self._parser = yacc.yacc(module=self, **kwargs)
+        self._parser = yacc.yacc(module=self, tabmodule='parse_table', outputdir='parser_out')
+#parser = yacc.yacc(tabmodule='parse_table',outputdir='parser_out')
 
     def parse(self, input):
         return self._parser.parse(input, tracking=True)
@@ -63,7 +64,8 @@ class Propylene:
 
     def p_seen_IntentionList(self, p):
         ''' seen_IntentionList : '''
-        self._variable_status = "usage"
+        self._variable_status = VariableUsageState()
+        #"usage"
 
     def p_seen_Plan(self, p):
         '''seen_Plan : '''
@@ -128,7 +130,8 @@ class Propylene:
 
     def p_seen_LambdaExpr(self, p):
         ''' seen_LambdaExpr : '''
-        self._variable_status = "usage"
+        self._variable_status = VariableUsageState()
+        #"usage"
 
 
 
@@ -278,14 +281,15 @@ class Propylene:
                         | '(' ArgumentList ')'
         '''                 
         if len(p)==5:
-            #global sym_table_stack
-            if self._variable_status == "usage":
-                try:
-                    self._sym_table_stack[-1][p[3]]
-                except(KeyError):
-                    raise UnboundedVariable()
-            elif self._variable_status == "declaration":
-                self._sym_table_stack[-1][p[3]] = "Variable"
+            self._variable_parsing_state.handle_symbol(self._sym_table_stack[-1], p[3])
+#            #global sym_table_stack
+#            if self._variable_status == "usage":
+#                try:
+#                    self._sym_table_stack[-1][p[3]]
+#                except(KeyError):
+#                    raise UnboundedVariable()
+#            elif self._variable_status == "declaration":
+#                self._sym_table_stack[-1][p[3]] = "Variable"
             print self._sym_table_stack
                     
     
@@ -318,7 +322,9 @@ class Propylene:
                 raise AttitudeTypeMismatch()  
         except(KeyError):
             self._sym_table_stack[0][uName] = uType
-    
+
+
+
 class AugmentedPropylene(Propylene):
 
     def __init__(self, *args, **kwargs):
