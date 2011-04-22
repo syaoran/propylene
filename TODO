@@ -18,11 +18,13 @@ ISSUES
     1) Unbounded Variable  (OK)
     2) Attitude Type Mismatch (OK)
 
+ - Controllo nomi duplicati di attitude nell'AST (visitor?)
 
 * MISCELLANEOUS
 
  - Warning all'utente per Plan con Head identiche (utilizzo del pattern visitor??)
  - File di output da riga di comando
+ - Augmented Grammar: Subclass o Decorator?
 
 ================================================================================
 ROADMAP

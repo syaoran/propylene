@@ -3,8 +3,10 @@
 *.swp
 *.pyc
 *.pdf
+/doc/sample_attitude
 # Output files of PLY
 propylene/parser_out/*
 parser.out
 parsetab.py
+# Output files of Propylene
 propylene/classes/*.py
