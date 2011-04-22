@@ -2,76 +2,124 @@
 #
 # Syntax Error Test
 #
-# These are `generic' syntax errors, that are not considered in the grammar
+# These errors are `intercepted' by error productions
 # ----------------------------------------------------------
 
 
+# -------------------------
+# Errors Everywhere!
+# WARNING: decommenting this plan will cause Propylene
+# to raise the TooManySyntaxErrors exception
+# -------------------------
+#( +~q) | ( 2+(_(X")) )  )
+#>>
+#    [   
+#        grab_corn("c11),      
+#        +no_more_corns()        
+#        ~~~unrestricted_error()
+#    ]
+
+
+
+
 
 # -------------------------
-# Missing brackets
+# Illegal Triggering Event
 # -------------------------
-( +~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X <= 1)) #)  #ERROR! 
+( move_arms()  )    #Action as triggering event
 >>
     [   
         +~grab_corn("c11"),      
         +no_more_corns(),        
-        restart() 
+        unrestricted_action()
     ]
 
-
-( +~deposit_corns(_("X")) | ( (lambda : X <= 1 ) ) ) 
+( "rotate" | ( bonus_zone() ) ) #String ???
 >>
     [   
         +~grab_corn("c11"),      
         +no_more_corns(),        
-        restart()
-#    ]   #ERROR
-
-
-# -------------------------
-# Missing angle quote
-# -------------------------
-( +~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X <= 1)) ) 
-> #ERROR!
-    [   
-        +~grab_corn("c11"),
-        +no_more_corns(),        
-        restart() 
+        generic_action()
     ]
 
-
-# -------------------------
-# Missing comma
-# -------------------------
-( +~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X <= 1)) ) 
+( +~grab_corn) | ( corns_in_robot(_("X")) )  )  #Unmatched brackets in triggering event
 >>
     [   
-        +~grab_corn("c11") #ERROR!
+        +~grab_corn("c11"),      
         +no_more_corns(),        
-        restart() 
+        unrestricted_action()
     ]
 
 
 # -------------------------
-# Missing pipe
+# Errors in Condition
 # -------------------------
-( +~deposit_corns()  ( corns_in_robot() ) )  #ERROR
+( +~deposit_corns() | ( ~grab_corn() ) )    #goal in condition
 >>
     [   
-        +~grab_corn("c11"),
+        +~grab_corn("c11"),      
         +no_more_corns(),        
-        restart() 
+        restart()          
     ]
 
-
-# -------------------------
-# Missing '+' o '-' , trigger delimiter 
-# -------------------------
-# ERROR!
-( ~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X <= 1)) ) 
+( +~deposit_corns() | ( -corns_in_robot(_("X")) ) ) #event in Condition
 >>
     [   
-        +~grab_corn("c11"),
+        +~grab_corn("c11"),      
         +no_more_corns(),        
-        restart() 
+        restart()          
     ]
+
+( +~deposit_corns(_("X")) | ( 2+_("X")<6 ) ) #Illegal Condition
+>>
+    [   
+        +~grab_corn("c11"),      
+        +no_more_corns(),        
+        restart()          
+    ]
+
+
+( +~deposit_corns() | corns_in_robot(_("X"))  ) #Condition not enclosed in '(' ')'
+>>
+    [   
+        +~grab_corn("c11"),      
+        +no_more_corns(),        
+        restart()          
+    ]
+
+
+# -------------------------
+# Errors in Body
+# -------------------------
+( +~deposit_corns() | ( corns_in_robot(_("X")))  )
+>>
+    [   
+        +~grab_corn("c11"),      
+        +no_more_corns()    #Missing ','      
+        restart()          
+    ]
+
+
+( +~deposit_corns() | ( corns_in_robot(_("X")))  )
+>>
+    [  #Illegal usage of body
+        "a",
+        "b",
+        "c"
+    ]
+
+
+
+
+
+
+### -------------------------
+### Unbounded Variable in Body
+### -------------------------
+###( +~deposit_corns() | ( corns_in_robot(_("X")) & (lambda : X <= 1)) ) 
+###>>
+###    [   
+###        +~grab_corn("c11"),      
+###        +no_more_corns(),        
+###        restart(_("Z"))     #ERROR!
+###    ]

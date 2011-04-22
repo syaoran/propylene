@@ -20,13 +20,12 @@ Test input files:
 3. args-test                : Plans with condition; mental attitudes have arguments;
 4. lambda-test              : Plans with condition and lambdas; mental attitudes have arguments;
 
-5. lexical-err              : Plans with lexical errors (illegal characters);
-6. production-err           : Plans with syntax errors, which are included in error productions (Augmented Propylene);
-7. syntax-err               : Plans with syntax errors;
-8. type-err                 : Plans with 'Type Mismatch' semantic errors;
-9. unbound-err              : Plans with 'Unbounded Variable' semantic errors;
+5. lexical-err              : Plans with lexical errors (illegal characters); 
+6. syntax-err               : Plans with syntax errors, which are handled by error productions (Augmented Propylene);
+7. type-err                 : Plans with 'Type Mismatch' semantic errors;
+8. unbound-err              : Plans with 'Unbounded Variable' semantic errors;
 
-10 real-world (coming soon) : Plans which closely resemble a 'real world' strategy.
+9. real-world (coming soon) : Plans which closely resemble a 'real world' strategy.
 
 
 
