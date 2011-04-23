@@ -1,133 +1,159 @@
 \section{PROFETA}
+
+\subsection{Motivation}
 %------------------------------
-\begin{frame}[label=3]{BDI Model}{Belief-Desire-Intention}  
-\begin{itemize}
-\item 
-The BDI model is a philosophical theory of human reasoning 
-   [\purple{Bratman et Israel}] that has been successfully applied to 
-   \red{software agents} [\purple{Wooldridge, Jennings }] 
-   \N
-   \item
-    In particular, we have:
-    \begin{itemize}
-      \n
-      \item 
-      \red{Beliefs}, that represent the \purple{knowledge} about both the world and 
-      the state of the agent itself
-      \n
-      \item
-      \red{Desires} (or \red{Goals}), that represent the \purple{objectives} the agent wants to achieve
-      \n
-      \item
-      \red{Intentions}, the sequence of \purple{actions} that allows the agent to achieve a particular objective
-    \end{itemize}
-
-
-
-\end{itemize}
-  \N\N
-\end{frame}
-%------------------------------
-
-%------------------------------
-\begin{frame}[label=5]{Agents}
-  
+\begin{frame}[label=1]{AMR Programming}
+  %
   \begin{itemize}
-  \pause
-  \item
-   \red{Agents} are entities that: 
-  \begin{itemize}
-    \item 
-      \red{act} in a dynamic environment;
     \item
-      \red{perceive} their surroundings through sensors;
+      The software running on \red{A}utonomous \red{M}obile \red{R}obots
+      requires the execution of many different tasks
+\N  
     \item
-      \red{adapt} their behaviour to respond to changes in the environment;
+      \red{Low level} tasks are tipically written in imperative languages 
+        %(\purple{C}, \purple{assembly})
+\n
     \item
-      \red{make} autonomous decisions to achieve its design goals;
-    \end{itemize}
-  \item
-  \n
-    The notion of agent is well suited to represent the behaviour of an AMR
+      \red{Higher level} tasks, e.g. strategy control, could benefit 
+      from a logic/declarative approach
+\N\N  
+\pause
+    \item
+      \navy{PROFETA} embeds declarative constructs into Python by
+      using the BDI model and exploiting operators overloading
+\n    
+    \item
+      \navy{PROFETA} provides an all-in-one environment, while combining
+      the advantages of both approaches
+%      into an imperative language, to provide an all-in-one environment
+%    \item A combination of both paradigms seems a reasonable trade-off
+  %
   \end{itemize}
-
+% 
+\N\N
 \end{frame}
 %------------------------------
 
 
 
+\subsection{The BDI Model}
+%------------------------------
+\begin{frame}[label=2]{The Belief-Desire-Intention Model}
+  %
+  \begin{itemize}
+    \item
+      The BDI model is a philosophical theory of human reasoning 
+      %[\purple{Bratman et Israel}] 
+      that has been successfully applied to \red{software agents} 
+      %[\purple{Wooldridge, Jennings }] 
+\N
+    \item 
+      In particular, we have:
+      %
+      \begin{itemize}
+      \n
+        \item 
+          \red{Beliefs}, that represent the \purple{knowledge} 
+          about both the world and the state of the agent itself
+      \n
+        \item
+          \red{Desires} (or \red{Goals}), that represent the 
+          \purple{objectives} the agent wants to achieve
+      \n
+        \item
+          \red{Intentions}, the sequence of \purple{actions} that allows 
+          the agent to achieve a particular objective
+      %
+      \end{itemize} 
+\N
+    \item
+      \navy{PROFETA} defines the corresponding Python classes
+      %basic class: 
+      %\purple{Belief}, \purple{Goal}, \purple{Action} and \purple{Engine}
+    \end{itemize}
+    %
+\N\N
+\end{frame}
 
 
-%
-%%------------------------------
-%%\subsection{}
-%%------------------------------
-%
-%
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%
-%\begin{frame}{Graph Models}
-%  % Image
-%  \begin{figure}[!h]
-%    \begin{center}
-%      \fbox{\includegraphics[width=150pt]{img/sample.png}}
-%    \end{center}
-%  \end{figure}
-%\end{frame}
+\subsection{The Plan}
+%------------------------------
+\begin{frame}[label=3]{AgentSpeak(L) Plan}
+  %
+  \begin{itemize} 
+    \item
+      The \red{Plan} is a core concept of PROFETA
+    \item
+      It has been originally defined in AgentSpeak(L) %ref.
+  %
+  \end{itemize}
 %%
+  \begin{exampleblock}{General Syntax of an AgentSpeak(L) Plan}
+    \begin{center}
+      \textbf{\texttt{Trigger | Condition >> Body}}
+    \end{center}
+  \end{exampleblock}
 %%
-%\begin{frame}{Random Graphs}
-%  \begin{itemize}
-%    \item Formul\ae\\
-%    \item \red{p}$*$\red{$N_1$}$*$(\red{N} - 1) / 2 connections
-%  \end{itemize}
-%\end{frame}
+\N
+  %
+  \begin{itemize}
+    \item
+      \purple{Trigger} is a specific event
+    \item 
+      \purple{Condition} is an \emph{optional} sequence of beliefs, 
+      which must hold in the agent's knowledge base
+    \item
+      \purple{Body} is a list that can contain both actions and events
+  %
+  \end{itemize}
+% 
+\N\N
+\end{frame}
+%------------------------------
+
+
+%------------------------------
+\begin{frame}[label=4, fragile]{PROFETA Plan}
 %%
+  \begin{exampleblock}{T.U.R.E. Strategy (Eurobot 2010)}
+    \texttt{ 
+      (  \red{+\tildett grab\_corn("c0")} | 
+      ( \green{white\_corn("c0")} )  ) \\
+      \tab >> [ \navy{  reach\_corn("c0"), \\ 
+                \TAB pick\_corn("c0")%, \\
+                     }
+              ]
+%        \red{ \TAB +\tildett grab\_corn("c3") } 
+%        {\hskip 1.3 cm}]\\
+ }
+  \end{exampleblock}
 %%
-%\begin{frame}{SampleCode}
-%We used the \red{peersim} library\footnote{\tiny{http://peersim.sourceforge.net/}} 
-%  \begin{samplecode}
-%    \begin{small}
-%      // Generate a graph with an average of \red{k} connections\newline
-%      // per node and randomness \red{r}\newline
-%      Graph g = GraphFactory.wireKOut(g, k, r);\newline
-%    \end{small}
-%  \end{samplecode}
-%\end{frame}
+\N
+  %
+  \begin{itemize} 
+    \item 
+      The user must define and implement the corresponding \emph{subclass} 
+      of \green{Belief}, \red{Goal} and \navy{Action}, e.g.
+  \end{itemize}
+  %
 %%
+  \begin{columns}
+    \column{2.0in}
+\begin{verbatim}
+class white_corn(Belief):
+    pass
+\end{verbatim}
+    \column{2.0in}
+\begin{verbatim}
+class reach_corn(Action):
+    pass
+\end{verbatim}
+  \end{columns}
 %%
-%\begin{frame}{SampleCode2}
-%  \begin{samplecode}
-%    \begin{tiny}
-%      \begin{tabbing}
-%        @WebService() \= public class \red{GraphService} \{\\
-%        \> @WebMethod() public int [] \red{countNeighbours} (@WebParam() int [] adjVector) \{...\}\\
-%        \> @WebMethod() public String [] \red{processConnections} (@WebParam() int [] neighboursCount) \{ ... \}\\
-%        \> @WebMethod() \= public int [] \red{computeHops} ( @WebParam() int [] adjVector, \\
-%        \> \> @WebParam() int [] neighbourCount,\\
-%        \> \> @WebParam() int hyperNodeIndex) \{ ... \}\\
-%        \}
-%      \end{tabbing}
-%    \end{tiny}
-%  \end{samplecode}
-%\end{frame}
-%%
-%
+% 
+\N\N\N
+\end{frame}
+%------------------------------
+
+

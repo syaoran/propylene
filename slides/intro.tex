@@ -1,104 +1,126 @@
-\section{Introduction}
+\section{PROFETA}
 
-%\subsection{}
-%
-%\begin{frame}{Problem Statement}  
-%  \begin{itemize}
-%    \item Our work aims at \ldots
-%    \item More\dots
-%  \end{itemize}
-%  \vfill
-%  A whitespace gap\\
-%  \begin{tiny}
-%    Smaller Font
-%  \end{tiny}
-%\end{frame}
-%%
+\subsection{Autonomous Mobile Robots Programming}
 %------------------------------
 \begin{frame}[label=1]{AMR Programming}
+%{Imperative vs Declarative approach}
   \begin{itemize}
     \item
       The software running on \red{A}utonomous \red{M}obile \red{R}obots
-      requires the execution of many different tasks.
+      requires the execution of many different tasks
 \N\N  
     \item
-      \red{Low level} tasks, such as control loops for mechanical arms 
-      and motion, are commonly written in \purple{C} or 
-      \purple{assembly}.
+      \red{Low level} tasks are tipically written in imperative languages 
+      (\purple{C}, \purple{assembly})
 \N
-\item
-    \red{Higher level} tasks, such as path planning 
-    or strategy control, require a trade-off between \purple{efficiency} and 
-    \purple{maintainability} of the code.
+    \item
+      \red{Higher level} tasks, especially strategy control, could benefit 
+      from a logic/declarative approach
+\N\N  
+    \item
+      A combination of both paradigms seems a reasonable trade-off
+    %
   \end{itemize}
+% 
 \N\N
 \end{frame}
 %------------------------------
 
 
+\subsection{Avoiding the ``mixture'' of paradigms}
 %------------------------------
-\begin{frame}[label=2]{Imperative vs Declarative}
+\begin{frame}[label=2]{The ``Mixture''}
+  %
   \begin{itemize}
+
     \item
-      Designing strategies with an imperative approach implies 
-      the use of a FSM
-  \begin{itemize}
+      However, mixing different languages arises serious efficiency issues
 \N
     \item
-      Lots of statements like:
-\n
-      \tab \small{``if ( \textbf{condition} ) then \textbf{do\_something()}''}
-
-\item
-      The code quickly becomes very hard to maintain.
-    \end{itemize}
-\pause
-    \N
+      Idea: embedding declarative constructs into an imperative language,
+      to provide an all-in-one environment
+\N\N
+    \item 
+      \navy{PROFETA} applies this idea to Python, by exploiting operators 
+      overloading
+\N
     \item
-    The \red{logic}/\red{declarative} approach employs a model closer to 
-    human reasoning process 
-\N    
-  \begin{itemize}
-\item
- It is impractical to implement the whole system using only declarative constructs.
-
-    \end{itemize}
-\end{itemize}
-\N\N
-\end{frame}
-
-
-
-%------------------------------
-\begin{frame}{The ``Mixture''}
-  \begin{itemize}
-\item
-We could combine the two approaches and exploit only their advantages 
-
-
-\item
-    However, mixing different languages and paradigms arises serious 
-    efficiency issues.
-\pause
-
-   \item 
-   \navy{PROFETA} adds \red{logic constructs} to Python programs, thus 
-    offering an all-in-one environment for both approaches
-    \N
-
-\item
-    \navy{PROFETA} is based on the key concepts of the \red{B}elief-\red{D}esire- \red{I}ntention model.
- 
-\item 
-The BDI model is a philosophical theory of human reasoning 
-   [\purple{Bratman et Israel}] that has been successfully applied to 
-   \red{software agents} [\purple{Wooldridge, Jennings }] 
-   \N
+      \navy{PROFETA} is based on the key concepts of the 
+      \red{B}elief-\red{D}esire- \red{I}ntention model.
  
     \end{itemize}
+    %
 \N\N
 \end{frame}
-%------------------------------
-
-
-
+%
+%
+%
+%
+%\item
+%      Designing strategies with an imperative approach implies 
+%      the use of a FSM
+%  \begin{itemize}
+%\N
+%    \item
+%      Lots of statements like:
+%\n
+%      \tab \small{``if ( \textbf{condition} ) then \textbf{do\_something()}''}
+%
+%\item
+%      The code quickly becomes very hard to maintain.
+%    \end{itemize}
+%\pause
+%    \N
+%    \item
+%    The \red{logic}/\red{declarative} approach employs a model closer to 
+%    human reasoning process 
+%\N    
+%  \begin{itemize}
+%\item
+% It is impractical to implement the whole system using only declarative constructs.
+%
+%    \end{itemize}
+%\end{itemize}
+%\N\N
+%\end{frame}
+%
+%
+%
+%%------------------------------
+%\begin{frame}{The ``Mixture''}
+%  \begin{itemize}
+%\item
+%We could combine the two approaches and exploit only their advantages 
+%
+%
+%\item
+%    However, mixing different languages and paradigms arises serious 
+%    efficiency issues.
+%\pause
+%
+%   \item 
+%   \navy{PROFETA} adds \red{logic constructs} to Python programs, thus 
+%    offering an all-in-one environment for both approaches
+%    \N
+%
+%\item
+%    \navy{PROFETA} is based on the key concepts of the \red{B}elief-\red{D}esire- \red{I}ntention model.
+% 
+%\item 
+%The BDI model is a philosophical theory of human reasoning 
+%   [\purple{Bratman et Israel}] that has been successfully applied to 
+%   \red{software agents} [\purple{Wooldridge, Jennings }] 
+%   \N
+% 
+%    \end{itemize}
+%\N\N
+%\end{frame}
+%%------------------------------
+%
+%\item 
+%The BDI model is a philosophical theory of human reasoning 
+%   [\purple{Bratman et Israel}] that has been successfully applied to 
+%   \red{software agents} [\purple{Wooldridge, Jennings }] 
+%   \N
+% 
+%
