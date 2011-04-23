@@ -6,6 +6,10 @@
 %\usepackage{listings}
 %\usepackage{textpos}
 
+
+%\includeonlyframes{1,2,3}
+
+
 \usetheme{Antibes}
 % Orange
 \usecolortheme[RGB={233,100,35}]{structure}
@@ -56,8 +60,32 @@
 \end{frame}
 %
 
+%------------------------------
+\begin{frame}[shrinks,label=o]{Outline}
+%  \tableofcontents[pausesections]
+%     \tableofcontents
+    \begin{columns}
+     \column{2.0in}
+%       \tableofcontents[sections={1}]
+%      \vspace{10mm}
+       \tableofcontents[sections={2}]
+      \vspace{10mm}
+       \tableofcontents[sections={3}]
+       \column{2.0in}
+       \tableofcontents[sections={4}] 
+       \vspace{10mm}
+      \tableofcontents[sections={5}] 
+%      \vspace{10mm}
+%       \tableofcontents[sections={5}]
+      \end{columns}
+\end{frame}
+%------------------------------
 
-\section{Introduction}
+
+
+
+
+\section*{Introduction}
 
 %\subsection{}
 %
@@ -75,22 +103,24 @@
 %%
 
 
-%----------------------------- What is PROFETA?
+%----------------------------- Core concepts of PROFETA
 \include{profeta}
-%----------------------------- What is PLY?
+%----------------------------- PLY features
 \include{ply}
-%----------------------------- What can we do with Propylene?
+%----------------------------- Propylene description
 \include{propylene}
-%----------------------------- An example of using Propylene
-\include{example}
+%----------------------------- Case study (not useful)
+%\include{casestudy}
 
 
 \section{Conclusions}
 %
-\begin{frame}{Conclusions}  
+\begin{frame}{Conclusions}
+% 3 final remarks
   \begin{itemize}
-    \item Our work \ldots
-    \item More\dots
+    \item \navy{Propylene} is \ldots
+    \item \navy{Propylene} allows \ldots
+    \item \navy{Propylene} has been applied \ldots
   \end{itemize}
 \end{frame}
 %

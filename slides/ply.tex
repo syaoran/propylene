@@ -1,35 +1,89 @@
-%
-%% ``Outsider slide''
-%
-\section{Propylene}
+\section{PLY}
+
 \subsection{Overview}
 %------------------------------
-\begin{frame}{Propylene Design Goals}  
-
-
+\begin{frame}{Propylene and PLY}  
+  %
+  \begin{itemize}
+    \item \navy{Propylene} is a Python classes generator:
+\n
+    %
+    \begin{itemize}
+      \item \textbf{Input:} a set of Profeta Plans (=the game strategy)
+\n  
+      \item \textbf{Output:} a set of subclasses of Profeta attitudes 
+%\n  
+%      \item \textbf{Tool:} we used \red{P}yton \red{L}ex-\red{Y}acc to
+%      implement Propylene
+    \end{itemize}
+    %
+\N
+    \item \navy{Propylene} uses as parsing tool \red{PLY}, a pure-Python
+    implementation of \emph{lex} and \emph{yacc}
+    \item
+     % \red{P}yton \red{L}ex-\red{Y}acc, 
+\N\n
+    \red{PLY} features include:
+    %
+    \begin{itemize}
+%\n
+      \item Support for SLR/LALR parsing
+%\n  
+%      \item Error checking, grammar validation
+%\n  
+      \item No need for a separate code-generation step
+    \end{itemize}
+    %
+  \end{itemize}
+  %
+  \begin{quote}
+    \begin{center}
+      ``The main goal of Python Lex-Yacc is to stay faithful to the way in 
+      which traditional lex/yacc tools work''
+    \end{center}
+  \end{quote}
+  %
+%
+\N\N
 \end{frame}
 %------------------------------
 
 
+\subsection{Lex}
+%------------------------------
+\begin{frame}{lex.py}
+  %
+  \begin{itemize}
+    \item Info about the lex.py module
+\N
+    \item As an example include some Propylene regexpr 
+\N
+    \item 1 slide is OK
+\N
+    \item \ldots.....
+ 
+  \end{itemize}
+  %
+%
+\N\N
+\end{frame}
 
 
-%\subsection{}
-%%------------------------------
-%\begin{frame}[label=2]{}
-%  %
-%  \begin{itemize}
-%    \item
-%\N
-%    \item
-%\N\N
-%    \item 
-%\N
-%    \item
-% 
-%  \end{itemize}
-%  %
-%%
-%\N\N
-%\end{frame}
-
-
+\subsection{Yacc}
+%------------------------------
+\begin{frame}{yacc.py}
+  %
+  \begin{itemize}
+    \item Info about the yacc.py
+\N
+    \item As an example include some Propylene productions (CFG)
+\N
+    \item 1 slide is OK (max 2)
+\N
+    \item \ldots..... 
+ 
+  \end{itemize}
+  %
+%
+\N\N
+\end{frame}
