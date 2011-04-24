@@ -150,6 +150,7 @@ class Visitor:
 class CodeGenerator (Visitor):
     def __init__ (self, uTarget = './classes/classes.py'):
         Visitor.__init__ (self)
+        self._items = {}
         self._belief_buf = '\n\n##BELIEFS\n'
         self._goal_buf = '\n\n##GOALS\n'
         self._action_buf = '\n\n##ACTIONS\n'
@@ -166,25 +167,34 @@ class CodeGenerator (Visitor):
     
     def VisitBelief (self, uBelief):
         print self.get_depth()*"\t", uBelief
-        self._belief_buf = self._belief_buf + '\nclass ' \
-            + uBelief._name \
-            + '(Belief):\n\t' \
-            + 'pass\n'
+        if uBelief.Name () in self._items: return
+        else:
+            self._items[uBelief.Name ()] = 'Belief'
+            self._belief_buf = self._belief_buf + '\nclass ' \
+                + uBelief._name \
+                + '(Belief):\n\t' \
+                + 'pass\n'
 
     def VisitGoal (self, uGoal):
         print self.get_depth()*"\t", uGoal
-        self._goal_buf = self._goal_buf + '\nclass ' \
-            + uGoal._name \
-            + '(Goal):\n\t' \
-            + 'pass\n'
+        if uGoal.Name () in self._items: return
+        else:
+            self._items[uGoal.Name ()] = 'Goal'
+            self._goal_buf = self._goal_buf + '\nclass ' \
+                + uGoal._name \
+                + '(Goal):\n\t' \
+                + 'pass\n'
 
     def VisitAction (self, uAction):
         print self.get_depth()*"\t", uAction
-        self._action_buf = self._action_buf + '\nclass ' \
-            + uAction._name \
-            + '(Action):\n\t' \
-            + 'def execute (self):\n\t\t##...\n'
-        
+        if uAction.Name () in self._items: return
+        else:
+            self._items[uAction.Name ()] = 'Action'
+            self._action_buf = self._action_buf + '\nclass ' \
+                + uAction._name \
+                + '(Action):\n\t' \
+                + 'def execute (self):\n\t\t##...\n'
+            
     def Visit (self, uTree):
         uTree.Accept (self)
         
