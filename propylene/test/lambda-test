@@ -208,11 +208,11 @@
 ]
 
 
-#(+b_target_got(_("X"), _("W")) | ( b_king_position(_("Y"), _("K")) & (lambda : (X>=100)and (100>=Y) ) ) )  
-#>> [ ]
-#
-#(+b_target_got(_("X"), _("W")) | ( b_king_position(_("Y"), _("K")) & (lambda : (X>100) and (100<Y)) ) )  
-#>> [ ]
-#
-#(+b_target_got(_("X"), _("W")) | ( b_king_position(_("Y"), _("K")) & (lambda : (X<100) and (100<Y) ) ) )  
-#>> [ ]
+(+b_target_got(_("X"), _("W")) | ( b_king_position(_("Y"), _("K")) & (lambda : (X>=100)and (100>=Y) ) ) )  
+>> [ ]
+
+(+b_target_got(_("X"), _("W")) | ( b_king_position(_("Y"), _("K")) & (lambda : (X>100) and (100<Y)) ) )  
+>> [ ]
+
+(+b_target_got(_("X"), _("W")) | ( b_king_position(_("Y"), _("K")) & (lambda : (X<100) and (100<Y) ) ) )  
+>> [ ]

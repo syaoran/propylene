@@ -16,5 +16,9 @@ parse:
 	#mv parser.out ./parser_out
 	rm -rf *.pyc *.tmp .*.swp
 
+parse-and-visual:
+	$(PYTHON) $(PARSER) $(TEST) --graphical-ast
+	rm -rf *.pyc *.tmp .*.swp
+
 clean:
 	rm -rf *.pyc *.tmp .*.swp

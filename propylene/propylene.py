@@ -43,11 +43,11 @@ class Propylene:
         self._parser = yacc.yacc(module=self, debug=1)
         #self._parser = yacc.yacc(module=self, tabmodule='parse_table', outputdir='parser_out')
         
-        ## if the output file was specified, save it
-        try: 
-            self._out = kwargs["out"]
-        except: 
-            pass
+        ## if the target file was specified, save it
+        try: self._out = kwargs["out"]
+        except: pass
+        try: self._generate_graphical_ast = kwargs["generate_graphical_ast"]
+        except: self._generate_graphical_ast = False
     
     ## Wrapper method for parsing
     def parse(self, input):
@@ -61,28 +61,28 @@ class Propylene:
     # Start symbol of the grammar 
     def p_start(self, p):
         ''' Start : Strategy 
-        '''
-        #print "End of Strategy!"
-        
+        '''        
         ## Syntax errors detected: cannot generate code
         if self._syntax_errors_count>0:
             print "Propylene has found {0} syntax errors:" .format(self._syntax_errors_count)
             self.print_syntax_error_info()
             print "Cannot generate code. Aborting."
         else:
-            ## create the visitor
-            try: 
-                v = Visitor(uTarget = self._out)
-            except: 
-                v = Visitor ()
+            ## create the visitors
+            try: code_generator = CodeGenerator(uTarget = self._out)
+            except: code_generator = CodeGenerator ()
+            ast_visual_generator = ASTVisualGenerator ()
             
             p[0] = p[1]
-            
-            ## visit the tree
-            p[0].Visit(v)
 
-            ## generate the target
-            v.GenerateCode ()
+            ## visit the tree and generate the code
+            code_generator.Visit (p[0])
+            code_generator.GenerateCode ()
+
+            ## if visual support was requested:
+            if self._generate_graphical_ast:
+                ast_visual_generator.Visit (p[0])
+                ast_visual_generator.GenerateImage ()
 
     ## Strategy is a set of Plans
     def p_strategy(self, p):
@@ -347,7 +347,7 @@ class Propylene:
 #    def print_syntax_error_message(self, uLexToken):
 #        print 
         
-        ##------------------------------------------------------------------------------
+##------------------------------------------------------------------------------
 ## class AugmentedPropylene ---> Propylene
 ##------------------------------------------------------------------------------
 class AugmentedPropylene(Propylene):
@@ -446,16 +446,22 @@ class AugmentedPropylene(Propylene):
 ##------------------------------------------------------------------------------
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print "usage: python propylene.py <SOURCE> [--output [OUTPUT]]"
+        print "usage: python propylene.py <SOURCE> [--output [OUTPUT] [--graphical-ast]"
         sys.exit (0)
-
-    if len (sys.argv) == 3:
-        output = sys.argv[2]
         
-    try:    p = AugmentedPropylene(out=output)
-    except: p =  AugmentedPropylene()
-
-    inputFilePath = sys.argv[1]
+    else: ##scan arguments
+        inputFilePath = sys.argv[1]
+        output = None
+        gen_graphical_ast = False
+        for i in range(len(sys.argv)):
+            if sys.argv[i] == "--output": output = sys.argv[i+1]
+            elif sys.argv[i] == "--graphical-ast": gen_graphical_ast = True
+            
+        if output is not None:
+            p = AugmentedPropylene (out = output, generate_graphical_ast = gen_graphical_ast)
+        else:
+            p = AugmentedPropylene (generate_graphical_ast = gen_graphical_ast)
+        
     inputFile = open(inputFilePath, 'r')
     inputFileLines = inputFile.readlines()
     inputFile.close()
