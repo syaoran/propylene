@@ -158,7 +158,7 @@ class CodeGenerator (Visitor):
         print uTarget
         
     def VisitBasicNode (self, uNode):
-        print self.get_depth()*"\t", uNode
+        print self.get_depth()*"    ", uNode
         self.inc_depth()
 
         for n in uNode._children:
@@ -166,34 +166,34 @@ class CodeGenerator (Visitor):
         self.dec_depth()
     
     def VisitBelief (self, uBelief):
-        print self.get_depth()*"\t", uBelief
+        print self.get_depth()*"    ", uBelief
         if uBelief.Name () in self._items: return
         else:
             self._items[uBelief.Name ()] = 'Belief'
             self._belief_buf = self._belief_buf + '\nclass ' \
                 + uBelief._name \
-                + '(Belief):\n\t' \
+                + '(Belief):\n    ' \
                 + 'pass\n'
 
     def VisitGoal (self, uGoal):
-        print self.get_depth()*"\t", uGoal
+        print self.get_depth()*"    ", uGoal
         if uGoal.Name () in self._items: return
         else:
             self._items[uGoal.Name ()] = 'Goal'
             self._goal_buf = self._goal_buf + '\nclass ' \
                 + uGoal._name \
-                + '(Goal):\n\t' \
+                + '(Goal):\n    ' \
                 + 'pass\n'
 
     def VisitAction (self, uAction):
-        print self.get_depth()*"\t", uAction
+        print self.get_depth()*"    ", uAction
         if uAction.Name () in self._items: return
         else:
             self._items[uAction.Name ()] = 'Action'
             self._action_buf = self._action_buf + '\nclass ' \
                 + uAction._name \
-                + '(Action):\n\t' \
-                + 'def execute (self):\n\t\t##...\n'
+                + '(Action):\n    ' \
+                + 'def execute (self):\n        ##...\n'
             
     def Visit (self, uTree):
         uTree.Accept (self)
