@@ -3,22 +3,20 @@
 ## 
 ## Unit tests for propylene
 ##------------------------------------------------------------------------------
-##
+
 ##------------------------------------------------------------------------------
 ## local imports
 ##------------------------------------------------------------------------------
 from propylene import Propylene as Propylene
 from propylene import AugmentedPropylene as AugmentedPropylene
 from exception import *
-##
+
 ##------------------------------------------------------------------------------
 ## global imports
 ##------------------------------------------------------------------------------
 import glob
 import unittest
-##
-TEST_DIR = "test/"
-##
+
 ##------------------------------------------------------------------------------
 ## class PropyleneTest
 ##------------------------------------------------------------------------------
@@ -42,6 +40,7 @@ class PropyleneTest(unittest.TestCase):
         print "TESTING ", scenario
         outputfile = scenario [0]
         inputfile  = scenario [1]
+        # parsing should 
         self.assertRaises (AttitudeTypeMismatch, 
                            self.parse, inputfile, outputfile)
 
@@ -50,13 +49,16 @@ class PropyleneTest(unittest.TestCase):
         print "TESTING ", scenario
         outputfile = scenario [0]
         inputfile  = scenario [1]
-        self.parse (inputfile, outputfile)
+        # parsing should succeed, anyway
+        self.assertEqual ("Strategy",
+                          self.parse (inputfile, outputfile).Name ()[:8])
 
     def test_syntax_error0 (self):
         scenario = self.scenarios ()['syn-err']
         print "TESTING ", scenario
         outputfile = scenario [0]
         inputfile  = scenario [1]
+        # parsing should fail due to too many syntax errors
         self.assertRaises (TooManySyntaxErrors,
                            self.parse, inputfile, outputfile)
 
@@ -65,14 +67,16 @@ class PropyleneTest(unittest.TestCase):
         print "TESTING ", scenario
         outputfile = scenario [0]
         inputfile  = scenario [1]
-        self.parse (inputfile, outputfile, 20)
+        ## parsing should fail
+        self.assertEqual (None,
+                          self.parse (inputfile, outputfile, 20))
 
-    def test_lexical_error (self):
+    def test_unb_error (self):
         scenario = self.scenarios ()['unb-err']
         print "TESTING ", scenario
         outputfile = scenario [0]
         inputfile  = scenario [1]
-        self.assertRaises (UnboundedVariable, 
+        self.assertRaises (UnboundedVariable,
                            self.parse, inputfile, outputfile)
 
     def test_lamb (self):
@@ -80,27 +84,31 @@ class PropyleneTest(unittest.TestCase):
         print "TESTING ", scenario
         outputfile = scenario [0]
         inputfile  = scenario [1]
-        self.parse (inputfile, outputfile)
+        self.assertEqual ("Strategy",
+                          self.parse (inputfile, outputfile).Name ()[:8])
 
     def test_args (self):
         scenario = self.scenarios ()['args']
         print "TESTING ", scenario
         outputfile = scenario [0]
         inputfile  = scenario [1]
-        self.parse (inputfile, outputfile)
+        self.assertEqual ("Strategy",
+                          self.parse (inputfile, outputfile).Name ()[:8])
 
     def test_base (self):
         scenario = self.scenarios ()['base']
         print "TESTING ", scenario
         outputfile = scenario [0]
         inputfile  = scenario [1]
-        self.parse (inputfile, outputfile)
+        self.assertEqual ("Strategy",
+                          self.parse (inputfile, outputfile).Name ()[:8])
 
     def test_cond (self):
         scenario = self.scenarios ()['cond']
         outputfile = scenario [0]
         inputfile  = scenario [1]
-        self.parse (inputfile, outputfile)
+        self.assertEqual ("Strategy",
+                          self.parse (inputfile, outputfile).Name ()[:8])
 
     def parse (self, uInputFile, uOutputFile, uSynErrorsLimit = 10):
         p = AugmentedPropylene (out = uOutputFile, 
@@ -113,6 +121,7 @@ class PropyleneTest(unittest.TestCase):
             totalString += line
 
         result = p.parse (totalString)
+        return result
 ##
 ##------------------------------------------------------------------------------
 ##  Main

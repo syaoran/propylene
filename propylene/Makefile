@@ -1,11 +1,15 @@
 PYTHON        = python2.6
 PARSER        = propylene.py
+UNITTEST      = tests.py
 TEST_DIR      = ./test/
 SRC           = base-test
 ARGS_TEST_SRC = $(TEST_DIR)args-test
 TEST          = $(TEST_DIR)$(SRC) 
 
 #all:
+
+unit-test:
+	$(PYTHON) $(UNITTEST)
 
 test-args:
 	$(PYTHON) $(PARSER) $(ARGS_TEST_SRC)
