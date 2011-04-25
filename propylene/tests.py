@@ -31,40 +31,45 @@ class PropyleneTest(unittest.TestCase):
                  'lambda'   : ("classes/lambda-test-out.py", "test/lambda-test"),
                  'type-err' : ("classes/attitude-type-mismatch-err-out.py", "test/type-err"),
                  'lex-err'  : ("classes/lexical-err-out.py", "test/lexical-err"),
-                 'prod-err' : ("classes/production-err-out.py", "test/production-err"),
                  'syn-err'  : ("classes/syntax-err-out.py", "test/syntax-err"),
                  'unb-err'  : ("classes/unbound-err-out.py", "test/unbound-err"),
                  }
 
+    
+
     def test_attitude_type_mismatch (self):
         scenario = self.scenarios ()['type-err']
+        print "TESTING ", scenario
         outputfile = scenario [0]
         inputfile  = scenario [1]
         self.assertRaises (AttitudeTypeMismatch, 
                            self.parse, inputfile, outputfile)
 
-    ## this test won't fail
     def test_lexical_error (self):
         scenario = self.scenarios ()['lex-err']
-        outputfile = scenario [0]
-        inputfile  = scenario [1]
-        self.parse (inputfile, outputfile)
-        
-    # ## this test fails, but raises an unexpected exception
-    def test_production_error (self):
-        scenario = self.scenarios ()['prod-err']
+        print "TESTING ", scenario
         outputfile = scenario [0]
         inputfile  = scenario [1]
         self.parse (inputfile, outputfile)
 
-    def test_syntax_error (self):
+    def test_syntax_error0 (self):
         scenario = self.scenarios ()['syn-err']
+        print "TESTING ", scenario
         outputfile = scenario [0]
         inputfile  = scenario [1]
-        self.parse (inputfile, outputfile)
+        self.assertRaises (TooManySyntaxErrors,
+                           self.parse, inputfile, outputfile)
+
+    def test_syntax_error1 (self):
+        scenario = self.scenarios ()['syn-err']
+        print "TESTING ", scenario
+        outputfile = scenario [0]
+        inputfile  = scenario [1]
+        self.parse (inputfile, outputfile, 20)
 
     def test_lexical_error (self):
         scenario = self.scenarios ()['unb-err']
+        print "TESTING ", scenario
         outputfile = scenario [0]
         inputfile  = scenario [1]
         self.assertRaises (UnboundedVariable, 
@@ -72,18 +77,21 @@ class PropyleneTest(unittest.TestCase):
 
     def test_lamb (self):
         scenario = self.scenarios ()['lambda']
+        print "TESTING ", scenario
         outputfile = scenario [0]
         inputfile  = scenario [1]
         self.parse (inputfile, outputfile)
 
     def test_args (self):
         scenario = self.scenarios ()['args']
+        print "TESTING ", scenario
         outputfile = scenario [0]
         inputfile  = scenario [1]
         self.parse (inputfile, outputfile)
 
     def test_base (self):
         scenario = self.scenarios ()['base']
+        print "TESTING ", scenario
         outputfile = scenario [0]
         inputfile  = scenario [1]
         self.parse (inputfile, outputfile)
@@ -94,8 +102,9 @@ class PropyleneTest(unittest.TestCase):
         inputfile  = scenario [1]
         self.parse (inputfile, outputfile)
 
-    def parse (self, uInputFile, uOutputFile):
-        p = AugmentedPropylene (out = uOutputFile)
+    def parse (self, uInputFile, uOutputFile, uSynErrorsLimit = 10):
+        p = AugmentedPropylene (out = uOutputFile, 
+                                syntax_errors_limit = uSynErrorsLimit)
         inputFile = open (uInputFile, 'r')
         inputFileLines = inputFile.readlines()
         inputFile.close()

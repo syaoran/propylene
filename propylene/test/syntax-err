@@ -11,13 +11,13 @@
 # WARNING: decommenting this plan will cause Propylene
 # to raise the TooManySyntaxErrors exception
 # -------------------------
-#( +~q) | ( 2+(_(X")) )  )
-#>>
-#    [   
-#        grab_corn("c11),      
-#        +no_more_corns()        
-#        ~~~unrestricted_error()
-#    ]
+( +~q) | ( 2+(_(X")) )  )
+>>
+   [   
+       grab_corn("c11),      
+       +no_more_corns()        
+       ~~~unrestricted_error()
+   ]
 
 
 

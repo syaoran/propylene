@@ -30,7 +30,8 @@ class Propylene:
         self._syntax_errors_count = 0
         self._syntax_errors_info = []
         ## If the following limit is exceeded, the parser stops
-        self._syntax_errors_limit = 10
+        try:    self._syntax_errors_limit = kwargs["syntax_errors_limit"]
+        except: self._syntax_errors_limit = 10
         ## The bottom of the stack is the global symbol table 
         self._symbol_table_stack = [ {} ]
         self._variable_parsing_status = VariableDeclarationState()
