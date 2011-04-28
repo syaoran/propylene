@@ -68,8 +68,8 @@ class PropyleneTest(unittest.TestCase):
         outputfile = scenario [0]
         inputfile  = scenario [1]
         ## parsing should fail
-        self.assertEqual (None,
-                          self.parse (inputfile, outputfile, 20))
+        self.assertRaises (SystemExit,
+                           self.parse, inputfile, outputfile, 20)
 
     def test_unb_error (self):
         scenario = self.scenarios ()['unb-err']

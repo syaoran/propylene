@@ -24,8 +24,10 @@ class VariableUsageState:
         if symbol[0] == "\"": symbol = symbol[1:-1]
         try:
             symbol_table[symbol]
-        except(KeyError):
-            raise UnboundedVariable()
+        except KeyError:
+            e = UnboundedVariable()
+            e.symbol = symbol
+            raise e
 ##
 ##------------------------------------------------------------------------------
 ## class VariableDeclarationState

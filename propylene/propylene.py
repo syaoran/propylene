@@ -64,10 +64,15 @@ class Propylene:
         ''' Start : Strategy 
         '''        
         ## Syntax errors detected: cannot generate code
-        if self._syntax_errors_count>0:
-            print "Propylene has found {0} syntax errors:" .format(self._syntax_errors_count)
+        if self._syntax_errors_count > 0:
+            print "Propylene has found {0} syntax errors:" \
+                .format(self._syntax_errors_count)
+
             self.print_syntax_error_info()
-            print "Cannot generate code. Aborting."
+            print "Cannot generate code."
+            print "Aborted."
+            sys.exit (-1)
+
         else:
             ## create the visitors
             try: code_generator = CodeGenerator(uTarget = self._out)
@@ -246,8 +251,14 @@ class Propylene:
         '''
         if isinstance(p[1], str):
             if p[1][0] != "\"":
-                self._variable_parsing_status.handle_symbol (self._symbol_table_stack[-1], 
-                                                             p[1])
+                try: 
+                    self._variable_parsing_status.handle_symbol (
+                        self._symbol_table_stack[-1], 
+                        p[1])
+                except UnboundedVariable as e:
+                    e.lineno = p.lineno(1)
+                    raise e
+                
     # Comparison operator
     def p_comp_op(self, p):
         ''' CompOp  : '>'  
@@ -264,7 +275,10 @@ class Propylene:
         ''' Belief  : NAME '(' ArgumentList ')'
         '''
         p[0] = Belief(uName=p[1])
-        self.insert_symbol(p[1],'Belief')
+        try: self.insert_symbol(p[1],'Belief')
+        except AttitudeTypeMismatch as e:
+            e.lineno = p.lineno(1)
+            raise e
     
     # Goal
     def p_goal(self, p):
@@ -299,8 +313,13 @@ class Propylene:
                         | '(' ArgumentList ')'
         '''                 
         if len(p)==5:
-            self._variable_parsing_status.handle_symbol(self._symbol_table_stack[-1], 
-                                                        p[3])
+            try:
+                self._variable_parsing_status.handle_symbol(
+                    self._symbol_table_stack[-1], 
+                    p[3])
+            except UnboundedVariable as e:
+                e.lineno = p.lineno(1)
+                raise e
                     
             
     # Empty production
@@ -326,13 +345,17 @@ class Propylene:
     ###
     # Ancillary Functions
     ###
-    def insert_symbol(self, uName,uType):
+    def insert_symbol(self, uName, uType):
         #print self._symbol_table_stack
         try:
             type = self._symbol_table_stack[0][uName]
             #print type, uType
             if type != uType:
-                raise AttitudeTypeMismatch()  
+                e = AttitudeTypeMismatch()
+                e.attitude_name = uName
+                e.type1 = type
+                e.type2 = uType
+                raise e
         except(KeyError):
             self._symbol_table_stack[0][uName] = uType
 
@@ -459,7 +482,8 @@ if __name__ == '__main__':
             elif sys.argv[i] == "--graphical-ast": gen_graphical_ast = True
             
         if output is not None:
-            p = AugmentedPropylene (out = output, generate_graphical_ast = gen_graphical_ast)
+            p = AugmentedPropylene (out = output,
+                                    generate_graphical_ast = gen_graphical_ast)
         else:
             p = AugmentedPropylene (generate_graphical_ast = gen_graphical_ast)
         
@@ -471,4 +495,20 @@ if __name__ == '__main__':
         totalString += line
 
     try: p.parse(totalString)
-    catch 
+    except TooManySyntaxErrors as e:
+        p.print_syntax_error_info()
+        print "Too many syntax errors."
+        print "Aborted."
+        sys.exit (-1)
+
+    except AttitudeTypeMismatch as e:
+        print "Line {0} : detected {1} \"{2}\" previously used as a {3}"\
+            .format (e.lineno, e.type2, e.attitude_name, e.type1)
+        print "Aborted."
+        sys.exit (-1)
+
+    except UnboundedVariable as e:
+        print "Line {0} : referenced unbounded variable {1}"\
+            .format (e.lineno, e.symbol)
+        print "Aborted."
+        sys.exit (-1)
