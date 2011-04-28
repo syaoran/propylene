@@ -162,7 +162,7 @@ class CodeGenerator (Visitor):
         print uTarget
         
     def VisitBasicNode (self, uNode):
-        print self.get_depth()*"    ", uNode
+        ##print self.get_depth()*"    ", uNode
         self.inc_depth()
 
         for n in uNode._children:
@@ -170,7 +170,7 @@ class CodeGenerator (Visitor):
         self.dec_depth()
     
     def VisitBelief (self, uBelief):
-        print self.get_depth()*"    ", uBelief
+        ##print self.get_depth()*"    ", uBelief
         if uBelief.Name () in self._items: return
         else:
             self._items[uBelief.Name ()] = 'Belief'
@@ -180,7 +180,7 @@ class CodeGenerator (Visitor):
                 + 'pass\n'
 
     def VisitGoal (self, uGoal):
-        print self.get_depth()*"    ", uGoal
+        ##print self.get_depth()*"    ", uGoal
         if uGoal.Name () in self._items: return
         else:
             self._items[uGoal.Name ()] = 'Goal'
@@ -190,7 +190,7 @@ class CodeGenerator (Visitor):
                 + 'pass\n'
 
     def VisitAction (self, uAction):
-        print self.get_depth()*"    ", uAction
+        ##print self.get_depth()*"    ", uAction
         if uAction.Name () in self._items: return
         else:
             self._items[uAction.Name ()] = 'Action'

@@ -337,7 +337,7 @@ class Propylene:
             self._symbol_table_stack[0][uName] = uType
 
     def add_generic_syntax_error_message(self, uLexToken):
-        mex = "Line {0} : Sintax error - unexpected token '{1}'"\
+        mex = "Line {0} : Syntax error - unexpected token '{1}'"\
                 .format(uLexToken.lineno, uLexToken.value)
         self._syntax_errors_info.append(mex)
 
@@ -470,4 +470,5 @@ if __name__ == '__main__':
     for line in inputFileLines:
         totalString += line
 
-    result = p.parse(totalString)
+    try: p.parse(totalString)
+    catch 
