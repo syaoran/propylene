@@ -22,10 +22,14 @@ class Node:
         self._children = uChildren
         
     def __repr__ (self):
-        return repr(self._name + "@" + str (id(self)))
+        ## return repr(self._name + "@" + str (id(self)))
+        return self._name
     
     def Name (self):
         return self._name
+
+    def SetName (self, uName):
+        self._name = uName
 
     def Accept (self, uVisitor):
         uVisitor.VisitBasicNode (self)
@@ -213,17 +217,27 @@ class ASTVisualGenerator (Visitor):
         Visitor.__init__ (self)
         self._nodes_buf = []
         self._edges_buf = []
-
-        ## initialize the graph
-        # self._graph = nx.Graph ()
         self._counter = 0
         self._queue = deque ([])
+
+    def VisitBelief (self, uBelief): self.VisitBasicNode (uBelief)
+    def VisitGoal (self, uGoal):     self.VisitBasicNode (uGoal)
+    def VisitAction (self, uAction): self.VisitBasicNode (uAction)
+
+    def VisitBasicNode (self, uNode):
+        uNode.SetName (str (self._counter) + " : " +uNode.Name ())
+        self._counter += 1
+        for node in uNode._children:
+            node.Accept (self)
             
     def Visit (self, uTree):
+        uTree.Accept (self)
+
         self._queue.append(uTree)
         while not len (self._queue) == 0:
             node = self._queue.popleft ()
             self._nodes_buf.append (node)
+            self._counter += 1
             for child in node._children:
                 self._edges_buf.append ((node, child))
                 self._queue.append (child)
