@@ -247,11 +247,11 @@ class ASTVisualGenerator (Visitor):
         G.add_nodes_from (self._nodes_buf)
         G.add_edges_from (self._edges_buf)
         pos = nx.graphviz_layout (G, prog = 'dot', args = '')
-        plt.figure (figsize = (10, 10))
-        nx.draw(G , pos, node_size=0, alpha=0.2, font_size = 8)
+        plt.figure (figsize = (30, 10))
+        nx.draw(G , pos, node_size=0, alpha=0.1, font_size = 40)
         plt.axis('equal')
-        plt.show()
-        ## plt.savefig('ast.png')
+        #plt.show()
+        plt.savefig('strategy-ir.pdf')
 ##
 ##------------------------------------------------------------------------------
 ##  Ancillary functions.

@@ -1,10 +1,8 @@
 \section{Propylene}
-
+%%
 \subsection{Overview}
 %------------------------------
 \begin{frame}{Propylene architecture}
-  %%
-  Propylene is made of several stand-alone modules:
   %%
   \begin{figure}[!h]
     \begin{center}
@@ -12,28 +10,118 @@
     \end{center}
   \end{figure}
   %%
-  Internally, it implements a \green{symbol table}.
+  \begin{itemize}
+  \item Propylene is made of several \red{modules}
+  \item Internally, it implements a \emph{stack} of \green{symbol tables}
+  \end{itemize}
   %%
 \end{frame}
-
-
-\subsection{AST}
+%%
+%%
+%%
+\subsection{PropLexer}
 %------------------------------
-\begin{frame}{AST}  
-  %
-  %% \begin{itemize}
-  %% \item Info concerning AST generation and traversal
-  %%   \N
-  %% \item Could contain some notes on Node hierarchy or Visitor
-  %%   \N
-  %% \item More...
-  %%   \N
-  %% \item AST Graphics here??
-    
-  %% \end{itemize}
-  %
-%
-\N\N
+\begin{frame}[fragile]{PropLexer}
+  %%
+  \begin{itemize}
+  \item As the name suggests, it implements a {\bf lexer}
+    \begin{itemize}
+    \item takes as input a {\bf strategy}
+    \item handles {\bf unexpected tokens}
+    \item returns a list of {\bf tokens}
+    \end{itemize}
+  \end{itemize}
+  %%
+  \begin{exampleblock}{Code snippet}
+\begin{verbatim}
+def t_STRING(self, t):
+    r' " (\. | [^\\"])* " '
+    return t
+\end{verbatim}
+  \end{exampleblock}  
+  %%
+  \begin{itemize}
+  \item Issues:
+    \begin{itemize}
+    \item use of {\bf conditional lexing}
+    \item just one rule for {\bf reserved words}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+%%
+%%
+%%
+\subsection{Propylene}
+%------------------------------
+\begin{frame}[fragile]{Propylene}
+  %%
+  \begin{itemize}
+  \item It is the main module, implements a {\bf parser}
+    \begin{itemize}
+    \item takes as input the tokens produced by {\bf PropLexer}
+    \item constructs and mantains a stack of {\bf symbol tables}
+    \item handles {\bf syntax} and {\bf semantic} errors
+    \item makes the {\bf abstract syntax tree}
+    \item returns an {\bf intermediate representation} of the strategy
+    \end{itemize}
+  \end{itemize}
+  %%
+  \begin{exampleblock}{Code snippet}
+\begin{verbatim}
+def p_belief(self, p):
+    ''' Belief  : NAME '(' ArgumentList ')'
+    '''
+    p[0] = Belief(uName=p[1])
+    try: self.insert_symbol(p[1],'Belief')
+    except AttitudeTypeMismatch as e:
+        e.lineno = p.lineno(1)
+        raise e
+\end{verbatim}
+  \end{exampleblock}  
+  %%
+\end{frame}
+%%
+%%
+\subsection{The Intermediate Representation}
+%------------------------------
+\begin{frame}[fragile]{The Intermediate Representation (IR)}
+  \begin{itemize}
+  \item Nothing more than a \emph{decorated} AST
+    \begin{itemize}
+      %%      \begin{tiny}
+    \item some regions have been \emph{flattened}
+      %%\end{tiny}
+    \end{itemize}
+    \N
+  \item Nodes are objects with an \texttt{Accept (uVisitor)} method to allow traversal
+    \N
+  \item An IR can be passed to either 
+    \begin{itemize}
+    \item the {\bf CodeGenerator} to generate \emph{python classes}
+    \item the {\bf VisualGenerator} to generate a graphical representation of the IR
+      itself
+    \end{itemize}
+  \end{itemize}
+%%
+\end{frame}
+%%
+%%
+\begin{frame}[fragile]{An Example}
+  \begin{exampleblock}{C.I.C.C.I.O. Strategy (Eurobot 2011)}
+\begin{verbatim}
+  ( +start() | (color("red")) ) >> 
+                [ activate_poller(RedPathActivities),
+                  activate_poller(KingQueenPoller),
+                  activate_poller(TargetPoller) ]
+\end{verbatim}
+  \end{exampleblock}
+  %%
+  \begin{figure}[!h]
+    \begin{center}
+      \fbox{\includegraphics[width=300pt]{img/strategy-ir.pdf}}
+    \end{center}
+  \end{figure}
+  %%
 \end{frame}
 
 

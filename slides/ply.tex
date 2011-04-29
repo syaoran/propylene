@@ -149,13 +149,13 @@ def p_plan(p):
     %
 \n
 %%
-  \begin{exampleblock}{Error Rule Example}
+\begin{exampleblock}{Error Rule Example}
 \begin{verbatim}
 def p_trigger_error(self, p):
     ``` Head : '(' error '|' Condition ')' '''
     print "Illegal Triggering Event"
 \end{verbatim}
-  \end{exampleblock}
+\end{exampleblock}
 %%
 \n
    \item The \texttt{error} token matches any bad input up to `\texttt{|}'
