@@ -131,3 +131,44 @@ def p_plan(p):
 %
 \N\N
 \end{frame}
+
+
+\subsection{Error Handling}
+%------------------------------
+\begin{frame}[fragile]{Error Handling}
+  %
+  \begin{itemize}
+    \item When a syntax error occurs: 
+    %
+    \begin{itemize}
+      \item The special \texttt{p\_error(p)} function is invoked;
+      \item The offending token is replaced by the special \texttt{error} 
+      token
+      \item The parser attempts to reduce a rule involving \texttt{error}
+    \end{itemize}
+    %
+\n
+%%
+  \begin{exampleblock}{Error Rule Example}
+\begin{verbatim}
+def p_trigger_error(self, p):
+    ``` Head : '(' error '|' Condition ')' '''
+    print "Illegal Triggering Event"
+\end{verbatim}
+  \end{exampleblock}
+%%
+\n
+   \item The \texttt{error} token matches any bad input up to `\texttt{|}'
+\n
+    \item The tokens which follow \texttt{error} acts as \textbf{synch} 
+    tokens
+
+  \end{itemize}
+  %
+%
+%
+\N\N
+\end{frame}
+
+
+

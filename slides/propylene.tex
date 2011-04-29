@@ -37,21 +37,33 @@
 \end{frame}
 
 
+
 \subsection{Error Handling}
 %------------------------------
-\begin{frame}{Error Handling}
+\begin{frame}[fragile]{Syntax Errors}
   %
   \begin{itemize}
-    \item Behaviour of Propylene with:
-\N
-    \item lexical/syntax/semantic errors
-%\N
-%    \item 
-%\N
-%    \item
-% 
+    \item \navy{Propylene} attempts to recover from erroneous input 
+    by using its error rules
+\n
+    \item When the encountered syntax errors exceed a threshold, 
+    the parser stop
+\n
+    \item The user will be notified with info related to all errors
+    
   \end{itemize}
   %
+\N
+%%
+  \begin{exampleblock}{Error Messages Example}
+\begin{verbatim}
+Line 14: Syntax error - unexpected token `)'
+Line 14: Illegal Triggering Event
+Line 17: Error detected in the Condition of the plan
+Line 96: Error detected in the Body of the plan
+\end{verbatim}
+  \end{exampleblock}
+%%
 %
 \N\N
 \end{frame}
