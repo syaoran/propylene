@@ -49,39 +49,83 @@
 %------------------------------
 
 
-\subsection{Lex}
+\subsection{Lexer}
 %------------------------------
-\begin{frame}{lex.py}
+\begin{frame}[fragile]{The \textbf{lex} module}
   %
   \begin{itemize}
-    \item Info about the lex.py module
-\N
-    \item As an example include some Propylene regexpr 
-\N
-    \item 1 slide is OK
-\N
-    \item \ldots.....
- 
+    \item \textbf{lex.py} breaks the input in tokens by using regular 
+    expressions
+\n
+    \item For simple rules, we can use Python raw string
+    %
+    \begin{itemize}
+      \item \begin{verbatim} t_EQUALS == r'==' \end{verbatim}
+    \end{itemize}
+    %
+\n
+    \item If some actions are needed, we can define a function
+    %
+    \begin{itemize}
+      \item 
+      \begin{verbatim} 
+def t_newline(t):
+    r'\d+'
+    t.value = int(t.value) \end{verbatim}
+    \end{itemize}
+    %
+\n
+    \item All tokens are instances of \emph{LexToken} class, with attributes:
+    %
+    \begin{itemize}
+      \item \emph{LexToken}.\textbf{type} \tab (es. STRING)
+      \item \emph{LexToken}.\textbf{value} \tab (es. "left arm")
+      \item \emph{LexToken}.\textbf{lineno} \tab the line at which the token 
+      is found
+      \item \emph{LexToken}.\textbf{lexpos} \tab the relative index in the stream of tokens
+    \end{itemize}
+    %
   \end{itemize}
   %
+%
 %
 \N\N
 \end{frame}
 
 
-\subsection{Yacc}
+\subsection{Parser}
 %------------------------------
-\begin{frame}{yacc.py}
+\begin{frame}[fragile]{The \textbf{yacc} module}
   %
   \begin{itemize}
-    \item Info about the yacc.py
+    \item \textbf{yacc.py} implements the parsing component
 \N
-    \item As an example include some Propylene productions (CFG)
-\N
-    \item 1 slide is OK (max 2)
-\N
-    \item \ldots..... 
- 
+    \item Each grammar rule is defined by a Python function
+\n
+    \item The docstring contains the appropriate CFG specification
+\n
+    %
+    \begin{itemize}
+     \item 
+      \begin{verbatim} 
+def p_belief_event(p):
+    ''' BeliefEvent : '+' Belief 
+                    | '-' Belief ''' \end{verbatim}
+    \end{itemize}
+    %
+\n
+    \item The input argument \textbf{p} holds the values of grammar symbols
+\n
+    %
+    \begin{itemize}
+      \item 
+      \begin{verbatim} 
+def p_plan(p):
+    ''' Plan : Head RANGLES Body ''' 
+         ^      ^      ^     ^
+       p[0]   p[1]   p[2]  p[3] \end{verbatim}
+    \end{itemize}
+    %
   \end{itemize}
   %
 %
