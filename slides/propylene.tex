@@ -69,6 +69,45 @@ Line 96: Error detected in the Body of the plan
 \end{frame}
 
 
+%------------------------------
+\begin{frame}[fragile]{Semantic Errors}
+  %
+  \begin{itemize}
+    \item \navy{Propylene} is able to identify two types of semantic errors:
+\n
+  %
+  \begin{enumerate}
+    \item Unbounded Variable \\
+\n
+    %%
+    \texttt {
+        ( +\tildett deposit\_corns() | ( white\_corn(\_("Y")))) >>\\ 
+        \tab [ +\tildett grab\_corn(\_("X")) \#ERROR! ]
+            }
+    %%
+\N
+    \item Attitude Type Mismatch \\
+\n
+    %%
+    \texttt {
+        ( +\tildett deposit\_corns() ) >>\\ 
+            \tab [ +\tildett grab\_corn("c11") \\
+            \tab \tab deposit\_corns() \#ERROR! ]
+            }
+    %%
+
+  \end{enumerate}
+  %
+\n
+  \item In both cases, the parser stops immediately and notifies the user
+  about the encountered error
+  \end{itemize}
+  %
+%
+\N\N
+\end{frame}
+
+
 \subsection{Graphics}
 %------------------------------
 \begin{frame}{Graphics}
