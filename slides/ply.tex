@@ -51,11 +51,11 @@
 
 \subsection{Lexer}
 %------------------------------
-\begin{frame}[fragile]{The \textbf{lex} module}
+\begin{frame}[fragile]{The \textbf{lex} Module}
   %
   \begin{itemize}
-    \item \textbf{lex.py} breaks the input in tokens by using regular 
-    expressions
+    \item \textbf{lex.py} breaks the input in tokens by using \emph{regular 
+    expressions}
 \n
     \item For simple rules, we can use Python raw string
     %
@@ -95,7 +95,7 @@ def t_newline(t):
 
 \subsection{Parser}
 %------------------------------
-\begin{frame}[fragile]{The \textbf{yacc} module}
+\begin{frame}[fragile]{The \textbf{yacc} Module}
   %
   \begin{itemize}
     \item \textbf{yacc.py} implements the parsing component
@@ -138,7 +138,7 @@ def p_plan(p):
 \begin{frame}[fragile]{Error Handling}
   %
   \begin{itemize}
-    \item When a syntax error occurs: 
+    \item When a \textbf{syntax error} occurs: 
     %
     \begin{itemize}
       \item The special \texttt{p\_error(p)} function is invoked;

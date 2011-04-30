@@ -2,7 +2,7 @@
 %%
 \subsection{Overview}
 %------------------------------
-\begin{frame}{Propylene architecture}
+\begin{frame}{Propylene Architecture}
   %%
   \begin{itemize}
   \item Propylene is made of several \red{modules}
@@ -27,14 +27,14 @@
     \begin{itemize}
     \item takes as input a {\bf strategy}
     \item handles {\bf unexpected tokens}
-    \item produces a stream {\bf tokens}
+    \item produces a stream of {\bf tokens}
       \begin{itemize}
       \item a token can be requested via the \red{\texttt{token()}} method
       \end{itemize}
       \n
     \item makes use of {\bf conditional lexing}
       \begin{itemize}
-      \item to distinguish between the same tokens in different \emph{contexts}
+      \item to distinguish between the same \emph{lexeme} in different \emph{contexts}
       \end{itemize}
     \end{itemize}
   \end{itemize}
@@ -69,8 +69,7 @@ def t_STRING(self, t):
   \begin{exampleblock}{Code snippet}
 \begin{verbatim}
 def p_belief(self, p):
-    ''' Belief  : NAME '(' ArgumentList ')'
-    '''
+    ''' Belief  : NAME '(' ArgumentList ')' '''
     p[0] = Belief(uName=p[1])
     try: self.insert_symbol(p[1],'Belief')
     except AttitudeTypeMismatch as e:
@@ -133,7 +132,7 @@ def p_belief(self, p):
     by using its error rules
 \n
     \item When the encountered syntax errors exceed a threshold, 
-    the parser stop
+    the parser stops
 \n
     \item The user will be notified with info related to all errors
     
