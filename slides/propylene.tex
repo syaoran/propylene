@@ -4,16 +4,15 @@
 %------------------------------
 \begin{frame}{Propylene architecture}
   %%
+  \begin{itemize}
+  \item Propylene is made of several \red{modules}
+  \end{itemize}
+  %%
   \begin{figure}[!h]
     \begin{center}
       \includegraphics[width=300pt]{img/propylene.pdf}
     \end{center}
   \end{figure}
-  %%
-  \begin{itemize}
-  \item Propylene is made of several \red{modules}
-  \item Internally, it implements a \emph{stack} of \green{symbol tables}
-  \end{itemize}
   %%
 \end{frame}
 %%
@@ -28,7 +27,15 @@
     \begin{itemize}
     \item takes as input a {\bf strategy}
     \item handles {\bf unexpected tokens}
-    \item returns a list of {\bf tokens}
+    \item produces a stream {\bf tokens}
+      \begin{itemize}
+      \item a token can be requested via the \red{\texttt{token()}} method
+      \end{itemize}
+      \n
+    \item makes use of {\bf conditional lexing}
+      \begin{itemize}
+      \item to distinguish between the same tokens in different \emph{contexts}
+      \end{itemize}
     \end{itemize}
   \end{itemize}
   %%
@@ -40,13 +47,6 @@ def t_STRING(self, t):
 \end{verbatim}
   \end{exampleblock}  
   %%
-  \begin{itemize}
-  \item Issues:
-    \begin{itemize}
-    \item use of {\bf conditional lexing}
-    \item just one rule for {\bf reserved words}
-    \end{itemize}
-  \end{itemize}
 \end{frame}
 %%
 %%
@@ -61,7 +61,7 @@ def t_STRING(self, t):
     \item takes as input the tokens produced by {\bf PropLexer}
     \item constructs and mantains a stack of {\bf symbol tables}
     \item handles {\bf syntax} and {\bf semantic} errors
-    \item makes the {\bf abstract syntax tree}
+    \item makes the {\bf parse tree}
     \item returns an {\bf intermediate representation} of the strategy
     \end{itemize}
   \end{itemize}
@@ -86,14 +86,12 @@ def p_belief(self, p):
 %------------------------------
 \begin{frame}[fragile]{The Intermediate Representation (IR)}
   \begin{itemize}
-  \item Nothing more than a \emph{decorated} AST
+  \item Similar to a \emph{decorated} parse tree
     \begin{itemize}
-      %%      \begin{tiny}
     \item some regions have been \emph{flattened}
-      %%\end{tiny}
     \end{itemize}
     \N
-  \item Nodes are objects with an \texttt{Accept (uVisitor)} method to allow traversal
+  \item Nodes are objects with an \red{\texttt{Accept (uVisitor)}} method to allow traversal
     \N
   \item An IR can be passed to either 
     \begin{itemize}
