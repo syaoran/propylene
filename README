@@ -22,7 +22,7 @@ Test input files:
 
 1. base-test        : Plans without condition; mental attitudes have no arguments;
 2. cond-test        : Plans with condition (NO lambdas); mental attitudes have no arguments;
-3. args-test        : Plans with condition; mental attitudes have arguments;
+3. args-test        : Plans with condition (NO lambdas); mental attitudes have arguments;
 4. lambda-test      : Plans with condition and lambdas; mental attitudes have arguments;
 
 5. graph-test       : Plans with few elements, just to test the Visual Representation
