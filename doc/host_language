@@ -1,5 +1,4 @@
-# Reference grammar for a generic host language
-# as stated in WOA-2010 paper
+# Reference grammar for a generic host language (WOA)
 
 Plan ::= ( Head ) << ( ActionList ) 
 Head ::= ( Event ) | ( Condition ) 

@@ -1,4 +1,4 @@
-# Basic AgentSpeak syntax, as shown in WOA-2010 paper  
+# Basic AgentSpeak(L) syntax (as stated in WOA)
   
 ag  ::=  bs ps                      # agent => KB + Plan Library
 bs  ::=  at_1, ..., at_n            # KB is made of beliefs (atomic formula)    

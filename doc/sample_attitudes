@@ -1,0 +1,23 @@
+## Goal
++~go_homologation()
++~start()
++~scout_pawns()
++~build_tower("right")
++~go_funny_configuration()
++~move_enemy_tower()
+
+## Belief
+color("blue")
+target_got()
+figure_got()
+king_position("X")
+queen_position("X")
+
+## Action
+align_blue()
+release_disc()
+left_arms_up()
+get_figure("K")
+check_pawns()
+push_tower()
+from_blue_area_to_green_area()
