@@ -1,31 +1,37 @@
-Project overview
+PROJECT OVERVIEW
 
 "propylene" is the final project for a compilers course. 
 It aims to generete a proper set of classes from a PROFETA plan, 
 which uses an AgentSpeak-like syntax.
 
 
-Usage
+QUICK-START
 
-Currently, propylene is in 'testing' mode.
-To execute the parser on some input file, type:
+To execute the parsing and code generation process on some input 
+file, type:
+> make parse SRC=input_file_path
 
-> make parse SRC=input_file_name
+To execute parsing, code generation and visual representation, type:
+> make parse-and-visual SRC=input_file_path
+
+To execute the full unit test, just type:
+> make
 
 
 Test input files:
 
-1. base-test (default)      : Plans without condition; mental attitudes have no arguments;
-2. cond-test                : Plans with condition (NO lambdas); mental attitudes have no arguments;
-3. args-test                : Plans with condition; mental attitudes have arguments;
-4. lambda-test              : Plans with condition and lambdas; mental attitudes have arguments;
+1. base-test        : Plans without condition; mental attitudes have no arguments;
+2. cond-test        : Plans with condition (NO lambdas); mental attitudes have no arguments;
+3. args-test        : Plans with condition; mental attitudes have arguments;
+4. lambda-test      : Plans with condition and lambdas; mental attitudes have arguments;
 
-5. lexical-err              : Plans with lexical errors (illegal characters); 
-6. syntax-err               : Plans with syntax errors, which are handled by error productions (Augmented Propylene);
-7. type-err                 : Plans with 'Type Mismatch' semantic errors;
-8. unbound-err              : Plans with 'Unbounded Variable' semantic errors;
+5. graph-test       : Plans with few elements, just to test the Visual Representation
 
-9. real-world (coming soon) : Plans which closely resemble a 'real world' strategy.
+6. lexical-err      : Plans with lexical errors (illegal characters); 
+7. syntax-err       : Plans with syntax errors, which are handled by error productions (Augmented Propylene);
+8. type-err         : Plans with 'Type Mismatch' semantic errors;
+9. unbound-err      : Plans with 'Unbounded Variable' semantic errors;
+
 
 
 

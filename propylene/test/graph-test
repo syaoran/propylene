@@ -1,0 +1,16 @@
+# ---------------------------------
+# 
+# Graphical Representation Test
+#
+# ---------------------------------
+
+(+b_target_got() ) >> 
+    [ 
+        a_check_pawns(), -b_pawn_position() 
+    ]
+
+
+(+b_figure_got() | ( b_king_position() ) ) >> 
+    [ 
+        +~g_build_tower() 
+    ]
