@@ -385,7 +385,7 @@ class AugmentedPropylene(Propylene):
                                         .format(uLexToken.lineno, uMessage))
  
 
-
+# ----------------------------------------------------------
 # Error Productions
 # ----------------------------------------------------------
     
@@ -419,48 +419,7 @@ class AugmentedPropylene(Propylene):
         '''
         mex = "Error detected in the Body of the plan"
         self.add_custom_syntax_error_message(mex, p[3])
- 
-#    # Error in Body
-#    def p_plan_body_error(self, p):
-#        ''' Plan    : '(' seen_Plan Head ')' RANGLES '[' seen_IntentionList error ']' 
-#        '''
-#        self._plan_count += 1
-#        print "Error in Body"
-#        self._symbol_table_stack.pop()
-#
-#   # lambda misspelled
-#    def p_lambda_expr_error(self, p):
-#        ''' LambdaExpr  : error ':' LambdaTest
-#        '''
-#        print "Syntax error: 'lambda' expected but", p[1].value, "found instead." #(lambda misspelled?)"
-#        raise SyntaxError
-#
-#   # Known error: an Event in Condition
-##    def p_error_condition_with_event(self, p):
-##        ''' Condition   : Event
-##                        | Event '&' Condition
-##        '''
-##        mex = "Condition cannot contain Event"
-##        self.print_error(mex, p.lineno(1))
-##        raise SyntaxError
-##    
-#    # Known error: a Goal in Condition
-#    def p_error_condition_with_goal(self, p):
-#        ''' Condition   : Goal
-#                        | Goal '&' Condition
-#        '''
-#        mex = "Condition cannot contain Goal"
-#        self.print_error(mex, p.lineno(1))
-#        raise SyntaxError
-#
-#    # Known error: a single lambda is not properly enclosed  
-#    def p_error_condition_lambda_not_enclosed(self, p):
-#        ''' Condition   : LambdaExpr
-#        '''
-#        mex = "lambda is not enclosed in '(' ')'"
-#        self.print_error(mex, p.lineno(1))
-#        raise SyntaxError
-#
+
 # ----------------------------------------------------------
 
 

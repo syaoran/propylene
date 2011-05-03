@@ -1,12 +1,16 @@
 ## Reference Grammar for PROFETA
 
+Start           ::= Strategy
+
 Strategy        ::= Plan
-                  | Strategy Plan
+                  | Plan Strategy
 
-Plan            ::= "(" Head ")" ">>" '[' IntentionList ']'
+Plan            ::= Head ">>" Body
 
-Head            ::= Event
-                  | Event "|" "(" Condition ")"
+Head            ::= "(" Event ")"
+                  | "(" Event "|" Condition ")"
+
+Body            ::= "[" IntentionList "]"
 
 Event           ::= GoalEvent
                   | BeliefEvent
@@ -17,11 +21,13 @@ GoalEvent       ::= "+" Goal
 BeliefEvent     ::= "+" Belief
                   | "-" Belief
 
-Condition       ::= Belief
-                  | Belief "&" Condition
+Condition       ::= "(" ConditionTerms ")"
+
+ConditionTerms  ::= Belief
+                  | Belief "&" ConditionTerms
                   | "(" LambdaExpr ")"
 
-IntentionList   ::= Intention ',' IntentionList
+IntentionList   ::= Intention "," IntentionList
                   | Intention
                   | empty 
 
@@ -33,10 +39,18 @@ Intention       ::= Event
 # ----------------------------------------------------------
 LambdaExpr      ::= LAMBDA ":" LambdaTest
 
-LambdaTest      ::= CompTerm CompOp CompTerm
-                  | "(" LambdaTest ")"
-                  | "(" LambdaTest ")" ORLITERAL  LambdaTest 
-                  | "(" LambdaTest ")" ANDLITERAL  LambdaTest 
+LambdaTest      ::= Comparison
+                  | CompoundTest
+
+CompoundTest    ::= UnaryTest ORLITERAL CompoundTest
+                  | UnaryTest ANDLITERAL CompoundTest
+                  | UnaryTest
+
+UnaryTest       ::= NOTLITERAL "(" Comparison ")"
+                  | "(" Comparison ")"
+
+
+Comparison      ::= CompTerm CompOp CompTerm
  
 CompTerm        ::= NAME
                   | NUMBER
