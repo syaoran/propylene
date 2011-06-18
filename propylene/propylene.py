@@ -346,7 +346,8 @@ class Propylene:
     # Ancillary Functions
     ###
     def insert_symbol(self, uName, uType):
-        #print self._symbol_table_stack
+        ## if the symbol was already in the table
+        ## check its type
         try:
             type = self._symbol_table_stack[0][uName]
             #print type, uType
@@ -356,6 +357,8 @@ class Propylene:
                 e.type1 = type
                 e.type2 = uType
                 raise e
+
+        ## insert it in the table as a new element, otherwise
         except(KeyError):
             self._symbol_table_stack[0][uName] = uType
 
