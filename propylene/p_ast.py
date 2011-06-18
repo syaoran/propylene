@@ -224,6 +224,7 @@ class ASTVisualGenerator (Visitor):
     def VisitGoal (self, uGoal):     self.VisitBasicNode (uGoal)
     def VisitAction (self, uAction): self.VisitBasicNode (uAction)
 
+    ## for each node, set a unique index
     def VisitBasicNode (self, uNode):
         uNode.SetName (str (self._counter) + " : " +uNode.Name ())
         self._counter += 1
@@ -238,7 +239,7 @@ class ASTVisualGenerator (Visitor):
         while not len (self._queue) == 0:
             node = self._queue.popleft ()
             self._nodes_buf.append (node)
-            self._counter += 1
+            ##self._counter += 1
             for child in node._children:
                 self._edges_buf.append ((node, child))
                 self._queue.append (child)

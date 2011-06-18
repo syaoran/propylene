@@ -3,6 +3,7 @@ PARSER        = propylene.py
 UNITTEST      = tests.py
 TEST_DIR      = ./test/
 SRC           = base-test
+VIS_SRC       = $(TEST_DIR)e2011-test
 ARGS_TEST_SRC = $(TEST_DIR)args-test
 TEST          = $(TEST_DIR)$(SRC) 
 
@@ -21,8 +22,9 @@ parse:
 	rm -rf *.pyc *.tmp .*.swp
 
 parse-and-visual:
-	$(PYTHON) $(PARSER) $(TEST) --graphical-ast
+	$(PYTHON) $(PARSER) $(VIS_SRC) --graphical-ast
 	rm -rf *.pyc *.tmp .*.swp
+	xpdf strategy-ir.pdf
 
 clean:
 	rm -rf *.pyc *.tmp .*.swp
