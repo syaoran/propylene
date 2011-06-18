@@ -32,7 +32,7 @@ class Node:
         self._name = uName
 
     def Accept (self, uVisitor):
-        uVisitor.VisitBasicNode (self)
+       uVisitor.VisitBasicNode (self)
 ##
 ##------------------------------------------------------------------------------
 ##  The Strategy class. Represents a Strategy in the AST. Subclasses Node.
@@ -229,7 +229,8 @@ class ASTVisualGenerator (Visitor):
         self._counter += 1
         for node in uNode._children:
             node.Accept (self)
-            
+
+    ## implements a breadth-first visit of the tree
     def Visit (self, uTree):
         uTree.Accept (self)
 
@@ -256,6 +257,10 @@ class ASTVisualGenerator (Visitor):
 ##------------------------------------------------------------------------------
 ##  Ancillary functions.
 ##------------------------------------------------------------------------------
+##------------------------------------------------------------------------------
+##  function flatten_strategies
+##  flattend all plans on a single level
+##------------------------------------------------------------------------------
 def flatten_strategies (uNode):
     if isinstance (uNode, Strategy):
         new_children = []
@@ -270,25 +275,31 @@ def flatten_strategies (uNode):
 ##
 ##
 ##
-def flatten_c (uNode, uDepth = -1):    
-    ## if no depth has been specified:
-    if uDepth == -1:
-        if isinstance (uNode, Belief) or \
-           isinstance (uNode, Action) or \
-           isinstance (uNode, Goal)   or \
-           isinstance (uNode, Lambda):
-            return [uNode]
+##------------------------------------------------------------------------------
+##  function flatten_c
+##  returns a tree where Conditions and Actions have been flattened
+##------------------------------------------------------------------------------
+def flatten_c (uNode):
+    if isinstance (uNode, Belief) or \
+       isinstance (uNode, Action) or \
+       isinstance (uNode, Goal)   or \
+       isinstance (uNode, Lambda):
+        return [uNode]
         
-        else:
-            new_children = []
-            for c in uNode._children:
-                new_c = flatten_c (c)
-                new_children.append (new_c)
-                
-            return list(flatten_l (new_children))
+    else:
+        new_children = []
+        for c in uNode._children:
+            new_c = flatten_c (c)
+            new_children.append (new_c)
+            
+        return list(flatten_l (new_children))
 ##
 ##
 ##
+##------------------------------------------------------------------------------
+##  function flatten_l
+##  implements an iterator over nested lists
+##------------------------------------------------------------------------------
 def flatten_l(lst):
     for elem in lst:
         if isinstance (elem, list):
@@ -299,6 +310,9 @@ def flatten_l(lst):
 ##
 ##      
 ##    
+##------------------------------------------------------------------------------
+##  Test functions.
+##------------------------------------------------------------------------------
 def flatten_test ():
     v = Visitor ('')
     tree = Condition('', [
