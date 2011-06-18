@@ -70,7 +70,7 @@
       \item 
       \begin{verbatim} 
 def t_newline(t):
-    r'\d+'
+    r'\n+'
     t.value = int(t.value) \end{verbatim}
     \end{itemize}
     %
@@ -78,8 +78,8 @@ def t_newline(t):
     \item All tokens are instances of \emph{LexToken} class, with attributes:
     %
     \begin{itemize}
-      \item \emph{LexToken}.\textbf{type} \tab (es. STRING)
-      \item \emph{LexToken}.\textbf{value} \tab (es. "left arm")
+      \item \emph{LexToken}.\textbf{type} \tab (e.g. STRING)
+      \item \emph{LexToken}.\textbf{value} \tab (e.g. "left arm")
       \item \emph{LexToken}.\textbf{lineno} \tab the line at which the token 
       is found
       \item \emph{LexToken}.\textbf{lexpos} \tab the relative index in the stream of tokens
